@@ -1,8 +1,15 @@
+import { Route, Routes } from 'react-router-dom';
+
+import Dashboard from './pages/Dashboard';
+import Integrations from './pages/Integrations'
+
 function App() {
   return (
-    <div>
-      <h1>iDSimplify</h1>
-    </div>
+    <Routes>
+      <Route path='/' />
+      <Route path='/dashboard' element={<Dashboard />} />
+      <Route path='/integrations' element={<Integrations />} />
+    </Routes>
   );
 }
 
