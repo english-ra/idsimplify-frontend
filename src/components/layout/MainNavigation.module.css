@@ -3,6 +3,7 @@
     height: 100%;
     width: 296px;
     top: 0;
+    z-index: 1;
     color: #ffffff;
     background-color: #06283D;
 }
@@ -10,4 +11,26 @@
 .header h1 {
     color: #ffffff;
     text-align: center;
+    font-size: 36px;
+}
+
+.header a {
+    text-decoration: none;
+    color: #FFFFFF;
+}
+
+.nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+
+.nav li a {
+    display: block;
+    padding: 8px 20px;
+}
+
+.nav li a:hover {
+    background-color: #113246;
 }

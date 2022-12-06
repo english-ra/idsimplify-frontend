@@ -20,7 +20,7 @@ const MainNavigation = () => {
                         </NavLink>
                     </li>
                     <li>
-                        <NavLink to='/integrations'>
+                        <NavLink to='/test'>
                             Test
                         </NavLink>
                     </li>
