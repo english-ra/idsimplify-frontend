@@ -4,14 +4,14 @@
 
 import { Fragment } from "react";
 
-import MainNavigation from "./MainNavigation";
+import SideBarNavigation from "./SideBarNavigation";
 
 import classes from './Layout.module.css';
 
 const Layout = (props) => {
     return (
         <Fragment>
-            <MainNavigation className={classes.mainNavigation} />
+            <SideBarNavigation />
             <main className={classes.main}>{props.children}</main>
         </Fragment>
     );

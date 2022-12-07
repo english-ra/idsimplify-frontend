@@ -1,12 +1,12 @@
-// MainNavigation.js
+// SideBarNavigation.js
 // iDSimplify Frontend
 // Created by Reece English on 06.12.2022
 
 import { NavLink } from "react-router-dom";
 
-import classes from './MainNavigation.module.css'
+import classes from './SideBarNavigation.module.css'
 
-const MainNavigation = () => {
+const SideBarNavigation = () => {
     return (
         <header className={classes.header}>
             <NavLink to='/dashboard'>
@@ -14,6 +14,11 @@ const MainNavigation = () => {
             </NavLink>
             <nav className={classes.nav}>
                 <ul>
+                    <li>
+                        <NavLink to='/dashboard'>
+                            Dashboard
+                        </NavLink>
+                    </li>
                     <li>
                         <NavLink to='/integrations'>
                             Integrations
@@ -30,4 +35,4 @@ const MainNavigation = () => {
     );
 };
 
-export default MainNavigation;
+export default SideBarNavigation;
