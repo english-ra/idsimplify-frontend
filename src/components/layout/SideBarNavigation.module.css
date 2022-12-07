@@ -34,3 +34,12 @@
 .nav li a:hover {
     background-color: #113246;
 }
+
+/* .topNavList {
+
+} */
+
+.bottomNavList {
+    position: absolute;
+    bottom: 20px;
+}

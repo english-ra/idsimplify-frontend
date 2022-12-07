@@ -13,7 +13,7 @@ const SideBarNavigation = () => {
                 <h1>iDSimplify</h1>
             </NavLink>
             <nav className={classes.nav}>
-                <ul>
+                <ul className={classes.topNavList}>
                     <li>
                         <NavLink to='/dashboard'>
                             Dashboard
@@ -27,6 +27,19 @@ const SideBarNavigation = () => {
                     <li>
                         <NavLink to='/test'>
                             Test
+                        </NavLink>
+                    </li>
+                </ul>
+
+                <ul className={classes.bottomNavList}>
+                    <li>
+                        <NavLink to='/integrations'>
+                            Integrations
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink to='/settings'>
+                            Settings
                         </NavLink>
                     </li>
                 </ul>
