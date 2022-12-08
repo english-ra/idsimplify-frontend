@@ -20,13 +20,18 @@ const SideBarNavigation = () => {
                         </NavLink>
                     </li>
                     <li>
-                        <NavLink to='/integrations'>
-                            Integrations
+                        <NavLink to='/identity-management'>
+                            Identity Management
                         </NavLink>
                     </li>
                     <li>
-                        <NavLink to='/test'>
-                            Test
+                        <NavLink to='/compliance'>
+                            Compliance
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink to='/reporting'>
+                            Reporting
                         </NavLink>
                     </li>
                 </ul>
