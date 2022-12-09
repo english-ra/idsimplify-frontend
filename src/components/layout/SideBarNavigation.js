@@ -4,6 +4,11 @@
 
 import { NavLink } from "react-router-dom";
 
+import NavigationCollapsibleSection from "../SideBarNavigation/NavigationCollapsibleSection";
+
+import { sideBarTopNavigationData } from "../../lib/sideBarTopNavigationData";
+import { sideBarBottomNavigationData } from "../../lib/sideBarBottomNavigationData";
+
 import classes from './SideBarNavigation.module.css'
 
 const SideBarNavigation = () => {
@@ -14,39 +19,27 @@ const SideBarNavigation = () => {
             </NavLink>
             <nav className={classes.nav}>
                 <ul className={classes.topNavList}>
-                    <li>
-                        <NavLink to='/dashboard'>
-                            Dashboard
-                        </NavLink>
-                    </li>
-                    <li>
-                        <NavLink to='/identity-management'>
-                            Identity Management
-                        </NavLink>
-                    </li>
-                    <li>
-                        <NavLink to='/compliance'>
-                            Compliance
-                        </NavLink>
-                    </li>
-                    <li>
-                        <NavLink to='/reporting'>
-                            Reporting
-                        </NavLink>
-                    </li>
+                    {
+                        sideBarTopNavigationData.map(item => (
+                            <li key={item.id}>
+                                <NavLink to={'/' + item.link}>
+                                    {item.text}
+                                </NavLink>
+                            </li>
+                        ))
+                    }
                 </ul>
 
                 <ul className={classes.bottomNavList}>
-                    <li>
-                        <NavLink to='/integrations'>
-                            Integrations
-                        </NavLink>
-                    </li>
-                    <li>
-                        <NavLink to='/settings'>
-                            Settings
-                        </NavLink>
-                    </li>
+                    {
+                        sideBarBottomNavigationData.map(item => (
+                            <li key={item.id}>
+                                <NavLink to={'/' + item.link}>
+                                    {item.text}
+                                </NavLink>
+                            </li>
+                        ))
+                    }
                 </ul>
             </nav>
         </header>
