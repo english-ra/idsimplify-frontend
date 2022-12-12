@@ -1,0 +1,19 @@
+.button {
+    color: #FFFFFF;
+    background-color: inherit;
+
+    cursor: pointer;
+
+    width: 100%;
+    padding: 8px 20px;
+
+    text-align: left;
+    border: none;
+
+    font: inherit;
+    font-weight: bold;
+}
+
+.button:hover {
+    background-color: #113246;
+}

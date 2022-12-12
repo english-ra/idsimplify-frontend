@@ -17,7 +17,10 @@ const SideBarNavigation = () => {
             <NavLink to='/dashboard'>
                 <h1>iDSimplify</h1>
             </NavLink>
+
+
             <nav className={classes.nav}>
+
                 <ul className={classes.topNavList}>
                     {
                         sideBarTopNavigationData.map(section => (
@@ -37,6 +40,7 @@ const SideBarNavigation = () => {
                         ))
                     }
                 </ul>
+                
             </nav>
         </aside>
     );

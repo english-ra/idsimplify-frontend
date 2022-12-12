@@ -2,26 +2,29 @@
 // iDSimplify Frontend
 // Created by Reece English on 08.12.2022
 
+import { useState } from "react";
 import { NavLink } from "react-router-dom";
 
+import NavigationHeader from "./NavigationHeader";
+import NavigationSublink from "./NavigationSublink";
+
 const NavigationCollapsibleSection = (props) => {
+    const [isCollapsed, setIsCollapsed] = useState(true);
+
+    const headerClickedHandler = () => {
+        setIsCollapsed(!isCollapsed);
+    };
+
     return (
         <>
-            <li>
-                <button>
-                    <NavLink to={props.sectionData.link}>
-                        {props.sectionData.text}
-                    </NavLink>
-                </button>
-            </li>
-            {props.sectionData.sublinks.map(item => (
-                <li key={item.id}>
-                    <button>
-                        <NavLink to={item.link}>
-                            {item.text}
-                        </NavLink>
-                    </button>
-                </li>
+            <NavigationHeader
+                data={props.sectionData}
+                key={props.sectionData.id}
+                onClick={headerClickedHandler}
+            />
+
+            { !isCollapsed && props.sectionData.sublinks.map(item => (
+                <NavigationSublink key={item.id} item={item} />
             ))}
         </>
     );

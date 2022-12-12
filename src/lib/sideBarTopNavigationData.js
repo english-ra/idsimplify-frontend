@@ -33,13 +33,27 @@ export const sideBarTopNavigationData = [
         icon: null,
         text: 'Compliance',
         link: 'compliance',
-        sublinks: []
+        sublinks: [
+            {
+                id: 2.0,
+                icon: null,
+                text: 'Permission Auditing',
+                link: 'compliance/permission-auditing'
+            }
+        ]
     },
     {
         id: 3,
         icon: null,
         text: 'Reporting',
         link: 'reporting',
-        sublinks: []
+        sublinks: [
+            {
+                id: 3.0,
+                icon: null,
+                text: 'Licences',
+                link: 'reporting/licences'
+            },
+        ]
     }
 ];
