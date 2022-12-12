@@ -8,6 +8,7 @@ const NavigationHeader = (props) => {
                 onClick={props.onClick}
             >
                 {props.data.text}
+                { props.data.sublinks.length !== 0 && <span>v</span>}
             </button>
         </li>
     );

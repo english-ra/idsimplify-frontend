@@ -17,3 +17,8 @@
 .button:hover {
     background-color: #113246;
 }
+
+.button span {
+    position: absolute;
+    right: 20px;
+}
