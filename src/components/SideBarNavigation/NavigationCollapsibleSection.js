@@ -3,7 +3,6 @@
 // Created by Reece English on 08.12.2022
 
 import { useState } from "react";
-import { NavLink } from "react-router-dom";
 
 import NavigationHeader from "./NavigationHeader";
 import NavigationSublink from "./NavigationSublink";
@@ -11,9 +10,7 @@ import NavigationSublink from "./NavigationSublink";
 const NavigationCollapsibleSection = (props) => {
     const [isCollapsed, setIsCollapsed] = useState(true);
 
-    const headerClickedHandler = () => {
-        setIsCollapsed(!isCollapsed);
-    };
+    const headerClickedHandler = () => { setIsCollapsed(!isCollapsed); };
 
     return (
         <>
@@ -24,8 +21,11 @@ const NavigationCollapsibleSection = (props) => {
             />
 
             { !isCollapsed && props.sectionData.sublinks.map(item => (
-                <NavigationSublink key={item.id} item={item} />
-            ))}
+                <NavigationSublink
+                    key={item.id}
+                    item={item}
+                />
+            ) ) }
         </>
     );
 };

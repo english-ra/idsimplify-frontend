@@ -12,7 +12,7 @@ export const sideBarTopNavigationData = [
         id: 1,
         icon: null,
         text: 'Identity Management',
-        link: 'identity-management',
+        link: null,
         sublinks: [
             {
                 id: 1.0,
