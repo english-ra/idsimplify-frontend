@@ -8,6 +8,8 @@
     border-radius: 6px;
     height: 40px;
     width: 115px;
+
+    float: right;
 }
 
 .button:hover {
