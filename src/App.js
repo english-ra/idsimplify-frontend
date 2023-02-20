@@ -7,7 +7,7 @@ import LayoutPublic from './components/layout/LayoutPublic';
 import Dashboard from './screens/Dashboard';
 import Integrations from './screens/Integrations';
 import CreateRootOrganisation from './screens/Join/CreateRootOrganisation';
-import OrganisationCenter from './screens/OrganisationCenter/OrganisationCenter';
+import OrganisationCenter from './screens/OrganisationCenter/Structure/OrganisationCenter';
 
 function App() {
 
