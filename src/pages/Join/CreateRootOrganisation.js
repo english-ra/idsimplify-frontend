@@ -4,26 +4,24 @@
 
 import PrimaryFormButton from '../../components/Buttons/PrimaryFormButton';
 import InputLabel from '../../components/InputFields/InputLabel';
+import InputSubmitButton from '../../components/InputFields/InputSubmitButton';
 import InputTextField from '../../components/InputFields/InputTextField';
 
 import classes from './CreateRootOrganisation.module.css';
 
 const CreateRootOrganisation = () => {
     return (
-        <div>
+        <>
             <h1 className={classes.h1}>
                 Create your Organisation
             </h1>
 
             <form className={classes.form}>
-                <InputLabel>Organisation name:</InputLabel>
-                <InputTextField />
+                <InputLabel for='orgField'>Organisation name:</InputLabel>
+                <InputTextField id='orgField' />
+                <InputSubmitButton value='Create' />
             </form>
-
-            <PrimaryFormButton className={classes.button}>
-                Create
-            </PrimaryFormButton>
-        </div>
+        </>
     );
 };
         
