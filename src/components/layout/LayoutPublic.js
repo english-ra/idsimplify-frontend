@@ -2,6 +2,7 @@
 // iDSimplify Frontend
 // Created by Reece English on 19.02.2023
 
+import CreateRootOrganisation from "../../pages/Join/CreateRootOrganisation";
 import LayoutInner from "./LayoutInner";
 
 import classes from './LayoutPublic.module.css';
@@ -11,7 +12,6 @@ const LayoutPublic = (props) => {
         <main className={classes.main}>
             <h1>iDSimplify</h1>
             {props.children}
-            <LayoutInner />
         </main>
     );
 };

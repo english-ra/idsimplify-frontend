@@ -1,12 +1,13 @@
-h1 {
-    font-size: 36px;
-    color: #06283D;
-}
-
-.main {
-    margin: 40px 20px 20px 60px;
-}
-
 .container {
-    background-color: blue;
+    background-color: #FFFFFF;
+
+    position: absolute;
+    margin: auto;
+    padding: 20px;
+    left: 0;
+    right: 0;
+
+    width: 700px;
+    border-radius: 25px;
+    filter: drop-shadow(0px 25px 60px rgba(0, 0, 0, 16%));
 }

@@ -1,6 +1,7 @@
 import { Route, Routes } from 'react-router-dom';
 
 import Layout from './components/layout/Layout';
+import LayoutInner from './components/layout/LayoutInner';
 import LayoutPublic from './components/layout/LayoutPublic';
 
 import Dashboard from './pages/Dashboard';
@@ -14,7 +15,9 @@ function App() {
   let unauthed = (
     <>
       <LayoutPublic>
-        <CreateRootOrganisation />
+        <LayoutInner>
+          <CreateRootOrganisation />
+        </LayoutInner>
       </LayoutPublic>
     </>
   );

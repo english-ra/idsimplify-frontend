@@ -8,7 +8,6 @@ const LayoutInner = (props) => {
     return (
         <div className={classes.container}>
             {props.children}
-            <h1>Banana</h1>
         </div>
     );
 };
