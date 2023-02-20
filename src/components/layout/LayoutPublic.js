@@ -2,7 +2,7 @@
 // iDSimplify Frontend
 // Created by Reece English on 19.02.2023
 
-import CreateRootOrganisation from "../../pages/Join/CreateRootOrganisation";
+import CreateRootOrganisation from "../../screens/Join/CreateRootOrganisation";
 import LayoutInner from "./LayoutInner";
 
 import classes from './LayoutPublic.module.css';

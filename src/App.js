@@ -4,9 +4,9 @@ import Layout from './components/layout/Layout';
 import LayoutInner from './components/layout/LayoutInner';
 import LayoutPublic from './components/layout/LayoutPublic';
 
-import Dashboard from './pages/Dashboard';
-import Integrations from './pages/Integrations';
-import CreateRootOrganisation from './pages/Join/CreateRootOrganisation';
+import Dashboard from './screens/Dashboard';
+import Integrations from './screens/Integrations';
+import CreateRootOrganisation from './screens/Join/CreateRootOrganisation';
 
 function App() {
 
