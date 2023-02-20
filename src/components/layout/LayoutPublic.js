@@ -2,14 +2,17 @@
 // iDSimplify Frontend
 // Created by Reece English on 19.02.2023
 
-import { Fragment } from "react";
+import LayoutInner from "./LayoutInner";
+
+import classes from './LayoutPublic.module.css';
 
 const LayoutPublic = (props) => {
     return (
-        <Fragment>
+        <main className={classes.main}>
             <h1>iDSimplify</h1>
-            <main /*className={classes.main}*/>{props.children}</main>
-        </Fragment>
+            {props.children}
+            <LayoutInner />
+        </main>
     );
 };
 
