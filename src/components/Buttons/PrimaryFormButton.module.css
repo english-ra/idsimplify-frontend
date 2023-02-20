@@ -1,0 +1,19 @@
+.button {
+    color: #DFF6FF;
+    background-color: #47B5FF;
+
+    /* border: none; */
+    border-color: #47B5FF;
+    border-style: solid;
+    border-radius: 6px;
+    height: 40px;
+    width: 115px;
+
+    float: right;
+}
+
+.button:hover {
+    color: #06283D;
+    background-color: white;
+    transition-duration: 0.4s;
+}

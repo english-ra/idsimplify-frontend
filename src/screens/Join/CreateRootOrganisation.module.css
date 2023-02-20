@@ -1,0 +1,13 @@
+.h1 {
+    text-align: center;
+    font-size: 36px;
+}
+
+.button {
+    position: relative;
+    float: right;
+}
+
+.form {
+    margin: 40px auto 40px auto;
+}
