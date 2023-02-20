@@ -7,29 +7,36 @@ import LayoutPublic from './components/layout/LayoutPublic';
 import Dashboard from './screens/Dashboard';
 import Integrations from './screens/Integrations';
 import CreateRootOrganisation from './screens/Join/CreateRootOrganisation';
+import OrganisationCenter from './screens/OrganisationCenter/OrganisationCenter';
 
 function App() {
 
-  let authenticated = false;
+  // let authenticated = false;
 
-  let unauthed = (
-    <>
-      <LayoutPublic>
-        <LayoutInner>
-          <CreateRootOrganisation />
-        </LayoutInner>
-      </LayoutPublic>
-    </>
+  // let unauthed = (
+  //   <>
+  //     <LayoutPublic>
+  //       <LayoutInner>
+  //         <CreateRootOrganisation />
+  //       </LayoutInner>
+  //     </LayoutPublic>
+  //   </>
+  // );
+
+  // let authed = (
+  //   <>
+  //     <h1>Authorised</h1>
+  //   </>
+  // );
+
+  // if (authenticated) { return authed; }
+  // else { return unauthed; }
+
+  return (
+    <OrganisationCenter>
+
+    </OrganisationCenter>
   );
-
-  let authed = (
-    <>
-      <h1>Authorised</h1>
-    </>
-  );
-
-  if (authenticated) { return authed; }
-  else { return unauthed; }
 
 
   // return (
