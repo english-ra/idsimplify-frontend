@@ -4,6 +4,7 @@
 
 import OCNavLink from '../Components/OCNavLink';
 import OCNavLinkContainer from '../Components/OCNavLinkContainer';
+import { OCLinkData } from '../OCLinkData';
 
 import classes from './OCSideBar.module.css';
 
@@ -17,15 +18,12 @@ const OCSideBar = (props) => {
             </div>
 
             <OCNavLinkContainer>
-                <OCNavLink>General</OCNavLink>
-                <OCNavLink>Users</OCNavLink>
-                <OCNavLink>Organisations</OCNavLink>
+                {OCLinkData.map(link => (<OCNavLink data={link} key={link.id}>{link.text}</OCNavLink>))}
             </OCNavLinkContainer>
 
             <OCNavLinkContainer className={classes.secondaryNav}>
-                <OCNavLink>Go to Control</OCNavLink>
+                <OCNavLink data={{link: 'control'}}>Go to Control</OCNavLink>
             </OCNavLinkContainer>
-
         </aside>
     );
 };
