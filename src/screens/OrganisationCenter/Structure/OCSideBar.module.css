@@ -23,5 +23,6 @@
 
 .secondaryNav {
     position: absolute;
+    width: 100%;
     bottom: 20px;
 }
