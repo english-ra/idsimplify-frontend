@@ -20,3 +20,8 @@
     font-size: 16px;
     font-weight: bold;
 }
+
+.secondaryNav {
+    position: absolute;
+    bottom: 20px;
+}

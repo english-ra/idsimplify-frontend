@@ -1,0 +1,11 @@
+.navLink {
+    display: block;
+    padding: 8px 20px;
+    text-decoration: none;
+
+    color: #06283D;
+}
+
+.navLink:hover {
+    font-weight: bold;
+}

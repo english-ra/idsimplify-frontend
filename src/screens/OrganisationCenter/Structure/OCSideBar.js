@@ -2,7 +2,9 @@
 // iDSimplify Frontend
 // Created by Reece English on 20.02.2023
 
+import OCNavLink from '../Components/OCNavLink';
 import OCNavLinkContainer from '../Components/OCNavLinkContainer';
+
 import classes from './OCSideBar.module.css';
 
 const OCSideBar = (props) => {
@@ -14,14 +16,14 @@ const OCSideBar = (props) => {
                 <h2>Organisation Center</h2>
             </div>
 
-            <OCNavLinkContainer className={classes.primaryNav}>
-                <li>General</li>
-                <li>Users</li>
-                <li>Organisations</li>
+            <OCNavLinkContainer>
+                <OCNavLink>General</OCNavLink>
+                <OCNavLink>Users</OCNavLink>
+                <OCNavLink>Organisations</OCNavLink>
             </OCNavLinkContainer>
 
             <OCNavLinkContainer className={classes.secondaryNav}>
-                <li>Go to Control</li>
+                <OCNavLink>Go to Control</OCNavLink>
             </OCNavLinkContainer>
 
         </aside>
