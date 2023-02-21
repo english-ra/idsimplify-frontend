@@ -4,13 +4,13 @@
 
 import OCNavLink from '../Components/OCNavLink';
 import OCNavLinkContainer from '../Components/OCNavLinkContainer';
-import { OCLinkData } from '../OCLinkData';
+import { OCLinkData } from '../Data/OCLinkData';
 
 import classes from './OCSideBar.module.css';
 
 const OCSideBar = (props) => {
     return (
-        <aside className={classes.aside}>
+        <aside className={props.className}>
 
             <div className={classes.logo}>
                 <h1>iDSimplify</h1>

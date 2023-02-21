@@ -7,6 +7,7 @@
 const OCGeneral = (props) => {
     return (
         <>
+            <h1>General</h1>
         </>
     );
 };
