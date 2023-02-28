@@ -1,0 +1,12 @@
+.row {
+    /* background-color: blue; */
+
+    height: 35px;
+
+    border-bottom: 2px solid black;
+}
+
+.row th {
+    padding: 10px;
+    text-align: left;
+}

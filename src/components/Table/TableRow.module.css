@@ -1,0 +1,8 @@
+.row:hover {
+    background-color: lightgray;
+}
+
+.row td {
+    border: 1px solid #ddd;
+    padding: 10px;
+}
