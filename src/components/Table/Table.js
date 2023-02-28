@@ -10,12 +10,12 @@ import CircularButton from "../Buttons/CircularButton";
 const Table = (props) => {
     return (
         <div className={classes.div}>
-            <table className={classes.table}>
+            <table className={`${classes.table} ${props.className}`}>
                 <TableHeading headings={props.headings} />
                 {props.children}
             </table>
 
-            <CircularButton text='...' />
+            <CircularButton className={classes.colButton} text='...' />
         </div>
     );
 };
