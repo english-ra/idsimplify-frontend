@@ -6,7 +6,11 @@ import classes from './CircularButton.module.css';
 
 const CircularButton = (props) => {
     return (
-        <button className={`${classes.button} ${props.className}`}>{props.text}</button>
+        <button
+            className={`${classes.button} ${props.className}`}
+        >
+            {props.text}
+        </button>
     );
 };
 

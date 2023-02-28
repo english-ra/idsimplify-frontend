@@ -40,7 +40,10 @@ const OCUsers = (props) => {
         <>
             <h1>Users</h1>
 
-            <Table className={classes.table} headings={UserTableColumns}>
+            <Table
+                className={classes.table}
+                headings={UserTableColumns}
+            >
                 <tbody>
                     {userData.map(user => (<TableRow cols={UserTableColumns} data={user} />))}
                 </tbody>
