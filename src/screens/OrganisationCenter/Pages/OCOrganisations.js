@@ -2,6 +2,8 @@
 // iDSimplify Frontend
 // Created by Reece English on 21.02.2023
 
+import Table from "../../../components/Table/Table";
+
 // import classes from './OCOrganisations.module.css';
 
 const OCOrganisations = (props) => {

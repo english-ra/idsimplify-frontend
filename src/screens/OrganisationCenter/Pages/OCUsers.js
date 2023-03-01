@@ -5,8 +5,10 @@
 import Table from "../../../components/Table/Table";
 import TableRow from "../../../components/Table/TableRow";
 import { UserTableColumns } from "../Data/UserTableColumns";
+import SideModal from "../Structure/SideModal";
 
 import classes from './OCUsers.module.css';
+import OCUsersDetailsModal from "./OCUsersDetailsModal";
 
 const OCUsers = (props) => {
 
@@ -48,6 +50,8 @@ const OCUsers = (props) => {
                     {userData.map(user => (<TableRow cols={UserTableColumns} data={user} />))}
                 </tbody>
             </Table>
+
+            <OCUsersDetailsModal></OCUsersDetailsModal>
         </>
     );
 };
