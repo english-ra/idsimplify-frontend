@@ -2,13 +2,19 @@
 // iDSimplify Frontend
 // Created by Reece English on 28.02.2023
 
+import InputLabel from '../../../components/InputFields/InputLabel';
 import TextFieldWLabel from '../../../components/InputFields/TextFieldWLabel';
+import SideModalTable from '../../../components/Table/SideModalTable';
+import ToggleSwitch from '../../../components/ToggleSwitch/ToggleSwitch';
+import { UserOrgPermissionsTableCols } from '../Data/UserOrgPermissionsTableCols';
 import SideModal from '../Structure/SideModal';
 import classes from './OCUsersDetailsModal.module.css';
 
 const OCUsersDetailsModal = (props) => {
     return (
-        <SideModal>
+        <SideModal
+            className={classes.root}
+        >
             <h1>Users Name</h1>
             <h3>User Details</h3>
 
@@ -20,25 +26,26 @@ const OCUsersDetailsModal = (props) => {
                     labelText='First name'
                 />
                 <TextFieldWLabel
-                    id='displayName'
-                    labelText='Display Name'
+                    id='lName'
+                    labelText='Last name'
                 />
                 <TextFieldWLabel
                     id='email'
                     labelText='Email address'
                 />
-
-                <TextFieldWLabel
-                    id='lName'
-                    labelText='Last name'
-                />
-                <TextFieldWLabel
-                    id='username'
-                    labelText='Username'
-                />
             </form>
 
+            <h3>Organisation Center Permissions (Administrator)</h3>
+            <InputLabel>Organisation Center Access: </InputLabel>
+            <ToggleSwitch />
+
             <h3>Organisation Permissions</h3>
+
+            <SideModalTable
+                headings={UserOrgPermissionsTableCols}
+            >
+
+            </SideModalTable>
         </SideModal>
     );
 };

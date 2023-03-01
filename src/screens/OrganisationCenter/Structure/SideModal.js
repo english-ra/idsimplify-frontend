@@ -7,7 +7,7 @@ import classes from './SideModal.module.css';
 
 const SideModal = (props) => {
     return (
-        <section className={classes.section}>
+        <section className={`${classes.section} ${props.className}`}>
             <CircularButton
                 className={classes.closeButton}
                 text='x'

@@ -1,3 +1,7 @@
+.root h3 {
+    padding-top: 20px;
+}
+
 .form input[type='text'] {
     width: 100%;
 }

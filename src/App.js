@@ -11,7 +11,7 @@ import OrganisationCenter from './screens/OrganisationCenter/Structure/Organisat
 
 function App() {
 
-  // let authenticated = false;
+  let authenticated = false;
 
   let unauthed = (
     <>
