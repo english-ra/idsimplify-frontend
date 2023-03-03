@@ -2,7 +2,7 @@
 // iDSimplify Frontend
 // Created by Reece English on 28.02.2023
 
-import CircularButton from '../../../components/Buttons/CircularButton';
+import CircularButton from '../Buttons/CircularButton';
 import classes from './SideModal.module.css';
 
 const SideModal = (props) => {

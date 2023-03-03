@@ -2,10 +2,10 @@
 // iDSimplify Frontend
 // Created by Reece English on 20.02.2023
 
-import TableHeading from "./TableHeading";
+import TableHeading from "../Headings/TableHeading";
 
 import classes from './Table.module.css';
-import CircularButton from "../Buttons/CircularButton";
+import CircularButton from "../../Buttons/CircularButton";
 
 const Table = (props) => {
     return (

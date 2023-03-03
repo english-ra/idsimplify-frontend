@@ -4,10 +4,11 @@
 
 import InputLabel from '../../../components/InputFields/InputLabel';
 import TextFieldWLabel from '../../../components/InputFields/TextFieldWLabel';
-import SideModalTable from '../../../components/Table/SideModalTable';
+import OrgPermissionTableRow from '../../../components/Table/Rows/OrgPermissionTableRow';
+import SideModalTable from '../../../components/Table/Tables/SideModalTable';
 import ToggleSwitch from '../../../components/ToggleSwitch/ToggleSwitch';
 import { UserOrgPermissionsTableCols } from '../Data/UserOrgPermissionsTableCols';
-import SideModal from '../Structure/SideModal';
+import SideModal from '../../../components/layout/SideModal';
 import classes from './OCUsersDetailsModal.module.css';
 
 const OCUsersDetailsModal = (props) => {
@@ -42,9 +43,11 @@ const OCUsersDetailsModal = (props) => {
             <h3>Organisation Permissions</h3>
 
             <SideModalTable
+                className={classes.orgPermissionsTable}
                 headings={UserOrgPermissionsTableCols}
             >
-
+                <OrgPermissionTableRow />
+                <OrgPermissionTableRow />
             </SideModalTable>
         </SideModal>
     );

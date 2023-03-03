@@ -2,10 +2,9 @@
 // iDSimplify Frontend
 // Created by Reece English on 21.02.2023
 
-import Table from "../../../components/Table/Table";
-import TableRow from "../../../components/Table/TableRow";
+import Table from "../../../components/Table/Tables/Table";
+import TableRow from "../../../components/Table/Rows/TableRow";
 import { UserTableColumns } from "../Data/UserTableColumns";
-import SideModal from "../Structure/SideModal";
 
 import classes from './OCUsers.module.css';
 import OCUsersDetailsModal from "./OCUsersDetailsModal";
@@ -41,7 +40,7 @@ const OCUsers = (props) => {
     return (
         <>
             <h1>Users</h1>
-
+            
             <Table
                 className={classes.table}
                 headings={UserTableColumns}

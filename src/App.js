@@ -1,11 +1,8 @@
 import { Route, Routes } from 'react-router-dom';
 
-import Layout from './components/layout/Layout';
 import LayoutInner from './components/layout/LayoutInner';
 import LayoutPublic from './components/layout/LayoutPublic';
 
-import Dashboard from './screens/Dashboard';
-import Integrations from './screens/Integrations';
 import CreateRootOrganisation from './screens/Join/CreateRootOrganisation';
 import OrganisationCenter from './screens/OrganisationCenter/Structure/OrganisationCenter';
 
