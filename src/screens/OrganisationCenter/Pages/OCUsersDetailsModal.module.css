@@ -1,0 +1,16 @@
+.root h3 {
+    padding-top: 20px;
+}
+
+.form input[type='text'] {
+    width: 100%;
+}
+
+.orgPermissionsTable {
+    width: 100%;
+}
+
+.orgPermissionsTable th:nth-child(2), .orgPermissionsTable th:nth-child(3) {
+    width: 25%;
+    text-align: center;
+}

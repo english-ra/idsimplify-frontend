@@ -1,0 +1,13 @@
+.div {
+    position: relative;
+}
+
+.table {
+    border-collapse: collapse;
+}
+
+.colButton {
+    position: absolute;
+    top: 5.25px;
+    right: 5.25px;
+}

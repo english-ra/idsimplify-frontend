@@ -1,0 +1,33 @@
+/* .aside {
+    position: fixed;
+    height: 100%;
+    width: 275px;
+    z-index: 1;
+
+    top: 0;
+    left: 0;
+    bottom: 0;
+
+    background-color: #FCFEFF;
+    border-right: 2px solid;
+} */
+
+.logo > * {
+    text-align: center;
+    margin: 0;
+}
+
+.logo h1 {
+    margin-top: 25px;
+}
+
+.logo h2 {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.secondaryNav {
+    position: absolute;
+    width: 100%;
+    bottom: 20px;
+}

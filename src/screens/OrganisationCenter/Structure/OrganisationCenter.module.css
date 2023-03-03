@@ -1,0 +1,18 @@
+.main {
+    background-color: #FCFEFF;
+    margin: 20px 20px 20px 295px;
+}
+
+.sideBar {
+    background-color: #FCFEFF;
+    border-right: 2px solid;
+
+    position: fixed;
+    height: 100%;
+    width: 275px;
+    z-index: 1;
+
+    top: 0;
+    left: 0;
+    bottom: 0;
+}

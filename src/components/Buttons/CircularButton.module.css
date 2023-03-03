@@ -1,0 +1,22 @@
+.button {
+    background-color: white;
+    color: #06283D;
+
+    height: 30px;
+    width: 30px;
+
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+
+    border-radius: 50%;
+    border-image: none;
+    border-style: none;
+    border: 2px solid #06283D;
+}
+
+.button:hover {
+    transition-duration: 0.4s;
+    background-color: #06283D;
+    color: white;
+}
