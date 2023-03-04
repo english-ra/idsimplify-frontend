@@ -20,22 +20,4 @@ function App() {
     return <RouterProvider router={router} />;
 };
 
-
-
-    // return (
-    //     <Routes>
-    //         <Route path='/join/organisation' element={<CreateRootOrganisation />} />
-    //         <Route path='/organisation-center' element={<OrganisationCenter />} />
-    //     </Routes>
-
-    //     //   <Layout>
-    //     //     <Routes>
-    //     //       <Route path='/' />
-    //     //       <Route path='/dashboard' element={<Dashboard />} />
-    //     //       <Route path='/integrations' element={<Integrations />} />
-    //     //     </Routes>
-    //     //   </Layout>
-    //     // </>
-    // );
-
 export default App;
