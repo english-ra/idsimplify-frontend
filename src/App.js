@@ -2,7 +2,6 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import HomePage from './HomePage';
 
-import CreateRootOrganisation from './sections/Join/CreateRootOrganisation';
 import OrganisationCenter from './sections/OrganisationCenter/Structure/OrganisationCenter';
 import Control from './sections/Control/Control';
 import PartnerPortal from './sections/PartnerPortal/PartnerPortal';
