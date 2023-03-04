@@ -9,7 +9,10 @@ import classes from './OCNavLink.module.css';
 const OCNavLink = (props) => {
     return (
         <li className={classes.li}>
-            <NavLink to={props.data.link} className={classes.navLink}>
+            <NavLink
+                className={({ isActive }) => isActive ? classes.active : undefined}
+                to={props.data.link}
+            >
                 {props.children}
             </NavLink>
         </li>

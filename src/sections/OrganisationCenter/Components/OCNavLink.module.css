@@ -1,4 +1,4 @@
-.navLink {
+.li a {
     display: block;
     padding: 8px 20px;
     text-decoration: none;
@@ -6,6 +6,10 @@
     color: #06283D;
 }
 
-.navLink:hover {
+.active {
+    font-weight: bold;
+}
+
+.li a:hover {
     font-weight: bold;
 }
