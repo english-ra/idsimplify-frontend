@@ -17,7 +17,7 @@ const OrganisationCenter = (props) => {
             <OCSideBar className={classes.sideBar} />
             <main className={classes.main}>
                 <Routes>
-                    <Route path='/organisation-center/general' element={<OCGeneral />} />
+                    <Route path='/general' element={<OCGeneral />} />
                     <Route path='/organisation-center/users' element={<OCUsers />} />
                     <Route path='/organisation-center/organisations' element={<OCOrganisations />} />
                 </Routes>

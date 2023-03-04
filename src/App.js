@@ -1,63 +1,44 @@
-import { Route, Routes } from 'react-router-dom';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
-import LayoutInner from './components/layout/LayoutInner';
-import LayoutPublic from './components/layout/LayoutPublic';
+import HomePage from './HomePage';
 
-import CreateRootOrganisation from './screens/Join/CreateRootOrganisation';
-import OrganisationCenter from './screens/OrganisationCenter/Structure/OrganisationCenter';
+import CreateRootOrganisation from './sections/Join/CreateRootOrganisation';
+import OrganisationCenter from './sections/OrganisationCenter/Structure/OrganisationCenter';
+import Control from './sections/Control/Control';
+import PartnerPortal from './sections/PartnerPortal/PartnerPortal';
+
+const router = createBrowserRouter([
+    { path: '/', element: <HomePage /> },
+    { path: '/join', element: <h1>Join</h1> },
+    { path: '/oc', element: <OrganisationCenter /> },
+    { path: '/control', element: <Control /> },
+    { path: '/pp', element: <PartnerPortal /> }
+]);
 
 function App() {
+    return <RouterProvider router={router} />;
+};
 
-  let authenticated = false;
+    // <LayoutPublic>
+    //     <LayoutInner>
+    //         <CreateRootOrganisation />
+    //     </LayoutInner>
+    // </LayoutPublic>
 
-  let unauthed = (
-    <>
-      <LayoutPublic>
-        <LayoutInner>
-          <CreateRootOrganisation />
-        </LayoutInner>
-      </LayoutPublic>
-    </>
-  );
+    // return (
+    //     <Routes>
+    //         <Route path='/join/organisation' element={<CreateRootOrganisation />} />
+    //         <Route path='/organisation-center' element={<OrganisationCenter />} />
+    //     </Routes>
 
-  let authed = (
-    <>
-      <h1>Authorised</h1>
-    </>
-  );
-
-  // if (authenticated) { return authed; }
-  // else { return unauthed; }
-
-  return (
-    <OrganisationCenter />
-  );
-
-
-  // return (
-  //   <>
-  //     <Routes>
-  //       <Route path='/join/organisation' element={<CreateRootOrganisation />} />
-
-  //     </Routes>
-
-
-
-
-
-
-
-
-
-  //     <Layout>
-  //       <Routes>
-  //         <Route path='/' />
-  //         <Route path='/dashboard' element={<Dashboard />} />
-  //         <Route path='/integrations' element={<Integrations />} />
-  //       </Routes>
-  //     </Layout>
-  //   </>
-  // );
-}
+    //     //   <Layout>
+    //     //     <Routes>
+    //     //       <Route path='/' />
+    //     //       <Route path='/dashboard' element={<Dashboard />} />
+    //     //       <Route path='/integrations' element={<Integrations />} />
+    //     //     </Routes>
+    //     //   </Layout>
+    //     // </>
+    // );
 
 export default App;
