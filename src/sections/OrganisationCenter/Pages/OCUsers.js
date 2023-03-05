@@ -41,17 +41,14 @@ const OCUsers = (props) => {
     return (
         <>
             <h1>Users</h1>
-            
+
             <Table
                 className={classes.table}
                 headings={UserTableColumns}
             >
-                <tbody>
-                    {userData.map(user => (<TableRow cols={UserTableColumns} data={user} />))}
-                </tbody>
+                {userData.map(user => (<TableRow cols={UserTableColumns} data={user} />))}
             </Table>
 
-            {/* <OCUsersDetailsModal /> */}
             <Outlet />
         </>
     );
