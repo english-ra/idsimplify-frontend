@@ -2,9 +2,9 @@
 // iDSimplify Frontend
 // Created by Reece English on 20.02.2023
 
-import InputLabel from '../../../components/InputFields/InputLabel';
-import InputSubmitButton from '../../../components/InputFields/InputSubmitButton';
-import InputTextField from '../../../components/InputFields/InputTextField';
+import InputLabel from '../../../../components/InputFields/InputLabel';
+import InputSubmitButton from '../../../../components/InputFields/InputSubmitButton';
+import InputTextField from '../../../../components/InputFields/InputTextField';
 
 import classes from './OCGeneral.module.css';
 

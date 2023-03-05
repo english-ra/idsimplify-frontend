@@ -4,14 +4,31 @@
 
 import { useParams } from 'react-router-dom';
 
-import InputLabel from '../../../components/InputFields/InputLabel';
-import TextFieldWLabel from '../../../components/InputFields/TextFieldWLabel';
-import OrgPermissionTableRow from '../../../components/Table/Rows/OrgPermissionTableRow';
-import SideModalTable from '../../../components/Table/Tables/SideModalTable';
-import ToggleSwitch from '../../../components/ToggleSwitch/ToggleSwitch';
-import { UserOrgPermissionsTableCols } from '../Data/UserOrgPermissionsTableCols';
-import SideModal from '../../../components/layout/SideModal';
+import InputLabel from '../../../../components/InputFields/InputLabel';
+import TextFieldWLabel from '../../../../components/InputFields/TextFieldWLabel';
+import OrgPermissionTableRow from '../../../../components/Table/Rows/OrgPermissionTableRow';
+import SideModalTable from '../../../../components/Table/Tables/SideModalTable';
+import ToggleSwitch from '../../../../components/ToggleSwitch/ToggleSwitch';
+import SideModal from '../../../../components/layout/SideModal';
 import classes from './OCUsersDetailsModal.module.css';
+
+const UserOrgPermissionsTableCols = [
+    {
+        id: 0,
+        friendlyTitle: 'Name',
+        dataKey: 'orgName'
+    },
+    {
+        id: 1,
+        friendlyTitle: 'Control',
+        dataKey: 'control'
+    },
+    {
+        id: 2,
+        friendlyTitle: 'Partner Portal',
+        dataKey: 'pp'
+    }
+];
 
 const OCUsersDetailsModal = (props) => {
     const params = useParams();

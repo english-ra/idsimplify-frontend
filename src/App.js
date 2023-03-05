@@ -1,16 +1,16 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
-import HomePage from './HomePage';
-import Error404 from './Error404';
+import HomePage from './sections/Public/HomePage';
+import Error404 from './sections/Public/Error404';
 import OrganisationCenter from './sections/OrganisationCenter/Structure/OrganisationCenter';
 import Control from './sections/Control/Control';
 import PartnerPortal from './sections/PartnerPortal/PartnerPortal';
 import Join from './sections/Join/Join';
-import OCGeneral from './sections/OrganisationCenter/Pages/OCGeneral';
-import OCUsers from './sections/OrganisationCenter/Pages/OCUsers';
-import OCUsersDetailsModal from './sections/OrganisationCenter/Pages/OCUsersDetailsModal';
-import OCOrganisations from './sections/OrganisationCenter/Pages/OCOrganisations';
-import OCOrganisationsDetailsModal from './sections/OrganisationCenter/Pages/OCOrganisationsDetailsModal';
+import OCGeneral from './sections/OrganisationCenter/Pages/OCGeneral/OCGeneral';
+import OCUsers from './sections/OrganisationCenter/Pages/OCUsers/OCUsers';
+import OCUsersDetailsModal from './sections/OrganisationCenter/Pages/OCUsers/OCUsersDetailsModal';
+import OCOrganisations from './sections/OrganisationCenter/Pages/OCOrganisations/OCOrganisations';
+import OCOrganisationsDetailsModal from './sections/OrganisationCenter/Pages/OCOrganisations/OCOrganisationsDetailsModal';
 
 const router = createBrowserRouter([
     {

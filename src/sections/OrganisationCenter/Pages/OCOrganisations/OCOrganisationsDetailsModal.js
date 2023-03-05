@@ -4,9 +4,9 @@
 
 import { NavLink, Outlet, useParams } from "react-router-dom";
 
-import HorizontalNavMenu from "../../../components/HorizontalNavMenu";
-import SideModal from "../../../components/layout/SideModal";
-import SideModalTable from "../../../components/Table/Tables/SideModalTable";
+import HorizontalNavMenu from "../../../../components/HorizontalNavMenu";
+import SideModal from "../../../../components/layout/SideModal";
+import SideModalTable from "../../../../components/Table/Tables/SideModalTable";
 
 import classes from './OCOrganisationsDetailsModal.module.css';
 

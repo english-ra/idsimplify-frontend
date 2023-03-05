@@ -6,7 +6,7 @@ import classes from './LayoutInner.module.css';
 
 const LayoutInner = (props) => {
     return (
-        <div className={classes.container}>
+        <div className={`${classes.container} ${props.className}`}>
             {props.children}
         </div>
     );
