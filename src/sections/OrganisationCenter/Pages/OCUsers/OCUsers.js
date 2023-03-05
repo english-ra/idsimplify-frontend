@@ -6,7 +6,6 @@ import Table from "../../../../components/Table/Tables/Table";
 import TableRow from "../../../../components/Table/Rows/TableRow";
 
 import classes from './OCUsers.module.css';
-import OCUsersDetailsModal from "./OCUsersDetailsModal";
 import { Outlet } from "react-router-dom";
 
 const UserTableColumns = [
@@ -57,8 +56,6 @@ const OCUsers = (props) => {
             email: "reece@idsimplify.co.uk"
         }
     ];
-
-    let sampleOrgData = ['The Hotel Ltd', 'Big Business Ltd'];
 
     return (
         <>

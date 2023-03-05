@@ -2,7 +2,7 @@
 // iDSimplify Frontend
 // Created by Reece English on 05.03.2023
 
-import { NavLink, Outlet, useParams } from "react-router-dom";
+import { Outlet, useParams } from "react-router-dom";
 
 import HorizontalNavMenu from "../../../../components/HorizontalNavMenu";
 import SideModal from "../../../../components/layout/SideModal";
@@ -27,6 +27,7 @@ const OCOrganisationsDetailsModal = (props) => {
     return (
         <SideModal>
             <h1>Organisation Name</h1>
+            <p>{params.orgId}</p>
 
             <HorizontalNavMenu
                 className={classes.navMenu}
