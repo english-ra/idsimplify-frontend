@@ -8,6 +8,7 @@ import { UserTableColumns } from "../Data/UserTableColumns";
 
 import classes from './OCUsers.module.css';
 import OCUsersDetailsModal from "./OCUsersDetailsModal";
+import { Outlet } from "react-router-dom";
 
 const OCUsers = (props) => {
 
@@ -50,7 +51,8 @@ const OCUsers = (props) => {
                 </tbody>
             </Table>
 
-            <OCUsersDetailsModal></OCUsersDetailsModal>
+            {/* <OCUsersDetailsModal /> */}
+            <Outlet />
         </>
     );
 };

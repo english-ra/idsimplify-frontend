@@ -2,6 +2,8 @@
 // iDSimplify Frontend
 // Created by Reece English on 28.02.2023
 
+import { useParams } from 'react-router-dom';
+
 import InputLabel from '../../../components/InputFields/InputLabel';
 import TextFieldWLabel from '../../../components/InputFields/TextFieldWLabel';
 import OrgPermissionTableRow from '../../../components/Table/Rows/OrgPermissionTableRow';
@@ -12,11 +14,15 @@ import SideModal from '../../../components/layout/SideModal';
 import classes from './OCUsersDetailsModal.module.css';
 
 const OCUsersDetailsModal = (props) => {
+    const params = useParams();
+
     return (
         <SideModal
             className={classes.root}
         >
             <h1>Users Name</h1>
+            <p>{params.userId}</p>
+
             <h3>User Details</h3>
 
             <form

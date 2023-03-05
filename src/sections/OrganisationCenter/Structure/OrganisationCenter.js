@@ -5,9 +5,6 @@
 import { Outlet } from 'react-router-dom';
 
 import OCSideBar from './OCSideBar';
-import OCGeneral from '../Pages/OCGeneral';
-import OCUsers from '../Pages/OCUsers';
-import OCOrganisations from '../Pages/OCOrganisations';
 
 import classes from './OrganisationCenter.module.css';
 
