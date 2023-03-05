@@ -8,8 +8,9 @@ import PartnerPortal from './sections/PartnerPortal/PartnerPortal';
 import Join from './sections/Join/Join';
 import OCGeneral from './sections/OrganisationCenter/Pages/OCGeneral';
 import OCUsers from './sections/OrganisationCenter/Pages/OCUsers';
-import OCOrganisations from './sections/OrganisationCenter/Pages/OCOrganisations';
 import OCUsersDetailsModal from './sections/OrganisationCenter/Pages/OCUsersDetailsModal';
+import OCOrganisations from './sections/OrganisationCenter/Pages/OCOrganisations';
+import OCOrganisationsDetailsModal from './sections/OrganisationCenter/Pages/OCOrganisationsDetailsModal';
 
 const router = createBrowserRouter([
     {
@@ -41,7 +42,27 @@ const router = createBrowserRouter([
             },
             {
                 path: '/oc/organisations',
-                element: <OCOrganisations />
+                element: <OCOrganisations />,
+                children: [
+                    {
+                        path: '/oc/organisations/:orgId',
+                        element: <OCOrganisationsDetailsModal />,
+                        children: [
+                            {
+                                path: '/oc/organisations/:orgId/details',
+                                element: <h1>Details</h1>
+                            },
+                            {
+                                path: '/oc/organisations/:orgId/integrations',
+                                element: <h1>Integrations</h1>
+                            },
+                            {
+                                path: '/oc/organisations/:orgId/users',
+                                element: <h1>Users</h1>
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },

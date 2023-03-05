@@ -1,0 +1,16 @@
+.li a {
+    display: block;
+    padding: 8px 20px;
+    text-decoration: none;
+    text-align: center;
+    color: #06283D;
+}
+
+.active {
+    font-weight: bold;
+    border-bottom: 2.5px solid #46B5FF;
+}
+
+.li a:hover {
+    background-color: #f4f4f4;
+}
