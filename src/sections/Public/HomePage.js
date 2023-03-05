@@ -19,20 +19,23 @@ const HomePage = (props) => {
 
                 <p>Please select what you would like to do?</p>
 
-                <ul>
-                    <li>
-                        <Link>
-                            <h3>Sign up</h3>
-                            <span>Click here to register your organisation with iDSimplify and simplify your ID management today!</span>
-                        </Link>
-                    </li>
-                    <li>
-                        <Link>
-                            <h3>Login</h3>
-                            <span>Click here if you already apart of an organisation</span>
-                        </Link>
-                    </li>
-                </ul>
+                <div className={classes.links}>
+                    <Link
+                        className={classes.signup}
+                        to='join'
+                    >
+                        <h3>Sign up</h3>
+                        <span>Click here to register your organisation with iDSimplify and simplify your ID management today!</span>
+                    </Link>
+
+                    <Link
+                        className={classes.login}
+                        to='auth'
+                    >
+                        <h3>Login</h3>
+                        <span>Click here if you already apart of an organisation</span>
+                    </Link>
+                </div>
             </LayoutInner>
         </LayoutPublic>
     );
