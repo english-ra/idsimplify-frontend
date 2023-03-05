@@ -2,6 +2,7 @@
 // iDSimplify Frontend
 // Created by Reece English on 20.02.2023
 
+import OCLink from '../Components/OCLink';
 import OCNavLink from '../Components/OCNavLink';
 import OCNavLinkContainer from '../Components/OCNavLinkContainer';
 import { OCLinkData } from '../Data/OCLinkData';
@@ -22,7 +23,7 @@ const OCSideBar = (props) => {
             </OCNavLinkContainer>
 
             <OCNavLinkContainer className={classes.secondaryNav}>
-                <OCNavLink data={{link: 'control'}}>Go to Control</OCNavLink>
+                <OCLink data={{link: '/control'}}>Go to Control</OCLink>
             </OCNavLinkContainer>
         </aside>
     );
