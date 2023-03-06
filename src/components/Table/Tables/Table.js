@@ -12,7 +12,9 @@ const Table = (props) => {
         <div className={classes.div}>
             <table className={`${classes.table} ${props.className}`}>
                 <TableHeading headings={props.headings} />
-                {props.children}
+                <tbody>
+                    {props.children}
+                </tbody>
             </table>
 
             <CircularButton className={classes.colButton} text='...' />

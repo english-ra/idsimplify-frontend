@@ -1,63 +1,83 @@
-import { Route, Routes } from 'react-router-dom';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
-import LayoutInner from './components/layout/LayoutInner';
-import LayoutPublic from './components/layout/LayoutPublic';
+import HomePage from './sections/Public/HomePage';
+import Error404 from './sections/Public/Error404';
+import OrganisationCenter from './sections/OrganisationCenter/Structure/OrganisationCenter';
+import Control from './sections/Control/Control';
+import PartnerPortal from './sections/PartnerPortal/PartnerPortal';
+import Join from './sections/Join/Join';
+import OCGeneral from './sections/OrganisationCenter/Pages/OCGeneral/OCGeneral';
+import OCUsers from './sections/OrganisationCenter/Pages/OCUsers/OCUsers';
+import OCUsersDetailsModal from './sections/OrganisationCenter/Pages/OCUsers/OCUsersDetailsModal';
+import OCOrganisations from './sections/OrganisationCenter/Pages/OCOrganisations/OCOrganisations';
+import OCOrganisationsDetailsModal from './sections/OrganisationCenter/Pages/OCOrganisations/OCOrganisationsDetailsModal';
 
-import CreateRootOrganisation from './screens/Join/CreateRootOrganisation';
-import OrganisationCenter from './screens/OrganisationCenter/Structure/OrganisationCenter';
+const router = createBrowserRouter([
+    {
+        path: '/',
+        element: <HomePage />,
+        errorElement: <Error404 />
+    },
+    {
+        path: '/join',
+        element: <Join />
+    },
+    {
+        path: '/oc',
+        element: <OrganisationCenter />,
+        children: [
+            {
+                path: '/oc/general',
+                element: <OCGeneral />
+            },
+            {
+                path: '/oc/users',
+                element: <OCUsers />,
+                children: [
+                    {
+                        path: '/oc/users/:userId',
+                        element: <OCUsersDetailsModal />
+                    }
+                ]
+            },
+            {
+                path: '/oc/organisations',
+                element: <OCOrganisations />,
+                children: [
+                    {
+                        path: '/oc/organisations/:orgId',
+                        element: <OCOrganisationsDetailsModal />,
+                        children: [
+                            {
+                                path: '/oc/organisations/:orgId/details',
+                                element: <h1>Details</h1>
+                            },
+                            {
+                                path: '/oc/organisations/:orgId/integrations',
+                                element: <h1>Integrations</h1>
+                            },
+                            {
+                                path: '/oc/organisations/:orgId/users',
+                                element: <h1>Users</h1>
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        path: '/control',
+        element: <Control />
+    },
+    {
+        path: '/pp',
+        element: <PartnerPortal />
+    }
+]);
 
 function App() {
-
-  let authenticated = false;
-
-  let unauthed = (
-    <>
-      <LayoutPublic>
-        <LayoutInner>
-          <CreateRootOrganisation />
-        </LayoutInner>
-      </LayoutPublic>
-    </>
-  );
-
-  let authed = (
-    <>
-      <h1>Authorised</h1>
-    </>
-  );
-
-  // if (authenticated) { return authed; }
-  // else { return unauthed; }
-
-  return (
-    <OrganisationCenter />
-  );
-
-
-  // return (
-  //   <>
-  //     <Routes>
-  //       <Route path='/join/organisation' element={<CreateRootOrganisation />} />
-
-  //     </Routes>
-
-
-
-
-
-
-
-
-
-  //     <Layout>
-  //       <Routes>
-  //         <Route path='/' />
-  //         <Route path='/dashboard' element={<Dashboard />} />
-  //         <Route path='/integrations' element={<Integrations />} />
-  //       </Routes>
-  //     </Layout>
-  //   </>
-  // );
-}
+    return <RouterProvider router={router} />;
+};
 
 export default App;

@@ -1,0 +1,33 @@
+.inner {
+    text-align: center;
+}
+
+.inner h1 {
+    margin-top: 0;
+}
+
+.links {
+    padding-top: 10px;
+    padding-left: 60px;
+    padding-right: 60px;
+}
+
+.links a {
+    display: block;
+    height: 160px;
+    width: 200px;
+    padding: 10px;
+
+    background-color: lightcyan;
+    border-radius: 25px;
+    text-decoration: none;
+    color: #06283D;
+}
+
+.signup {
+    float: left;
+}
+
+.login {
+    float: right;
+}

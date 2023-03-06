@@ -11,3 +11,7 @@
 .form {
     margin: 40px auto 40px auto;
 }
+
+.form input[type='text'] {
+    width: 100%;
+}
