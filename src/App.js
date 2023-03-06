@@ -12,6 +12,7 @@ import OCUsersDetailsModal from './sections/OrganisationCenter/Pages/OCUsers/OCU
 import OCOrganisations from './sections/OrganisationCenter/Pages/OCOrganisations/OCOrganisations';
 import OCOrganisationsDetailsModal from './sections/OrganisationCenter/Pages/OCOrganisations/OCOrganisationsDetailsModal';
 import Auth0ProviderLayout from './Authentication/auth0ProviderLayout.js';
+import AuthLandingPage from './sections/AuthLandingPage';
 
 const router = createBrowserRouter([
     {
@@ -25,6 +26,10 @@ const router = createBrowserRouter([
             {
                 path: '/join',
                 element: <Join />
+            },
+            {
+                path: '/authedlandingpage',
+                element: <AuthLandingPage />
             },
             {
                 path: '/oc',
