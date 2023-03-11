@@ -12,7 +12,7 @@ import OCUsersDetailsModal from './sections/OrganisationCenter/Pages/OCUsers/OCU
 import OCOrganisations from './sections/OrganisationCenter/Pages/OCOrganisations/OCOrganisations';
 import OCOrganisationsDetailsModal from './sections/OrganisationCenter/Pages/OCOrganisations/OCOrganisationsDetailsModal';
 import Auth0ProviderLayout from './Authentication/auth0ProviderLayout.js';
-import AuthLandingPage from './sections/AuthLandingPage';
+import AuthLandingPage from './sections/Authenticated/AuthLandingPage';
 
 const router = createBrowserRouter([
     {
