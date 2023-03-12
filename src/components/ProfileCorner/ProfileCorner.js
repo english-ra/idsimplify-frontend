@@ -28,7 +28,7 @@ const ProfileCorner = (props) => {
                 <span>{email}</span>
                 <ul>
                     <li><Link to='/authedlandingpage'>Main Menu</Link></li>
-                    <li><Link>My Account</Link></li>
+                    <li><Link to='/profile'>My Account</Link></li>
                     <li>
                         <button
                             onClick={() => logout()}

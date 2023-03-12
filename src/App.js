@@ -14,6 +14,7 @@ import OCOrganisationsDetailsModal from './sections/OrganisationCenter/Pages/OCO
 import Auth0ProviderLayout from './Authentication/auth0ProviderLayout.js';
 import AuthLandingPage from './sections/Authenticated/AuthLandingPage';
 import AuthenticationGuard from './Authentication/AuthenticationGuard';
+import Profile from './sections/Profile/Profile';
 
 const router = createBrowserRouter([
     {
@@ -31,6 +32,10 @@ const router = createBrowserRouter([
             {
                 path: '/authedlandingpage',
                 element: <AuthenticationGuard component={AuthLandingPage} />
+            },
+            {
+                path: '/profile',
+                element: <AuthenticationGuard component={Profile} />
             },
             {
                 path: '/oc',
