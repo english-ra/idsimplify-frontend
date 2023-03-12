@@ -26,7 +26,7 @@ const ProfileCorner = (props) => {
 
             <div className={`${classes.menu} ${open ? classes.active : classes.inactive}`}>
                 <span>{email}</span>
-                <ul>
+                <ul className={classes.menuList}>
                     <li><Link to='/authedlandingpage'>Main Menu</Link></li>
                     <li><Link to='/profile'>My Account</Link></li>
                     <li>
