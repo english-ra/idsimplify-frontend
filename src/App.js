@@ -13,6 +13,7 @@ import OCOrganisations from './sections/OrganisationCenter/Pages/OCOrganisations
 import OCOrganisationsDetailsModal from './sections/OrganisationCenter/Pages/OCOrganisations/OCOrganisationsDetailsModal';
 import Auth0ProviderLayout from './Authentication/auth0ProviderLayout.js';
 import AuthLandingPage from './sections/Authenticated/AuthLandingPage';
+import AuthenticationGuard from './Authentication/AuthenticationGuard';
 
 const router = createBrowserRouter([
     {
@@ -29,11 +30,11 @@ const router = createBrowserRouter([
             },
             {
                 path: '/authedlandingpage',
-                element: <AuthLandingPage />
+                element: <AuthenticationGuard component={AuthLandingPage} />
             },
             {
                 path: '/oc',
-                element: <OrganisationCenter />,
+                element: <AuthenticationGuard component={OrganisationCenter} />,
                 children: [
                     {
                         path: '/oc/general',
@@ -77,11 +78,11 @@ const router = createBrowserRouter([
             },
             {
                 path: '/control',
-                element: <Control />
+                element: <AuthenticationGuard component={Control} />
             },
             {
                 path: '/pp',
-                element: <PartnerPortal />
+                element: <AuthenticationGuard component={PartnerPortal} />
             }
         ]
     }
