@@ -31,6 +31,8 @@ const HomePage = (props) => {
                         <h3>Login / Register</h3>
                     </Link>
                 </div>
+
+                <p>To register a new tenancy, you will first need to sign in or register. Please do so using the above button.</p>
             </LayoutInner>
         </LayoutPublic>
     );

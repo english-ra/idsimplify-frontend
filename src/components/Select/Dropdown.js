@@ -5,12 +5,15 @@
 // import classes from './Dropdown.module.css';
 
 const Dropdown = (props) => {
+
+    const tenancyData = props.data || [];
+
     return (
         <div>
             <label>{props.title}</label>
 
             <select>
-                {props.data.map(data => (<option>{data}</option>))}
+                {tenancyData.map(data => (<option>{data.name}</option>))}
             </select>
         </div>
     );

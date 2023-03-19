@@ -27,7 +27,7 @@ const router = createBrowserRouter([
             },
             {
                 path: '/join',
-                element: <Join />
+                element: <AuthenticationGuard component={Join} />
             },
             {
                 path: '/authedlandingpage',
