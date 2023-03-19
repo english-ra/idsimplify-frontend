@@ -11,7 +11,7 @@ import LayoutPublic from '../../components/layout/LayoutPublic';
 import classes from './HomePage.module.css';
 
 const HomePage = (props) => {
-    const { loginWithRedirect, logout, user, isLoading } = useAuth0();
+    const { loginWithRedirect } = useAuth0();
 
     return (
         <LayoutPublic>
@@ -25,19 +25,10 @@ const HomePage = (props) => {
 
                 <div className={classes.links}>
                     <Link
-                        className={classes.signup}
-                        to='join'
-                    >
-                        <h3>Sign up</h3>
-                        <span>Click here to register your organisation with iDSimplify and simplify your ID management today!</span>
-                    </Link>
-
-                    <Link
                         className={classes.login}
                         onClick={() => loginWithRedirect()}
                     >
-                        <h3>Login</h3>
-                        <span>Click here if you already apart of an organisation</span>
+                        <h3>Login / Register</h3>
                     </Link>
                 </div>
             </LayoutInner>

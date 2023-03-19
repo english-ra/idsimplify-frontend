@@ -3,7 +3,6 @@
 // Created by Reece English on 06.12.2022
 
 import { useAuth0 } from '@auth0/auth0-react';
-import PrimaryFormButton from '../../components/Buttons/PrimaryFormButton';
 import InputLabel from '../../components/InputFields/InputLabel';
 import InputSubmitButton from '../../components/InputFields/InputSubmitButton';
 import InputTextField from '../../components/InputFields/InputTextField';
@@ -25,16 +24,16 @@ const CreateRootOrganisation = () => {
                 }
             });
 
-            console.log(accessToken);
-
-            const reponse = await fetch('https://api.idsimplify.co.uk/tenant', {
+            const response = await fetch('https://api.idsimplify.co.uk/tenant', {
                 method: 'POST',
-                body: JSON.stringify({"test": "test"}),
+                body: JSON.stringify({ "test": "test" }),
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${accessToken}`
                 }
             });
+            const data = await response.json();
+            console.log(data);
         } catch (e) {
             console.log(e);
         }
