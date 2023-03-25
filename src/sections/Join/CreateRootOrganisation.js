@@ -29,7 +29,7 @@ const CreateRootOrganisation = () => {
                     scope: 'access'
                 }
             });
-
+            
             const tenancyData = {
                 name: tenancyName
             };
