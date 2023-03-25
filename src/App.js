@@ -38,41 +38,41 @@ const router = createBrowserRouter([
                 element: <AuthenticationGuard component={Profile} />
             },
             {
-                path: '/oc',
+                path: '/oc/:tenancyId',
                 element: <AuthenticationGuard component={OrganisationCenter} />,
                 children: [
                     {
-                        path: '/oc/general',
+                        path: '/oc/:tenancyId/general',
                         element: <OCGeneral />
                     },
                     {
-                        path: '/oc/users',
+                        path: '/oc/:tenancyId/users',
                         element: <OCUsers />,
                         children: [
                             {
-                                path: '/oc/users/:userId',
+                                path: '/oc/:tenancyId/users/:userId',
                                 element: <OCUsersDetailsModal />
                             }
                         ]
                     },
                     {
-                        path: '/oc/organisations',
+                        path: '/oc/:tenancyId/organisations',
                         element: <OCOrganisations />,
                         children: [
                             {
-                                path: '/oc/organisations/:orgId',
+                                path: '/oc/:tenancyId/organisations/:orgId',
                                 element: <OCOrganisationsDetailsModal />,
                                 children: [
                                     {
-                                        path: '/oc/organisations/:orgId/details',
+                                        path: '/oc/:tenancyId/organisations/:orgId/details',
                                         element: <h1>Details</h1>
                                     },
                                     {
-                                        path: '/oc/organisations/:orgId/integrations',
+                                        path: '/oc/:tenancyId/organisations/:orgId/integrations',
                                         element: <h1>Integrations</h1>
                                     },
                                     {
-                                        path: '/oc/organisations/:orgId/users',
+                                        path: '/oc/:tenancyId/organisations/:orgId/users',
                                         element: <h1>Users</h1>
                                     }
                                 ]

@@ -97,7 +97,7 @@ const AuthLandingPage = (props) => {
                                 {
                                     selectedTenancy != null && (
                                         <ul>
-                                            {canAccessOC && <li><Link to='/oc'>Organisation Center</Link></li>}
+                                            {canAccessOC && <li><Link to={`/oc/${selectedTenancy.id}`}>Organisation Center</Link></li>}
                                             <li><Link to='/control'>Control</Link></li>
                                             <li><Link to='/pp'>Partner Portal</Link></li>
                                         </ul>

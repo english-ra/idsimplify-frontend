@@ -25,7 +25,9 @@ const OCOrganisationsDetailsModal = (props) => {
     const params = useParams();
 
     return (
-        <SideModal>
+        <SideModal
+            className={classes.root}
+        >
             <h1>Organisation Name</h1>
             <p>{params.orgId}</p>
 
