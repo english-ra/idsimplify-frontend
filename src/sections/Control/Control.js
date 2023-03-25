@@ -2,11 +2,21 @@
 // iDSimplify Frontend
 // Created by Reece English on 04.03.2023
 
-// import classes from './Control.module.css';
+import { Outlet } from "react-router-dom";
+import ProfileCorner from "../../components/ProfileCorner/ProfileCorner";
+
+import classes from './Control.module.css';
+import CSideBar from "./CSideBar";
 
 const Control = (props) => {
     return (
-        <h1>Control</h1>
+        <>
+            <CSideBar className={classes.sideBar} />
+            <ProfileCorner className={classes.profileCorner} />
+            <main className={classes.main}>
+                <Outlet />
+            </main>
+        </>
     );
 };
 
