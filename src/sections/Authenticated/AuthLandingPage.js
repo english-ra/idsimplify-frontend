@@ -54,12 +54,15 @@ const AuthLandingPage = (props) => {
     };
 
     const validatePermissions = () => {
+        console.log(selectedTenancy);
         if (selectedTenancy === null) {
-            setCanAccessOC(false);
+            // setCanAccessOC(false);
             return;
         }
 
+        // Check whether the user has permission to access Organisation Center
         if (selectedTenancy.permissions.includes("role|2f6389a6-5c53-4be1-8db7-1f991e56ab5d")) { setCanAccessOC(true); }
+        else { setCanAccessOC(false); }
     };
 
     const selectedTenancyHandler = (tenancy) => { setSelectedTenancy(tenancy); };
@@ -79,7 +82,6 @@ const AuthLandingPage = (props) => {
                         tenancies.length === 0 ? (
                             <>
                                 <p>You are not currently a member of any tenacies. Please ask your admin to add you to the tenacy or create a new one below.</p>
-                                <Link to='/join'>Register a New Tenancy</Link>
                             </>
                         ) : (
                             <>
@@ -92,16 +94,20 @@ const AuthLandingPage = (props) => {
 
                                 <p>Please select what you would like to do?</p>
 
-                                <ul>
-                                    {canAccessOC && <li><Link to='/oc'>Organisation Center</Link></li>}
-                                    <li><Link to='/control'>Control</Link></li>
-                                    <li><Link to='/pp'>Partner Portal</Link></li>
-                                </ul>
+                                {
+                                    selectedTenancy != null && (
+                                        <ul>
+                                            {canAccessOC && <li><Link to='/oc'>Organisation Center</Link></li>}
+                                            <li><Link to='/control'>Control</Link></li>
+                                            <li><Link to='/pp'>Partner Portal</Link></li>
+                                        </ul>
+                                    )
+                                }
                             </>
                         )
                     )
                 }
-
+                <Link to='/join'>Register a New Tenancy</Link>
             </LayoutInner>
         </LayoutAuthed>
     );

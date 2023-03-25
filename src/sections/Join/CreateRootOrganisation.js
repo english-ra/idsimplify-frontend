@@ -34,7 +34,7 @@ const CreateRootOrganisation = () => {
                 name: tenancyName
             };
 
-            const response = await fetch('https://api.idsimplify.co.uk/tenancy', {
+            const response = await fetch('https://api.idsimplify.co.uk/tenancies', {
                 method: 'POST',
                 body: JSON.stringify(tenancyData),
                 headers: {
