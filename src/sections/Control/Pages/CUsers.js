@@ -2,6 +2,7 @@
 // iDSimplify Frontend
 // Created by Reece English on 25.03.2023
 
+import { useAuth0 } from '@auth0/auth0-react';
 import { useEffect, useState } from 'react';
 import TableRow from '../../../components/Table/Rows/TableRow';
 import Table from '../../../components/Table/Tables/Table';
@@ -38,6 +39,7 @@ const UserTableColumns = [
 const CUsers = (props) => {
     const [users, setUsers] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
+    const { getAccessTokenWithPopup } = useAuth0();
 
     useEffect(() => {
         getUsersFromIntegration();
@@ -47,18 +49,18 @@ const CUsers = (props) => {
         setIsLoading(true);
         try {
             // Get the users access token
-            // const accessToken = await getAccessTokenWithPopup({ // TODO: Change to quietly when hosted
-            //     authorizationParams: {
-            //         audience: 'https://api.idsimplify.co.uk',
-            //         scope: 'access'
-            //     }
-            // });
+            const accessToken = await getAccessTokenWithPopup({ // TODO: Change to quietly when hosted
+                authorizationParams: {
+                    audience: 'https://api.idsimplify.co.uk',
+                    scope: 'access'
+                }
+            });
 
             // Get the data
             const response = await fetch('https://api.idsimplify.co.uk/integrations/users', {
                 headers: {
-                    'Content-Type': 'application/json'
-                    // 'Authorization': `Bearer ${accessToken}`
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${accessToken}`
                 }
             });
 
