@@ -15,6 +15,7 @@ import Auth0ProviderLayout from './Authentication/auth0ProviderLayout.js';
 import AuthLandingPage from './sections/Authenticated/AuthLandingPage';
 import AuthenticationGuard from './Authentication/AuthenticationGuard';
 import Profile from './sections/Profile/Profile';
+import CUsers from './sections/Control/Pages/CUsers';
 
 const router = createBrowserRouter([
     {
@@ -82,8 +83,14 @@ const router = createBrowserRouter([
                 ]
             },
             {
-                path: '/control',
-                element: <AuthenticationGuard component={Control} />
+                path: '/control/:tenancyId',
+                element: <AuthenticationGuard component={Control} />,
+                children: [
+                    {
+                        path: '/control/:tenancyId/users',
+                        element: <CUsers />
+                    }
+                ]
             },
             {
                 path: '/pp',
