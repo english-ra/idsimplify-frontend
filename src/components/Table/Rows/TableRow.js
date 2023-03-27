@@ -5,8 +5,16 @@
 import classes from './TableRow.module.css';
 
 const TableRow = (props) => {
+
+    const rowClickHandler = () => {
+        props.onClick(props.data.id);
+    };
+
     return (
-        <tr className={classes.row}>
+        <tr
+            className={classes.row}
+            onClick={rowClickHandler}
+        >
             {props.cols.map(col => (
                 <td>{props.data[col.dataKey]}</td>
             ))}

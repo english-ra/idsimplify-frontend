@@ -4,6 +4,7 @@
 
 import { useAuth0 } from '@auth0/auth0-react';
 import { useEffect, useState } from 'react';
+import { Outlet, useNavigate } from 'react-router-dom';
 import TableRow from '../../../components/Table/Rows/TableRow';
 import Table from '../../../components/Table/Tables/Table';
 import classes from './CUsers.module.css';
@@ -41,6 +42,8 @@ const CUsers = (props) => {
     const [isLoading, setIsLoading] = useState(false);
     const { getAccessTokenWithPopup } = useAuth0();
 
+    const navigate = useNavigate();
+
     useEffect(() => {
         getUsersFromIntegration();
     }, []);
@@ -75,6 +78,10 @@ const CUsers = (props) => {
         setIsLoading(false);
     };
 
+    const rowClickHandler = (userID) => {
+        navigate(`${userID}`);
+    };
+
     return (
         <>
             <h1>Users</h1>
@@ -90,12 +97,20 @@ const CUsers = (props) => {
                         users.length === 0 ? (
                             <p>No users found</p>
                         ) : (
-                            users.map(user => (<TableRow cols={UserTableColumns} data={user} />))
+                            users.map(user => (
+                                <TableRow
+                                    cols={UserTableColumns}
+                                    data={user}
+                                    onClick={rowClickHandler}
+                                />
+                            ))
                         )
                     )
                 }
             </Table>
             <p>{users.length} users found</p>
+
+            <Outlet />
         </>
     );
 };

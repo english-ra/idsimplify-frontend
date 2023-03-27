@@ -8,6 +8,7 @@ const CircularButton = (props) => {
     return (
         <button
             className={`${classes.button} ${props.className}`}
+            onClick={() => {props.onClick()}}
         >
             {props.text}
         </button>

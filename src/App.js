@@ -16,6 +16,7 @@ import AuthLandingPage from './sections/Authenticated/AuthLandingPage';
 import AuthenticationGuard from './Authentication/AuthenticationGuard';
 import Profile from './sections/Profile/Profile';
 import CUsers from './sections/Control/Pages/CUsers';
+import CUsersDetailsModal from './sections/Control/Pages/CUsersDetailsModal';
 
 const router = createBrowserRouter([
     {
@@ -88,7 +89,13 @@ const router = createBrowserRouter([
                 children: [
                     {
                         path: '/control/:tenancyId/users',
-                        element: <CUsers />
+                        element: <CUsers />,
+                        children: [
+                            {
+                                path: '/control/:tenancyId/users/:userId',
+                                element: <CUsersDetailsModal />
+                            }
+                        ]
                     }
                 ]
             },
