@@ -37,13 +37,14 @@ const UserTableColumns = [
 
 const CUsers = (props) => {
     const [users, setUsers] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
         getUsersFromIntegration();
     }, []);
 
     const getUsersFromIntegration = async () => {
-        // setIsLoading(true);
+        setIsLoading(true);
         try {
             // Get the users access token
             // const accessToken = await getAccessTokenWithPopup({ // TODO: Change to quietly when hosted
@@ -69,7 +70,7 @@ const CUsers = (props) => {
         catch (err) {
             console.log(err);
         }
-        // setIsLoading(false);
+        setIsLoading(false);
     };
 
     return (
@@ -80,8 +81,19 @@ const CUsers = (props) => {
                 className={classes.table}
                 headings={UserTableColumns}
             >
-                {users.map(user => (<TableRow cols={UserTableColumns} data={user} />))}
+                {
+                    isLoading ? (
+                        <p>Loading...</p>
+                    ) : (
+                        users.length === 0 ? (
+                            <p>No users found</p>
+                        ) : (
+                            users.map(user => (<TableRow cols={UserTableColumns} data={user} />))
+                        )
+                    )
+                }
             </Table>
+            <p>{users.length} users found</p>
         </>
     );
 };
