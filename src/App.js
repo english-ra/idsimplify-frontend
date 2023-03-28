@@ -96,6 +96,16 @@ const router = createBrowserRouter([
                                 element: <CUsersDetailsModal />
                             }
                         ]
+                    },
+                    {
+                        path: '/control/:tenancyId/groups',
+                        element: <h1>Groups</h1>,
+                        children: [
+                            {
+                                path: '/control/:tenancyId/groups/:groupId',
+                                element: <h1>Group</h1>
+                            }
+                        ]
                     }
                 ]
             },

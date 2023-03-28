@@ -14,6 +14,7 @@ const TableRow = (props) => {
         <tr
             className={classes.row}
             onClick={rowClickHandler}
+            key={props.key}
         >
             {props.cols.map(col => (
                 <td>{props.data[col.dataKey]}</td>

@@ -30,11 +30,6 @@ const navData = [
                 linkId: 1.1,
                 text: 'Scheduling',
                 link: 'scheduling'
-            },
-            {
-                linkId: 1.2,
-                text: 'Groups',
-                link: 'groups'
             }
         ]
     }

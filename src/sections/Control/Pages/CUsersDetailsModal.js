@@ -12,6 +12,7 @@ import SideModal from '../../../components/layout/SideModal';
 import classes from './CUsersDetailsModal.module.css';
 import { useEffect, useState } from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
+import TableRow from '../../../components/Table/Rows/TableRow';
 
 const UserOrgPermissionsTableCols = [
     {
@@ -21,8 +22,8 @@ const UserOrgPermissionsTableCols = [
     },
     {
         id: 1,
-        friendlyTitle: 'Address',
-        dataKey: 'mail'
+        friendlyTitle: 'Visibility',
+        dataKey: 'visibility'
     }
 ];
 
@@ -35,13 +36,12 @@ const CUsersDetailsModal = (props) => {
 
     useEffect(() => {
         getData();
-    }, []);
+    }, [params]);
 
     const getData = async () => {
 
         // Get the users ID
         const userID = params.userId;
-        console.log(userID);
 
         setIsLoading(true);
         try {
@@ -54,30 +54,26 @@ const CUsersDetailsModal = (props) => {
             });
 
             // Get the data
-            const userResponse = await fetch(`https://api.idsimplify.co.uk/integrations/users/${userID}`, {
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${accessToken}`
-                }
-            });
-
-            // const groupsResponse = await fetch(`https://api.idsimplify.co.uk/integrations/users/${userID}/groups`, {
-            //     headers: {
-            //         'Content-Type': 'application/json',
-            //         'Authorization': `Bearer ${accessToken}`
-            //     }
-            // });
+            const [userResponse, groupsResponse] = await Promise.all([
+                fetch(`https://api.idsimplify.co.uk/integrations/users/${userID}`, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${accessToken}`
+                    }
+                }),
+                fetch(`https://api.idsimplify.co.uk/integrations/users/${userID}/groups`, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${accessToken}`
+                    }
+                })
+            ]);
 
             const userData = await userResponse.json();
-            // const u = JSON.parse(userData);
-            
             setUser(userData);
 
-
-            console.log(user);
-
-            // const groupsData = await groupsResponse.json();
-            // setGroups([...groupsData.value]);
+            const groupsData = await groupsResponse.json();
+            setGroups([...groupsData.value]);
         }
         catch (err) {
             console.log(err);
@@ -90,37 +86,55 @@ const CUsersDetailsModal = (props) => {
         <SideModal
             className={classes.root}
         >
-            <h1>Users Name</h1>
-            <p>{params.userId}</p>
-            <p>{user && user.displayName}</p>
+            {
+                isLoading ? (
+                    <p>Loading...</p>
+                ) : (
+                    <>
+                        <h1>{user && user.displayName}</h1>
+                        <p>{user && user.mail}</p>
 
-            <h3>User Details</h3>
+                        <button>Reset Password</button>
+                        <button>Block Sign in</button>
 
-            <form
-                className={classes.form}
-            >
-                <TextFieldWLabel
-                    id='fName'
-                    labelText='First name'
-                />
-                <TextFieldWLabel
-                    id='lName'
-                    labelText='Last name'
-                />
-                <TextFieldWLabel
-                    id='email'
-                    labelText='Email address'
-                />
-            </form>
+                        <h3>User Details</h3>
 
-            <h3>Groups</h3>
+                        <form
+                            className={classes.form}
+                        >
+                            <TextFieldWLabel
+                                id='fName'
+                                labelText='First name'
+                            />
+                            <TextFieldWLabel
+                                id='lName'
+                                labelText='Last name'
+                            />
+                            <TextFieldWLabel
+                                id='email'
+                                labelText='Email address'
+                            />
+                        </form>
 
-            <SideModalTable
-                className={classes.groupsTable}
-                headings={UserOrgPermissionsTableCols}
-            >
+                        <h3>Groups</h3>
 
-            </SideModalTable>
+                        <SideModalTable
+                            className={classes.groupsTable}
+                            headings={UserOrgPermissionsTableCols}
+                        >
+                            {
+                                groups.map(group => (
+                                    <TableRow
+                                        cols={UserOrgPermissionsTableCols}
+                                        data={group}
+                                    />
+                                ))
+                            }
+                        </SideModalTable>
+                        <p>{groups.length} groups found</p>
+                    </>
+                )
+            }
         </SideModal>
     );
 };

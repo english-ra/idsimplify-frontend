@@ -68,9 +68,7 @@ const CUsers = (props) => {
             });
 
             const data = await response.json();
-
-            const usersData = [...data.value];
-            setUsers(usersData);
+            setUsers([...data.value]);
         }
         catch (err) {
             console.log(err);
@@ -91,24 +89,27 @@ const CUsers = (props) => {
                 headings={UserTableColumns}
             >
                 {
-                    isLoading ? (
-                        <p>Loading...</p>
-                    ) : (
-                        users.length === 0 ? (
-                            <p>No users found</p>
-                        ) : (
-                            users.map(user => (
-                                <TableRow
-                                    cols={UserTableColumns}
-                                    data={user}
-                                    onClick={rowClickHandler}
-                                />
-                            ))
-                        )
-                    )
+                    users.map(user => (
+                        <TableRow
+                            cols={UserTableColumns}
+                            data={user}
+                            onClick={rowClickHandler}
+                        />
+                    ))
                 }
             </Table>
-            <p>{users.length} users found</p>
+
+            {
+                isLoading ? (
+                    <p>Loading...</p>
+                ) : (
+                    users.length === 0 ? (
+                        <p>No users found</p>
+                    ) : (
+                        <p>{users.length} users found</p>
+                    )
+                )
+            }
 
             <Outlet />
         </>
