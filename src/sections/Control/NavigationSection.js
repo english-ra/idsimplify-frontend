@@ -41,7 +41,6 @@ const NavigationSection = (props) => {
                     </li>
                 ))}
             </ul>
-            )
         </div>
     );
 };
