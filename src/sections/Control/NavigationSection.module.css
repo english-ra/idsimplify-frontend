@@ -49,14 +49,14 @@
 
 .list.active {
     opacity: 1;
-    visibility: visible;
+    display: block;
     transform: translateY(0);
     transition: 0.2s ease;
 }
 
 .list.inactive {
     opacity: 0;
-    visibility: hidden;
+    display: none;
     transform: translateY(0);
     transition: 0.2s ease;
 }

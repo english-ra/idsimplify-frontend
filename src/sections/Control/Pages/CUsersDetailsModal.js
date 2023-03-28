@@ -3,7 +3,6 @@
 // Created by Reece English on 27.03.2023
 
 import { useParams } from 'react-router-dom';
-
 import InputLabel from '../../../components/InputFields/InputLabel';
 import TextFieldWLabel from '../../../components/InputFields/TextFieldWLabel';
 import OrgPermissionTableRow from '../../../components/Table/Rows/OrgPermissionTableRow';
@@ -11,29 +10,81 @@ import SideModalTable from '../../../components/Table/Tables/SideModalTable';
 import ToggleSwitch from '../../../components/ToggleSwitch/ToggleSwitch';
 import SideModal from '../../../components/layout/SideModal';
 import classes from './CUsersDetailsModal.module.css';
+import { useEffect, useState } from 'react';
+import { useAuth0 } from '@auth0/auth0-react';
 
 const UserOrgPermissionsTableCols = [
     {
         id: 0,
         friendlyTitle: 'Name',
-        dataKey: 'orgName'
+        dataKey: 'displayName'
     },
     {
         id: 1,
-        friendlyTitle: 'Control',
-        dataKey: 'control'
-    },
-    {
-        id: 2,
-        friendlyTitle: 'Partner Portal',
-        dataKey: 'pp'
+        friendlyTitle: 'Address',
+        dataKey: 'mail'
     }
 ];
 
 const CUsersDetailsModal = (props) => {
     const params = useParams();
+    const [user, setUser] = useState(null);
+    const [groups, setGroups] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
+    const { getAccessTokenWithPopup } = useAuth0();
 
-    const closeButtonHandler = () => {};
+    useEffect(() => {
+        getData();
+    }, []);
+
+    const getData = async () => {
+
+        // Get the users ID
+        const userID = params.userId;
+        console.log(userID);
+
+        setIsLoading(true);
+        try {
+            // Get the users access token
+            const accessToken = await getAccessTokenWithPopup({ // TODO: Change to quietly when hosted
+                authorizationParams: {
+                    audience: 'https://api.idsimplify.co.uk',
+                    scope: 'access'
+                }
+            });
+
+            // Get the data
+            const userResponse = await fetch(`https://api.idsimplify.co.uk/integrations/users/${userID}`, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${accessToken}`
+                }
+            });
+
+            // const groupsResponse = await fetch(`https://api.idsimplify.co.uk/integrations/users/${userID}/groups`, {
+            //     headers: {
+            //         'Content-Type': 'application/json',
+            //         'Authorization': `Bearer ${accessToken}`
+            //     }
+            // });
+
+            const userData = await userResponse.json();
+            // const u = JSON.parse(userData);
+            
+            setUser(userData);
+
+
+            console.log(user);
+
+            // const groupsData = await groupsResponse.json();
+            // setGroups([...groupsData.value]);
+        }
+        catch (err) {
+            console.log(err);
+        }
+        setIsLoading(false);
+    };
+
 
     return (
         <SideModal
@@ -41,6 +92,7 @@ const CUsersDetailsModal = (props) => {
         >
             <h1>Users Name</h1>
             <p>{params.userId}</p>
+            <p>{user && user.displayName}</p>
 
             <h3>User Details</h3>
 
@@ -67,8 +119,7 @@ const CUsersDetailsModal = (props) => {
                 className={classes.groupsTable}
                 headings={UserOrgPermissionsTableCols}
             >
-                <OrgPermissionTableRow />
-                <OrgPermissionTableRow />
+
             </SideModalTable>
         </SideModal>
     );
