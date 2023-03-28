@@ -43,6 +43,20 @@
     background-color: #012d4b;
 }
 
-.active {
+.list a.active {
     font-weight: bold;
+}
+
+.list.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    transition: 0.2s ease;
+}
+
+.list.inactive {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(0);
+    transition: 0.2s ease;
 }

@@ -99,7 +99,7 @@ const AuthLandingPage = (props) => {
                                         <ul>
                                             {canAccessOC && <li><Link to={`/oc/${selectedTenancy.id}`}>Organisation Center</Link></li>}
                                             <li><Link to={`/control/${selectedTenancy.id}`}>Control</Link></li>
-                                            <li><Link to='/pp'>Partner Portal</Link></li>
+                                            <li><Link to={`/pp/${selectedTenancy.id}`}>Partner Portal</Link></li>
                                         </ul>
                                     )
                                 }
