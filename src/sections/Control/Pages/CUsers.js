@@ -8,6 +8,7 @@ import { Outlet, useNavigate } from 'react-router-dom';
 import TableRow from '../../../components/Table/Rows/TableRow';
 import Table from '../../../components/Table/Tables/Table';
 import classes from './CUsers.module.css';
+import CircularButton from '../../../components/Buttons/CircularButton';
 
 const UserTableColumns = [
     {
@@ -80,9 +81,18 @@ const CUsers = (props) => {
         navigate(`${userID}`);
     };
 
+    const createUserButtonHandler = () => {
+        console.log('Click');
+    };
+
     return (
         <>
-            <h1>Users</h1>
+            <div className={classes.titleDiv}>
+                <h1>Users</h1>
+                <CircularButton
+                    text='+'
+                />
+            </div>
 
             <Table
                 className={classes.table}
