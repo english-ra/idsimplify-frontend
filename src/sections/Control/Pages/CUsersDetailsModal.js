@@ -92,7 +92,7 @@ const CUsersDetailsModal = (props) => {
                 ) : (
                     <>
                         <h1>{user && user.displayName}</h1>
-                        <p>{user && user.mail}</p>
+                        <p>{user && user.userPrincipalName}</p>
 
                         <button>Reset Password</button>
                         <button>Block Sign in</button>

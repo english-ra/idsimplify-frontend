@@ -28,8 +28,8 @@ const UserTableColumns = [
     },
     {
         id: 3,
-        friendlyTitle: 'Email',
-        dataKey: 'mail'
+        friendlyTitle: 'UPN',
+        dataKey: 'userPrincipalName'
     },
     {
         id: 4,
@@ -82,7 +82,7 @@ const CUsers = (props) => {
     };
 
     const createUserButtonHandler = () => {
-        console.log('Click');
+        navigate('create');
     };
 
     return (
@@ -91,6 +91,7 @@ const CUsers = (props) => {
                 <h1>Users</h1>
                 <CircularButton
                     text='+'
+                    onClick={createUserButtonHandler}
                 />
             </div>
 

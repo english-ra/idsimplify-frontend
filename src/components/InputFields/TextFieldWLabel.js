@@ -11,7 +11,11 @@ const TextFieldWLabel = (props) => {
         <div className={`${props.className} ${classes.div}`}>
             <InputLabel for={props.id}>{props.labelText}</InputLabel>
             <br />
-            <InputTextField id={props.id} />
+            <InputTextField
+                id={props.id}
+                type={props.type}
+                onChange={props.onChange}
+            />
             <br />
         </div>
     );

@@ -1,0 +1,13 @@
+.select {
+    background-color: white;
+
+    margin-top: 5px;
+    margin-bottom: 10px;
+    height: 32px;
+
+    border-width: 2px;
+    border-style: solid;
+    border-radius: 6px;
+
+    text-indent: 10px;
+}

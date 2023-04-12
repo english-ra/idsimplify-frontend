@@ -2,11 +2,12 @@
 // iDSimplify Frontend
 // Created by Reece English on 28.02.2023
 
-// import classes from './Dropdown.module.css';
+import classes from './Dropdown.module.css';
 
 const Dropdown = (props) => {
 
-    const tenancyData = props.data || [];
+    const data = props.data || [];
+    const dataKey = props.dataKey || 'name';
 
     const selectChangeHandler = (event) => {
         const i = event.target.selectedIndex - 1;
@@ -14,7 +15,7 @@ const Dropdown = (props) => {
         if (i === -1) {
             props.onSelected(null);
         } else {
-            props.onSelected(tenancyData[i]);
+            props.onSelected(data[i]);
         }
     };
 
@@ -23,10 +24,14 @@ const Dropdown = (props) => {
             <label>{props.title}</label>
 
             <select
+                id={props.id}
+                name={props.id}
+                title={props.id}
+                className={classes.select}
                 onChange={selectChangeHandler}
             >
                 <option>Please select</option>
-                {tenancyData.map(data => (<option key={data.id}>{data.name}</option>))}
+                {data.map(d => (<option key={d.id}>{d[dataKey]}</option>))}
             </select>
         </div>
     );
