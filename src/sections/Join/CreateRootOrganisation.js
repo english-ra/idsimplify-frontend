@@ -61,14 +61,14 @@ const CreateRootOrganisation = () => {
     return (
         <>
             <h1 className={classes.h1}>
-                Create your Organisation
+                Create your Tenancy
             </h1>
 
             <form
                 className={classes.form}
                 onSubmit={submitHandler}
             >
-                <InputLabel for='orgField'>Organisation name:</InputLabel>
+                <InputLabel for='orgField'>Tenancy name:</InputLabel>
                 <InputTextField id='orgField' onChange={nameChangeHandler} />
                 <InputSubmitButton value='Create' />
             </form>
