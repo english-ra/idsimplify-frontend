@@ -5,6 +5,7 @@
 import { Outlet } from "react-router-dom";
 import Table from "../../../../components/Table/Tables/Table";
 import TableRow from "../../../../components/Table/Rows/TableRow";
+import CircularButton from '../../../../components/Buttons/CircularButton';
 
 import classes from './OCOrganisations.module.css';
 
@@ -27,7 +28,13 @@ const OCOrganisations = (props) => {
 
     return (
         <>
-            <h1>Organisations</h1>
+            <div className={classes.titleDiv}>
+                <h1>Organisations</h1>
+                <CircularButton
+                    text='+'
+                    // onClick={createUserButtonHandler}
+                />
+            </div>
 
             <Table
                 className={classes.table}

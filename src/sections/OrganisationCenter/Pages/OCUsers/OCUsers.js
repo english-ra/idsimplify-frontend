@@ -4,6 +4,7 @@
 
 import Table from "../../../../components/Table/Tables/Table";
 import TableRow from "../../../../components/Table/Rows/TableRow";
+import CircularButton from '../../../../components/Buttons/CircularButton';
 
 import classes from './OCUsers.module.css';
 import { Outlet } from "react-router-dom";
@@ -59,7 +60,13 @@ const OCUsers = (props) => {
 
     return (
         <>
-            <h1>Users</h1>
+            <div className={classes.titleDiv}>
+                <h1>Users</h1>
+                <CircularButton
+                    text='+'
+                    // onClick={createUserButtonHandler}
+                />
+            </div>
 
             <Table
                 className={classes.table}
