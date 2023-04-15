@@ -92,6 +92,7 @@ const AuthLandingPage = (props) => {
                             <>
                                 <p>Please select the tenacy to work with?</p>
                                 <Dropdown
+                                    className={classes.tenancyDropdown}
                                     title='Tenancy: '
                                     data={tenancies}
                                     onSelected={selectedTenancyHandler}
@@ -114,7 +115,7 @@ const AuthLandingPage = (props) => {
                 }
                 <Link to='/join'>Register a New Tenancy</Link>
 
-                { !isLoading && error && <p>{error}</p> }
+                {!isLoading && error && <p>{error}</p>}
             </LayoutInner>
         </LayoutAuthed>
     );

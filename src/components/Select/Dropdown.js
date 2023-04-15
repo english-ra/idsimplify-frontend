@@ -27,7 +27,7 @@ const Dropdown = (props) => {
                 id={props.id}
                 name={props.id}
                 title={props.id}
-                className={classes.select}
+                className={`${classes.select} ${props.className}`}
                 onChange={selectChangeHandler}
             >
                 <option>Please select</option>
