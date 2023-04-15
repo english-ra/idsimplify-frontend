@@ -66,7 +66,7 @@ const AuthLandingPage = (props) => {
         }
 
         // Check whether the user has permission to access Organisation Center
-        if (selectedTenancy.permissions.includes("role|2f6389a6-5c53-4be1-8db7-1f991e56ab5d")) { setCanAccessOC(true); }
+        if (selectedTenancy.permissions.includes('iD-P-1')) { setCanAccessOC(true); }
         else { setCanAccessOC(false); }
     };
 
