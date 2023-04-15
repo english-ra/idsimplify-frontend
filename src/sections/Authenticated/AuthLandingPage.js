@@ -16,6 +16,7 @@ const AuthLandingPage = (props) => {
     const [tenancies, setTenancies] = useState([]);
     const [selectedTenancy, setSelectedTenancy] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState(null);
     const [canAccessOC, setCanAccessOC] = useState(false);
 
     useEffect(() => {
@@ -28,6 +29,7 @@ const AuthLandingPage = (props) => {
 
     const getTenancies = async () => {
         setIsLoading(true);
+        setError(null);
         try {
             // Get the users access token
             const accessToken = await getAccessTokenWithPopup({ // TODO: Change to quietly when hosted
@@ -45,10 +47,13 @@ const AuthLandingPage = (props) => {
                 }
             });
 
+            if (response.status != 200) { throw new Error('Error whilst fetching tenancies. Please try again.'); }
+
             setTenancies(await response.json());
         }
-        catch (err) {
-            console.log(err);
+        catch (error) {
+            console.log(error);
+            setError(error.message);
         }
         setIsLoading(false);
     };
@@ -108,6 +113,8 @@ const AuthLandingPage = (props) => {
                     )
                 }
                 <Link to='/join'>Register a New Tenancy</Link>
+
+                { !isLoading && error && <p>{error}</p> }
             </LayoutInner>
         </LayoutAuthed>
     );
