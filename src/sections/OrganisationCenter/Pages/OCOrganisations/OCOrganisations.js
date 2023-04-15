@@ -2,12 +2,13 @@
 // iDSimplify Frontend
 // Created by Reece English on 21.02.2023
 
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import Table from "../../../../components/Table/Tables/Table";
 import TableRow from "../../../../components/Table/Rows/TableRow";
 import CircularButton from '../../../../components/Buttons/CircularButton';
 
 import classes from './OCOrganisations.module.css';
+import { useState } from "react";
 
 const OrgTableColumns = [
     {
@@ -18,13 +19,12 @@ const OrgTableColumns = [
 ];
 
 const OCOrganisations = (props) => {
+    const [organisations, setOrganisations] = useState([]);
 
-    let orgData = [
-        {
-            id: 0,
-            name: 'The Big Hotel Ltd'
-        }
-    ];
+    const navigate = useNavigate();
+
+    const rowClickHandler = (organisationID) => { navigate(`${organisationID}`); };
+    const createOrganisationButtonHandler = () => { navigate('create'); };
 
     return (
         <>
@@ -32,7 +32,7 @@ const OCOrganisations = (props) => {
                 <h1>Organisations</h1>
                 <CircularButton
                     text='+'
-                    // onClick={createUserButtonHandler}
+                    onClick={createOrganisationButtonHandler}
                 />
             </div>
 
@@ -40,7 +40,7 @@ const OCOrganisations = (props) => {
                 className={classes.table}
                 headings={OrgTableColumns}
             >
-                {orgData.map(org => (<TableRow cols={OrgTableColumns} data={org} />))}
+                {organisations.map(organisation => (<TableRow cols={OrgTableColumns} data={organisation} />))}
             </Table>
 
             <Outlet />

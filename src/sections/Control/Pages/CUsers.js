@@ -77,13 +77,9 @@ const CUsers = (props) => {
         setIsLoading(false);
     };
 
-    const rowClickHandler = (userID) => {
-        navigate(`${userID}`);
-    };
+    const rowClickHandler = (userID) => { navigate(`${userID}`); };
 
-    const createUserButtonHandler = () => {
-        navigate('create');
-    };
+    const createUserButtonHandler = () => { navigate('create'); };
 
     return (
         <>
