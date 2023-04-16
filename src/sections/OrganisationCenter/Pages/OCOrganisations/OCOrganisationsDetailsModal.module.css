@@ -9,3 +9,36 @@
 .table {
     width: 100%;
 }
+
+
+.tableFooter {
+    margin-bottom: 30px;
+}
+
+
+.subTitleDiv {
+    overflow: hidden;
+}
+
+.subTitleDiv h3, .subTitleDiv button {
+    float: left;
+}
+
+.subTitleDiv h3 {
+    margin-top: 2px;
+}
+
+.subTitleDiv button {
+    margin-left: 8px;
+
+    background-color: #47B5FF;
+    border-color: #47B5FF;
+    color: white;
+}
+
+.subTitleDiv button:hover {
+    transition-duration: 0.4s;
+    background-color: white;
+    color: #06283D;
+    border-color: #06283D;
+}

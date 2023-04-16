@@ -77,7 +77,7 @@ const OCOrganisations = (props) => {
                 className={classes.table}
                 headings={OrgTableColumns}
             >
-                {organisations.map(organisation => (<TableRow cols={OrgTableColumns} data={organisation} />))}
+                {organisations.map(organisation => (<TableRow cols={OrgTableColumns} data={organisation} onClick={rowClickHandler} />))}
             </Table>
 
             {

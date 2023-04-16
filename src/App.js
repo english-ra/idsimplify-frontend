@@ -68,22 +68,8 @@ const router = createBrowserRouter([
                                 element: <OCOrganisationsCreateModal />
                             },
                             {
-                                path: '/oc/:tenancyId/organisations/:orgId',
-                                element: <OCOrganisationsDetailsModal />,
-                                children: [
-                                    {
-                                        path: '/oc/:tenancyId/organisations/:orgId/details',
-                                        element: <h1>Details</h1>
-                                    },
-                                    {
-                                        path: '/oc/:tenancyId/organisations/:orgId/integrations',
-                                        element: <h1>Integrations</h1>
-                                    },
-                                    {
-                                        path: '/oc/:tenancyId/organisations/:orgId/users',
-                                        element: <h1>Users</h1>
-                                    }
-                                ]
+                                path: '/oc/:tenancyId/organisations/:organisationId',
+                                element: <OCOrganisationsDetailsModal />
                             }
                         ]
                     }
