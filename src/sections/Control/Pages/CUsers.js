@@ -4,11 +4,13 @@
 
 import { useAuth0 } from '@auth0/auth0-react';
 import { useEffect, useState } from 'react';
-import { Outlet, useNavigate } from 'react-router-dom';
+import { Outlet, useNavigate, useParams } from 'react-router-dom';
 import TableRow from '../../../components/Table/Rows/TableRow';
 import Table from '../../../components/Table/Tables/Table';
 import classes from './CUsers.module.css';
 import CircularButton from '../../../components/Buttons/CircularButton';
+import Dropdown from '../../../components/Select/Dropdown';
+import InputLabel from '../../../components/InputFields/InputLabel';
 
 const UserTableColumns = [
     {
@@ -39,27 +41,66 @@ const UserTableColumns = [
 ];
 
 const CUsers = (props) => {
+    const [organisations, setOrganisations] = useState([]);
     const [users, setUsers] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const { getAccessTokenWithPopup } = useAuth0();
-
     const navigate = useNavigate();
+    const params = useParams();
+
+    var accessToken;
 
     useEffect(() => {
-        getUsersFromIntegration();
+        getData();
     }, []);
 
-    const getUsersFromIntegration = async () => {
-        setIsLoading(true);
+    const getData = async () => {
+        await getAccessToken();
+        getUsersOrganisations();
+        getUsersFromIntegration();
+    };
+
+
+    const getAccessToken = async () => {
         try {
             // Get the users access token
-            const accessToken = await getAccessTokenWithPopup({ // TODO: Change to quietly when hosted
+            accessToken = await getAccessTokenWithPopup({ // TODO: Change to quietly when hosted
                 authorizationParams: {
                     audience: 'https://api.idsimplify.co.uk',
                     scope: 'access'
                 }
             });
+        }
+        catch (err) {
+            console.log(err);
+        }
+    };
 
+    const getUsersOrganisations = async () => {
+        setIsLoading(true);
+        try {
+            // Get the data
+            const response = await fetch(`https://api.idsimplify.co.uk/users/me/tenancies/${params.tenancyId}/organisations`, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${accessToken}`
+                }
+            });
+
+            const data = await response.json();
+            console.log('Orgs');
+            console.log(data);
+            setOrganisations(data);
+        }
+        catch (err) {
+            console.log(err);
+        }
+        setIsLoading(false);
+    };
+
+    const getUsersFromIntegration = async () => {
+        setIsLoading(true);
+        try {
             // Get the data
             const response = await fetch('https://api.idsimplify.co.uk/integrations/users', {
                 headers: {
@@ -90,6 +131,14 @@ const CUsers = (props) => {
                     onClick={createUserButtonHandler}
                 />
             </div>
+
+            <InputLabel for='organisationDropdown' >Organisation:</InputLabel>
+            <Dropdown
+                id='organisationDropdown'
+                className={classes.dropdown}
+                data={organisations}
+                dataKey='name'
+            />
 
             <Table
                 className={classes.table}

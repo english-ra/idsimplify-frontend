@@ -2,6 +2,10 @@
     width: 100%;
 }
 
+.dropdown {
+    width: 300px;
+}
+
 .titleDiv {
     overflow: hidden;
 }

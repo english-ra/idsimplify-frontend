@@ -59,12 +59,15 @@ const OCOrganisationsDetailsModal = (props) => {
                 })
             ]);
 
-            const organisationData = await organisationResponse.json();
-            setOrganisation(organisationData);
+            if (organisationResponse.status === 200) {
+                const organisationData = await organisationResponse.json();
+                setOrganisation(organisationData);
+            }
 
-            const integrationsData = await integrationsResponse.json();
-            console.log(integrationsData);
-            setIntegrations(integrationsData);
+            if (integrationsResponse.status === 200) {
+                const integrationsData = await integrationsResponse.json();
+                setIntegrations(integrationsData);
+            }
         }
         catch (err) {
             console.log(err);
