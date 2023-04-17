@@ -1,0 +1,7 @@
+.h1 {
+    margin-bottom: 0;
+}
+
+.form input[type='text'] {
+    width: 98%;
+}

@@ -7,7 +7,7 @@ import TableRow from "../../../../components/Table/Rows/TableRow";
 import CircularButton from '../../../../components/Buttons/CircularButton';
 
 import classes from './OCUsers.module.css';
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 
 const UserTableColumns = [
     {
@@ -33,30 +33,11 @@ const UserTableColumns = [
 ];
 
 const OCUsers = (props) => {
+    const navigate = useNavigate();
 
-    let userData = [
-        {
-            id: 0,
-            fName: "Reece",
-            lName: "English",
-            username: "englishra",
-            email: "reece@idsimplify.co.uk"
-        },
-        {
-            id: 1,
-            fName: "Reece",
-            lName: "English",
-            username: "englishra",
-            email: "reece@idsimplify.co.uk"
-        },
-        {
-            id: 2,
-            fName: "Reece",
-            lName: "English",
-            username: "englishra",
-            email: "reece@idsimplify.co.uk"
-        }
-    ];
+    const addUserButtonHandler = () => {
+        navigate('create');
+    };
 
     return (
         <>
@@ -64,7 +45,7 @@ const OCUsers = (props) => {
                 <h1>Users</h1>
                 <CircularButton
                     text='+'
-                    // onClick={createUserButtonHandler}
+                    onClick={addUserButtonHandler}
                 />
             </div>
 
@@ -72,7 +53,7 @@ const OCUsers = (props) => {
                 className={classes.table}
                 headings={UserTableColumns}
             >
-                {userData.map(user => (<TableRow cols={UserTableColumns} data={user} />))}
+                {/* {userData.map(user => (<TableRow cols={UserTableColumns} data={user} />))} */}
             </Table>
 
             <Outlet />

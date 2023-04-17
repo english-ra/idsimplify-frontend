@@ -6,7 +6,7 @@ import classes from './InputSubmitButton.module.css';
 
 const InputSubmitButton = (props) => {
     return (
-        <input type='submit' className={classes.button} value={props.value}></input>
+        <input type='submit' className={classes.button} value={props.value} disabled={props.disabled}></input>
     );
 };
 

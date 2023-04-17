@@ -19,6 +19,7 @@ import CUsers from './sections/Control/Pages/CUsers';
 import CUsersDetailsModal from './sections/Control/Pages/CUsersDetailsModal';
 import CUsersCreateModal from './sections/Control/Pages/CUsersCreateModal';
 import OCOrganisationsCreateModal from './sections/OrganisationCenter/Pages/OCOrganisations/OCOrganisationsCreateModal';
+import OCUsersCreateModal from './sections/OrganisationCenter/Pages/OCUsers/OCUsersCreateModal';
 
 const router = createBrowserRouter([
     {
@@ -53,6 +54,10 @@ const router = createBrowserRouter([
                         path: '/oc/:tenancyId/users',
                         element: <OCUsers />,
                         children: [
+                            {
+                                path: '/oc/:tenancyId/users/create',
+                                element: <OCUsersCreateModal />
+                            },
                             {
                                 path: '/oc/:tenancyId/users/:userId',
                                 element: <OCUsersDetailsModal />
