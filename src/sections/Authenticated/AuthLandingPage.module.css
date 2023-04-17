@@ -9,3 +9,38 @@
 .tenancyDropdown {
     width: 250px;
 }
+
+.nav {
+    list-style-type: none;
+    margin: 0 auto 0 auto;
+    padding: 0;
+}
+
+.nav li {
+    display: inline-block;
+}
+
+.nav li a {
+    display: block;
+    padding: 10px 16px;
+    text-decoration: none;
+    margin: 10px;
+
+    border-radius: 10px;
+}
+
+.nav li a:hover {
+    filter: brightness(85%);
+}
+
+.ocLink {
+    background-color: #badfda;
+}
+
+.cLink {
+    background-color: #f6b4bf;
+}
+
+.ppLink {
+    background-color: #f8df81;
+}
