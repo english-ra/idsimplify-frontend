@@ -87,10 +87,11 @@ const CUsers = (props) => {
                 }
             });
 
-            const data = await response.json();
-            console.log('Orgs');
-            console.log(data);
-            setOrganisations(data);
+            if (response.status === 200) {
+                const data = await response.json();
+                console.log(data);
+                setOrganisations(data);
+            }
         }
         catch (err) {
             console.log(err);

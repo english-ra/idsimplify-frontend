@@ -14,7 +14,7 @@ import { useEffect, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 
 const integrationTableColumns = [
-    { id: 0, friendlyTitle: 'Integration', dataKey: 'name' },
+    { id: 0, friendlyTitle: 'Name', dataKey: 'name' },
     { id: 2, friendlyTitle: 'Type', dataKey: 'type' }
 ];
 const usersTableColumns = [{ id: 0, friendlyTitle: 'Name', dataKey: 'name' }, { id: 1, friendlyTitle: 'Address', dataKey: 'address' }];
@@ -66,6 +66,7 @@ const OCOrganisationsDetailsModal = (props) => {
 
             if (integrationsResponse.status === 200) {
                 const integrationsData = await integrationsResponse.json();
+                console.log(integrationsData);
                 setIntegrations(integrationsData);
             }
         }
