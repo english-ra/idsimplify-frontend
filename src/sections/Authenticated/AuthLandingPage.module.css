@@ -1,0 +1,11 @@
+.inner {
+    text-align: center;
+}
+
+.inner h1 {
+    margin-top: 0;
+}
+
+.tenancyDropdown {
+    width: 250px;
+}

@@ -14,20 +14,15 @@
 
 .links a {
     display: block;
-    height: 160px;
+    /* height: 160px; */
     width: 200px;
     padding: 10px;
+
+    margin-left: auto;
+    margin-right: auto;
 
     background-color: lightcyan;
     border-radius: 25px;
     text-decoration: none;
     color: #06283D;
-}
-
-.signup {
-    float: left;
-}
-
-.login {
-    float: right;
 }

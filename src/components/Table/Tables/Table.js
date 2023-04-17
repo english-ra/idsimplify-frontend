@@ -17,7 +17,7 @@ const Table = (props) => {
                 </tbody>
             </table>
 
-            <CircularButton className={classes.colButton} text='...' />
+            {/* <CircularButton className={classes.colButton} text='...' /> */}
         </div>
     );
 };

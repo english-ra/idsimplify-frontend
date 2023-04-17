@@ -1,34 +1,25 @@
-.root {
-    z-index: 1;
-}
-
-.navMenu {
-    width: 100%;
-}
-
 .table {
     width: 100%;
 }
 
-
-.tableFooter {
-    margin-bottom: 30px;
+.dropdown {
+    width: 300px;
 }
 
-
-.subTitleDiv {
+.titleDiv {
     overflow: hidden;
 }
 
-.subTitleDiv h3, .subTitleDiv button {
+.titleDiv h1, .titleDiv button {
     float: left;
 }
 
-.subTitleDiv h3 {
-    margin-top: 2px;
+.titleDiv h1 {
+    margin-top: 0;
 }
 
-.subTitleDiv button {
+.titleDiv button {
+    margin-top: 8px;
     margin-left: 8px;
 
     background-color: #47B5FF;
@@ -36,7 +27,7 @@
     color: white;
 }
 
-.subTitleDiv button:hover {
+.titleDiv button:hover {
     transition-duration: 0.4s;
     background-color: white;
     color: #06283D;

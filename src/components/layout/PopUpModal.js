@@ -1,12 +1,12 @@
-// SideModal.js
+// PopUpModal.js
 // iDSimplify Frontend
-// Created by Reece English on 28.02.2023
+// Created by Reece English on 17.04.2023
 
 import { useNavigate } from 'react-router-dom';
 import CircularButton from '../Buttons/CircularButton';
-import classes from './SideModal.module.css';
+import classes from './PopUpModal.module.css';
 
-const SideModal = (props) => {
+const PopUpModal = (props) => {
 
     const navigate = useNavigate();
 
@@ -26,4 +26,4 @@ const SideModal = (props) => {
     );
 };
 
-export default SideModal;
+export default PopUpModal;

@@ -1,11 +1,11 @@
 .root {
-    background-color: #FCFEFF;
-    border-right: 2px solid;
+    background-color: #06283D;
 }
 
 .logo > * {
     text-align: center;
     margin: 0;
+    color: #FCFEFF;
 }
 
 .logo h1 {
@@ -17,8 +17,9 @@
     font-weight: bold;
 }
 
-.secondaryNav {
-    position: absolute;
+.navList {
+    list-style-type: none;
+    margin: 20px 0 0 0;
+    padding: 0;
     width: 100%;
-    bottom: 20px;
 }

@@ -6,7 +6,12 @@ import classes from './InputTextField.module.css';
 
 const InputTextField = (props) => {
     return (
-        <input type='text' className={classes.textfield} id={props.id} />
+        <input
+            type={props.type || 'text'}
+            className={classes.textfield}
+            id={props.id}
+            onChange={props.onChange}
+        />
     );
 };
 

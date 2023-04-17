@@ -1,0 +1,81 @@
+.root {
+    z-index: 1;
+}
+
+.menuTrigger {
+    padding: 10px;
+    overflow: hidden;
+}
+
+.menuTrigger:hover {
+    background-color: lightgray;
+}
+
+.nameText, .profileImage {
+    float: right;
+}
+
+.nameText {
+    margin-top: 10px;
+    margin-right: 10px;
+    margin-bottom: 0;
+    user-select: none;
+
+    max-width: 250px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.profileImage {
+    height: 38px;
+    width: 38px;
+    border-radius: 50%;
+    background-color: cyan;
+}
+
+.menu {
+    position: absolute;
+    right: 0;
+    padding: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    background-color: white;
+
+    max-width: 250px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    text-align: center;
+}
+
+.menu.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    transition: 0.2s ease;
+}
+
+.menu.inactive {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(0);
+    transition: 0.2s ease;
+}
+
+.menuList {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+
+.menuList li a {
+    display: block;
+    padding: 8px 16px;
+    text-decoration: none;
+}
+
+.menuList li a:hover {
+    background-color: lightgray;
+}

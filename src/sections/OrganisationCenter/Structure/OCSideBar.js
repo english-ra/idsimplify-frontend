@@ -28,7 +28,7 @@ const OCLinkData = [
 
 const OCSideBar = (props) => {
     return (
-        <aside className={props.className}>
+        <aside className={`${classes.root} ${props.className}`}>
 
             <div className={classes.logo}>
                 <h1>iDSimplify</h1>

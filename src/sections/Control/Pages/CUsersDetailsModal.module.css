@@ -10,11 +10,11 @@
     width: 100%;
 }
 
-.orgPermissionsTable {
+.groupsTable {
     width: 100%;
 }
 
-.orgPermissionsTable th:nth-child(2), .orgPermissionsTable th:nth-child(3) {
+.groupsTable th:nth-child(2), .groupsTable th:nth-child(3) {
     width: 25%;
     text-align: center;
 }

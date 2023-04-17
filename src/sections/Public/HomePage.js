@@ -2,13 +2,17 @@
 // iDSimplify Frontend
 // Created by Reece English on 04.03.2023
 
+import { useAuth0 } from '@auth0/auth0-react';
 import { Link } from 'react-router-dom';
+import Auth0ProviderWithHistory from '../../Authentication/auth0Provider';
 import LayoutInner from '../../components/layout/LayoutInner';
 import LayoutPublic from '../../components/layout/LayoutPublic';
 
 import classes from './HomePage.module.css';
 
 const HomePage = (props) => {
+    const { loginWithRedirect } = useAuth0();
+
     return (
         <LayoutPublic>
             <LayoutInner
@@ -21,21 +25,14 @@ const HomePage = (props) => {
 
                 <div className={classes.links}>
                     <Link
-                        className={classes.signup}
-                        to='join'
-                    >
-                        <h3>Sign up</h3>
-                        <span>Click here to register your organisation with iDSimplify and simplify your ID management today!</span>
-                    </Link>
-
-                    <Link
                         className={classes.login}
-                        to='auth'
+                        onClick={() => loginWithRedirect()}
                     >
-                        <h3>Login</h3>
-                        <span>Click here if you already apart of an organisation</span>
+                        <h3>Login / Register</h3>
                     </Link>
                 </div>
+
+                <p>To register a new tenancy, you will first need to sign in or register. Please do so using the above button.</p>
             </LayoutInner>
         </LayoutPublic>
     );
