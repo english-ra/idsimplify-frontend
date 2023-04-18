@@ -13,6 +13,8 @@ import { useAuth0 } from '@auth0/auth0-react';
 
 const Profile = (props) => {
     const { getAccessTokenWithPopup } = useAuth0();
+    const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState(null);
     const [tenancyInvitationsLoading, setTenancyInvitationsLoading] = useState(false);
     const [invitations, setInvitations] = useState([]);
 
@@ -21,15 +23,30 @@ const Profile = (props) => {
     }, []);
 
     const getData = async () => {
-        setTenancyInvitationsLoading(true);
+        getTenancyInvitations();
+    };
+
+    const getAccessToken = async () => {
+        var accessToken = '';
         try {
             // Get the users access token
-            const accessToken = await getAccessTokenWithPopup({ // TODO: Change to quietly when hosted
+            accessToken = await getAccessTokenWithPopup({ // TODO: Change to quietly when hosted
                 authorizationParams: {
                     audience: 'https://api.idsimplify.co.uk',
                     scope: 'access'
                 }
             });
+        }
+        catch (err) {
+            console.log(err);
+        }
+        return accessToken;
+    };
+
+    const getTenancyInvitations = async () => {
+        setTenancyInvitationsLoading(true);
+        try {
+            const accessToken = await getAccessToken();
 
             // Get the data
             const response = await fetch(`https://api.idsimplify.co.uk/users/me/tenancies/invitations`, {
@@ -39,23 +56,75 @@ const Profile = (props) => {
                 }
             });
 
+            const data = await response.json();
+
             if (response.status === 200) {
-                const data = await response.json();
                 setInvitations([...data]);
+            } else {
+                throw new Error(data);
             }
         }
         catch (err) {
             console.log(err);
+            setError(error);
         }
         setTenancyInvitationsLoading(false);
     };
 
-    const acceptInvitationHandler = (invitation) => {
-        
+    const acceptInvitationHandler = async (invitation) => {
+        setIsLoading(true);
+        setError(null);
+        try {
+            const accessToken = await getAccessToken();
+
+            const response = await fetch(`https://api.idsimplify.co.uk/users/me/tenancies/invitations/${invitation.id}`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${accessToken}`
+                }
+            });
+
+            // Check the request was successfull
+            if (response.status === 200) {
+                getData();
+            } else {
+                const data = await response.json();
+                throw new Error(data);
+            }
+        } catch (error) {
+            console.log(error);
+            setError(error);
+        }
+        setIsLoading(false);
     };
 
-    const denyInvitationHandler = (invitation) => {
+    const denyInvitationHandler = async (invitation) => {
+        setIsLoading(true);
+        setError(null);
+        try {
+            const accessToken = await getAccessToken();
 
+            const response = await fetch(`https://api.idsimplify.co.uk/users/me/tenancies/invitations/${invitation.id}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${accessToken}`
+                }
+            });
+
+            // Check the request was successfull
+            if (response.status === 200) {
+                getData();
+            } else {
+                const data = await response.json();
+                throw new Error(data);
+            }
+        } catch (error) {
+            console.log(error);
+            setError(error);
+        }
+        setIsLoading(false);
     };
 
     return (
@@ -78,6 +147,7 @@ const Profile = (props) => {
                                     invitations.map(
                                         (invitation) => (
                                             <AcceptDenyBox
+                                                key={invitation.id}
                                                 data={invitation}
                                                 headingText={invitation.name}
                                                 subheadingText={`Invited by: ${invitation.invitedBy.name}`}
@@ -91,6 +161,7 @@ const Profile = (props) => {
                         )
                     )
                 }
+                {error && <p className='errorText'>{error.message}</p>}
             </LayoutInner>
         </LayoutAuthed>
     );

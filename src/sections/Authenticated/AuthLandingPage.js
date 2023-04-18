@@ -23,9 +23,9 @@ const AuthLandingPage = (props) => {
         getTenancies();
     }, [getAccessTokenWithPopup]);
 
-    useEffect(() => {
-        validatePermissions();
-    }, [selectedTenancy]);
+    // useEffect(() => {
+    //     validatePermissions();
+    // }, [selectedTenancy]);
 
     const getTenancies = async () => {
         setIsLoading(true);
@@ -104,7 +104,7 @@ const AuthLandingPage = (props) => {
                                 {
                                     selectedTenancy != null && (
                                         <ul className={classes.nav}>
-                                            {canAccessOC && <li><Link to={`/oc/${selectedTenancy.id}/users`} className={classes.ocLink}>Organisation Center</Link></li>}
+                                            <li><Link to={`/oc/${selectedTenancy.id}/users`} className={classes.ocLink}>Organisation Center</Link></li>
                                             <li><Link to={`/control/${selectedTenancy.id}/users`} className={classes.cLink}>Control</Link></li>
                                             <li><Link to={`/pp/${selectedTenancy.id}`} className={classes.ppLink}>Partner Portal</Link></li>
                                         </ul>

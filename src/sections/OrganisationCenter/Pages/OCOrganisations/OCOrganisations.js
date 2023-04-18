@@ -51,8 +51,12 @@ const OCOrganisations = (props) => {
             });
 
             const data = await response.json();
-            console.log(data);
-            setOrganisations([...data]);
+
+            if (response.status === 200) {
+                setOrganisations([...data]);
+            } else {
+                throw new Error(data);
+            }
         }
         catch (err) {
             console.log(err);
