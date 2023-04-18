@@ -2,7 +2,7 @@
 // iDSimplify Frontend
 // Created by Reece English on 05.03.2023
 
-import { Outlet, useParams } from "react-router-dom";
+import { Outlet, useNavigate, useParams } from "react-router-dom";
 
 import SideModal from "../../../../components/layout/SideModal";
 import Table from "../../../../components/Table/Tables/Table";
@@ -24,6 +24,7 @@ const usersTableColumns = [{ id: 0, friendlyTitle: 'Name', dataKey: 'name' }, { 
 const OCOrganisationsDetailsModal = (props) => {
     const { getAccessTokenWithPopup } = useAuth0();
     const params = useParams();
+    const navigate = useNavigate();
     const [isLoading, setIsLoading] = useState(false);
     const [organisation, setOrganisation] = useState(null);
     const [integrations, setIntegrations] = useState([]);
@@ -76,6 +77,8 @@ const OCOrganisationsDetailsModal = (props) => {
         setIsLoading(false);
     };
 
+    const createIntegrationHandler = () => { navigate('integrations/create'); };
+
     return (
         <SideModal
             className={classes.root}
@@ -104,6 +107,7 @@ const OCOrganisationsDetailsModal = (props) => {
                             <h3>Integrations</h3>
                             <CircularButton
                                 text='+'
+                                onClick={createIntegrationHandler}
                             />
                         </div>
 

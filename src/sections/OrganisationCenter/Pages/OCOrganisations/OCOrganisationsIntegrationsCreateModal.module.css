@@ -1,0 +1,11 @@
+.root {
+    z-index: 1;
+}
+
+.form input[type='text'], .form input[type='password'] {
+    width: 98%
+}
+
+.form select {
+    width: 100%;
+}

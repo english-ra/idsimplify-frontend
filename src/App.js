@@ -20,6 +20,7 @@ import CUsersDetailsModal from './sections/Control/Pages/CUsersDetailsModal';
 import CUsersCreateModal from './sections/Control/Pages/CUsersCreateModal';
 import OCOrganisationsCreateModal from './sections/OrganisationCenter/Pages/OCOrganisations/OCOrganisationsCreateModal';
 import OCUsersCreateModal from './sections/OrganisationCenter/Pages/OCUsers/OCUsersCreateModal';
+import OCOrganisationsIntegrationsCreateModal from './sections/OrganisationCenter/Pages/OCOrganisations/OCOrganisationsIntegrationsCreateModal';
 
 const router = createBrowserRouter([
     {
@@ -74,8 +75,12 @@ const router = createBrowserRouter([
                             },
                             {
                                 path: '/oc/:tenancyId/organisations/:organisationId',
-                                element: <OCOrganisationsDetailsModal />
-                            }
+                                element: <OCOrganisationsDetailsModal />,
+                            },
+                            {
+                                path: '/oc/:tenancyId/organisations/:organisationId/integrations/create',
+                                element: <OCOrganisationsIntegrationsCreateModal />
+                            },
                         ]
                     }
                 ]
