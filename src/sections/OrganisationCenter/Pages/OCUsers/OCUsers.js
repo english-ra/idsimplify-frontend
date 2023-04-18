@@ -26,6 +26,11 @@ const UserTableColumns = [
         id: 2,
         friendlyTitle: 'Email',
         dataKey: 'email'
+    },
+    {
+        id: 3,
+        friendlyTitle: 'Status',
+        dataKey: 'status'
     }
 ];
 
@@ -94,7 +99,7 @@ const OCUsers = (props) => {
                 {users.map(user => (<TableRow cols={UserTableColumns} data={user} onClick={rowClickHandler} />))}
             </Table>
 
-            <p>{users.length} users found. Users in grey are pending.</p>
+            <p>{users.length} users found</p>
 
             <Outlet />
         </>

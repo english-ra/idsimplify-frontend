@@ -1,0 +1,29 @@
+.root {
+    height: 75px;
+
+    position: relative;
+
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+}
+
+.textDiv {
+    position: absolute;
+    left: 0;
+    margin: 7px 20px;
+}
+
+.buttonDiv {
+    position: absolute;
+    right: 0;
+
+    top: 50%;
+    margin-top: -17.5px;
+}
+
+.buttonDiv button {
+    width: 85px;
+    height: 35px;
+    
+    margin: 0 10px 0 10px;
+}

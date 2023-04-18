@@ -86,7 +86,8 @@ const AuthLandingPage = (props) => {
                     ) : (
                         tenancies.length === 0 ? (
                             <>
-                                <p>You are not currently a member of any tenacies. Please ask your admin to add you to the tenacy or create a new one below.</p>
+                                <p>You are not currently a member of any tenancies. Please ask your admin to add you to the tenacy or create a new one below.</p>
+                                <p>You can view your tenancy invitations <Link to='/profile'>here</Link></p>
                             </>
                         ) : (
                             <>

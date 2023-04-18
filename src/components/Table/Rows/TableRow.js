@@ -10,13 +10,9 @@ const TableRow = (props) => {
         props.onClick(props.data.id);
     };
 
-    const isPending = () => {
-        if (props.data.request != null) { return classes.pending; }
-    };
-
     return (
         <tr
-            className={`${classes.row} ${isPending()}`}
+            className={`${classes.row}`}
             onClick={rowClickHandler}
             key={props.key}
         >
