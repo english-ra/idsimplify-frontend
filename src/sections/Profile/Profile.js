@@ -13,15 +13,15 @@ import { useAuth0 } from '@auth0/auth0-react';
 
 const Profile = (props) => {
     const { getAccessTokenWithPopup } = useAuth0();
-    const [isLoading, setIsLoading] = useState(false);
+    const [tenancyInvitationsLoading, setTenancyInvitationsLoading] = useState(false);
     const [invitations, setInvitations] = useState([]);
 
     useEffect(() => {
         getData();
-    },[]);
+    }, []);
 
     const getData = async () => {
-        setIsLoading(true);
+        setTenancyInvitationsLoading(true);
         try {
             // Get the users access token
             const accessToken = await getAccessTokenWithPopup({ // TODO: Change to quietly when hosted
@@ -41,14 +41,21 @@ const Profile = (props) => {
 
             if (response.status === 200) {
                 const data = await response.json();
-                console.log(data);
                 setInvitations([...data]);
             }
         }
         catch (err) {
             console.log(err);
         }
-        setIsLoading(false);
+        setTenancyInvitationsLoading(false);
+    };
+
+    const acceptInvitationHandler = (invitation) => {
+        
+    };
+
+    const denyInvitationHandler = (invitation) => {
+
     };
 
     return (
@@ -59,9 +66,31 @@ const Profile = (props) => {
                 <h1>Profile</h1>
 
                 <h3>Tenancy Invites</h3>
-                <div className={classes.tenancyInvites}>
-                    <AcceptDenyBox />
-                </div>
+                {
+                    tenancyInvitationsLoading ? (
+                        <p>Loading...</p>
+                    ) : (
+                        invitations.length === 0 ? (
+                            <p>No invitations found</p>
+                        ) : (
+                            <div className={classes.tenancyInvites}>
+                                {
+                                    invitations.map(
+                                        (invitation) => (
+                                            <AcceptDenyBox
+                                                data={invitation}
+                                                headingText={invitation.name}
+                                                subheadingText={`Invited by: ${invitation.invitedBy.name}`}
+                                                onAccept={acceptInvitationHandler}
+                                                onDeny={denyInvitationHandler}
+                                            />
+                                        )
+                                    )
+                                }
+                            </div>
+                        )
+                    )
+                }
             </LayoutInner>
         </LayoutAuthed>
     );
