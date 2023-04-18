@@ -36,6 +36,7 @@ const UserTableColumns = [
 
 const OCUsers = (props) => {
     const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState(null);
     const { getAccessTokenWithPopup } = useAuth0();
     const [users, setUsers] = useState([]);
     const navigate = useNavigate();
@@ -47,6 +48,7 @@ const OCUsers = (props) => {
 
     const getData = async () => {
         setIsLoading(true);
+        setError(null);
         try {
             // Get the users access token
             const accessToken = await getAccessTokenWithPopup({ // TODO: Change to quietly when hosted
@@ -64,14 +66,17 @@ const OCUsers = (props) => {
                 }
             });
 
+            const data = await response.json();
+
             if (response.status === 200) {
-                const data = await response.json();
-                console.log(data);
                 setUsers([...data]);
+            } else {
+                throw new Error(data);
             }
         }
-        catch (err) {
-            console.log(err);
+        catch (error) {
+            console.log(error);
+            setError(error);
         }
         setIsLoading(false);
     };
@@ -99,7 +104,9 @@ const OCUsers = (props) => {
                 {users.map(user => (<TableRow cols={UserTableColumns} data={user} onClick={rowClickHandler} />))}
             </Table>
 
-            <p>{users.length} users found</p>
+            { isLoading && <p>Loading...</p> }
+            { !isLoading && !error && <p>{users.length} users found</p> }
+            { !isLoading && error && <p className='errorText'>{error.message}</p> }
 
             <Outlet />
         </>

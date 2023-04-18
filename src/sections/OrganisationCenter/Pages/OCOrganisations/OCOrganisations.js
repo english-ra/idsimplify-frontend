@@ -22,6 +22,7 @@ const OrgTableColumns = [
 const OCOrganisations = (props) => {
     const [organisations, setOrganisations] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState(null);
     const { getAccessTokenWithPopup } = useAuth0();
 
     const params = useParams();
@@ -33,6 +34,7 @@ const OCOrganisations = (props) => {
 
     const getOrganisations = async () => {
         setIsLoading(true);
+        setError(null);
         try {
             // Get the users access token
             const accessToken = await getAccessTokenWithPopup({ // TODO: Change to quietly when hosted
@@ -60,6 +62,7 @@ const OCOrganisations = (props) => {
         }
         catch (err) {
             console.log(err);
+            setError(err);
         }
         setIsLoading(false);
     };
@@ -84,18 +87,10 @@ const OCOrganisations = (props) => {
                 {organisations.map(organisation => (<TableRow cols={OrgTableColumns} data={organisation} onClick={rowClickHandler} />))}
             </Table>
 
-            {
-                isLoading ? (
-                    <p>Loading...</p>
-                ) : (
-                    organisations.length === 0 ? (
-                        <p>No organisations found</p>
-                    ) : (
-                        <p>{organisations.length} organisations found</p>
-                    )
-                )
-            }
-
+            { isLoading && <p>Loading...</p> }
+            { !isLoading && !error && <p>{organisations.length} organisations found</p> }
+            { !isLoading && error && <p className='errorText'>{error.message}</p> }
+            
             <Outlet />
         </>
     );
