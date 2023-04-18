@@ -10,7 +10,17 @@
 .textDiv {
     position: absolute;
     left: 0;
-    margin: 7px 20px;
+    margin: 0 20px;
+
+    text-align: left;
+}
+
+.textDiv h4 {
+    margin-bottom: 0;
+}
+
+.textDiv p {
+    margin-top: 0;
 }
 
 .buttonDiv {
@@ -22,8 +32,27 @@
 }
 
 .buttonDiv button {
+    border-style: solid;
+    border-radius: 6px;
+
     width: 85px;
     height: 35px;
     
     margin: 0 10px 0 10px;
+}
+
+.buttonDiv button:hover {
+    filter: brightness(85%);
+}
+
+.accept {
+    color: #000000;
+    background-color: #77DD76;
+    border-color: #77DD76;
+}
+
+.deny {
+    color: #000000;
+    background-color: #FF6961;
+    border-color: #FF6961;
 }
