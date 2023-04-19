@@ -18,7 +18,7 @@ const integrationTypes = [{name: 'Microsoft Azure AD'}]
 
 const OCOrganisationsIntegrationsCreateModal = (props) => {
     const params = useParams();
-    const { getAccessTokenWithPopup } = useAuth0();
+    const { getAccessTokenSilently } = useAuth0();
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
     const navigate = useNavigate();
@@ -45,7 +45,7 @@ const OCOrganisationsIntegrationsCreateModal = (props) => {
 
         try {
             // Get the users access token
-            const accessToken = await getAccessTokenWithPopup({ // TODO: Change to quietly when hosted
+            const accessToken = await getAccessTokenSilently({ // TODO: Change to quietly when hosted
                 authorizationParams: {
                     audience: 'https://api.idsimplify.co.uk',
                     scope: 'access'

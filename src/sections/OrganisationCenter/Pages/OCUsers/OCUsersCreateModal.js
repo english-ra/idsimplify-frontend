@@ -12,7 +12,7 @@ import InputSubmitButton from '../../../../components/InputFields/InputSubmitBut
 import InputTextField from '../../../../components/InputFields/InputTextField';
 
 const OCUsersCreateModal = (props) => {
-    const { getAccessTokenWithPopup } = useAuth0();
+    const { getAccessTokenSilently } = useAuth0();
     const [email, setEmail] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
@@ -26,7 +26,7 @@ const OCUsersCreateModal = (props) => {
         setError(null);
         try {
             // Get the users access token
-            const accessToken = await getAccessTokenWithPopup({ // TODO: Change to quietly when hosted
+            const accessToken = await getAccessTokenSilently({ // TODO: Change to quietly when hosted
                 authorizationParams: {
                     audience: 'https://api.idsimplify.co.uk',
                     scope: 'access'

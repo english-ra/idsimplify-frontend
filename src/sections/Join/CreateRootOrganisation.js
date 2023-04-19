@@ -12,7 +12,7 @@ import InputTextField from '../../components/InputFields/InputTextField';
 import classes from './CreateRootOrganisation.module.css';
 
 const CreateRootOrganisation = () => {
-    const { getAccessTokenWithPopup } = useAuth0();
+    const { getAccessTokenSilently } = useAuth0();
     const [isLoading, setIsLoading] = useState(false);
     const [tenancyName, setTenancyName] = useState('');
 
@@ -23,7 +23,7 @@ const CreateRootOrganisation = () => {
         setIsLoading(true);
         try {
             // Get the users access token
-            const accessToken = await getAccessTokenWithPopup({ // TODO: Change to quietly when hosted
+            const accessToken = await getAccessTokenSilently({ // TODO: Change to quietly when hosted
                 authorizationParams: {
                     audience: 'https://api.idsimplify.co.uk',
                     scope: 'access'

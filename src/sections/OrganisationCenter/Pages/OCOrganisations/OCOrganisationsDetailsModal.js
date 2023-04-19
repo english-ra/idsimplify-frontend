@@ -22,7 +22,7 @@ const usersTableColumns = [{ id: 0, friendlyTitle: 'Name', dataKey: 'name' }, { 
 // ----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 const OCOrganisationsDetailsModal = (props) => {
-    const { getAccessTokenWithPopup } = useAuth0();
+    const { getAccessTokenSilently } = useAuth0();
     const params = useParams();
     const navigate = useNavigate();
     const [isLoading, setIsLoading] = useState(false);
@@ -37,7 +37,7 @@ const OCOrganisationsDetailsModal = (props) => {
         setIsLoading(true);
         try {
             // Get the users access token
-            const accessToken = await getAccessTokenWithPopup({ // TODO: Change to quietly when hosted
+            const accessToken = await getAccessTokenSilently({ // TODO: Change to quietly when hosted
                 authorizationParams: {
                     audience: 'https://api.idsimplify.co.uk',
                     scope: 'access'

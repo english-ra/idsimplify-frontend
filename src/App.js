@@ -86,29 +86,29 @@ const router = createBrowserRouter([
                 ]
             },
             {
-                path: '/control/:tenancyId',
+                path: '/control',
                 element: <AuthenticationGuard component={Control} />,
                 children: [
                     {
-                        path: '/control/:tenancyId/users',
+                        path: '/control/users',
                         element: <CUsers />,
                         children: [
                             {
-                                path: '/control/:tenancyId/users/create',
+                                path: '/control/users/create',
                                 element: <CUsersCreateModal />
                             },
                             {
-                                path: '/control/:tenancyId/users/:userId',
+                                path: '/control/users/:userId',
                                 element: <CUsersDetailsModal />
                             }
                         ]
                     },
                     {
-                        path: '/control/:tenancyId/groups',
+                        path: '/control/groups',
                         element: <h1>Groups</h1>,
                         children: [
                             {
-                                path: '/control/:tenancyId/groups/:groupId',
+                                path: '/control/groups/:groupId',
                                 element: <h1>Group</h1>
                             }
                         ]

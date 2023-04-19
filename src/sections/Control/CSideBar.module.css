@@ -2,6 +2,19 @@
     background-color: #06283D;
 }
 
+.organisationSelectorDiv {
+    width: 100%;
+    padding: 20px 8px 0 8px;
+}
+
+.organisationSelectorDiv label {
+    color: white;
+}
+
+.dropdown {
+    width: 259px;
+}
+
 .logo > * {
     text-align: center;
     margin: 0;

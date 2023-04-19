@@ -32,7 +32,7 @@ const CUsersDetailsModal = (props) => {
     const [user, setUser] = useState(null);
     const [groups, setGroups] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
-    const { getAccessTokenWithPopup } = useAuth0();
+    const { getAccessTokenSilently } = useAuth0();
 
     useEffect(() => {
         getData();
@@ -46,7 +46,7 @@ const CUsersDetailsModal = (props) => {
         setIsLoading(true);
         try {
             // Get the users access token
-            const accessToken = await getAccessTokenWithPopup({ // TODO: Change to quietly when hosted
+            const accessToken = await getAccessTokenSilently({ // TODO: Change to quietly when hosted
                 authorizationParams: {
                     audience: 'https://api.idsimplify.co.uk',
                     scope: 'access'

@@ -12,7 +12,7 @@ import { useEffect, useState } from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
 
 const Profile = (props) => {
-    const { getAccessTokenWithPopup } = useAuth0();
+    const { getAccessTokenSilently } = useAuth0();
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
     const [tenancyInvitationsLoading, setTenancyInvitationsLoading] = useState(false);
@@ -30,7 +30,7 @@ const Profile = (props) => {
         var accessToken = '';
         try {
             // Get the users access token
-            accessToken = await getAccessTokenWithPopup({ // TODO: Change to quietly when hosted
+            accessToken = await getAccessTokenSilently({ // TODO: Change to quietly when hosted
                 authorizationParams: {
                     audience: 'https://api.idsimplify.co.uk',
                     scope: 'access'

@@ -4,13 +4,11 @@
 
 import { useAuth0 } from '@auth0/auth0-react';
 import { useEffect, useState } from 'react';
-import { Outlet, useNavigate, useParams } from 'react-router-dom';
+import { Outlet, useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import TableRow from '../../../components/Table/Rows/TableRow';
 import Table from '../../../components/Table/Tables/Table';
 import classes from './CUsers.module.css';
 import CircularButton from '../../../components/Buttons/CircularButton';
-import Dropdown from '../../../components/Select/Dropdown';
-import InputLabel from '../../../components/InputFields/InputLabel';
 
 const UserTableColumns = [
     {
@@ -41,42 +39,28 @@ const UserTableColumns = [
 ];
 
 const CUsers = (props) => {
-    const [organisations, setOrganisations] = useState([]);
     const [users, setUsers] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
-    const [selectedOrganisation, setSelectedOrganisation] = useState(null);
-    const { getAccessTokenWithPopup } = useAuth0();
+    const { getAccessTokenSilently } = useAuth0();
     const navigate = useNavigate();
-    const params = useParams();
+    const [searchParams, setSearchParams] = useSearchParams();
 
     useEffect(() => {
-        getData();
-    }, []);
-
-    useEffect(() => {
-        if (selectedOrganisation != null) {
-            getUsersFromIntegration();
-        } else {
-            setUsers([]);
-        }
-    }, [selectedOrganisation]);
-
-    const getData = async () => {
-        getUsersOrganisations();
-    };
-
+        getUsersFromIntegration();
+    }, [searchParams]);
 
     const getAccessToken = async () => {
         var accessToken = '';
         try {
             // Get the users access token
-            accessToken = await getAccessTokenWithPopup({ // TODO: Change to quietly when hosted
+            accessToken = await getAccessTokenSilently({
                 authorizationParams: {
                     audience: 'https://api.idsimplify.co.uk',
                     scope: 'access'
                 }
             });
+            console.log('CUsers', accessToken);
         }
         catch (err) {
             console.log(err);
@@ -84,43 +68,16 @@ const CUsers = (props) => {
         return accessToken;
     };
 
-    const getUsersOrganisations = async () => {
-        setIsLoading(true);
-        setError(null);
-        try {
-            const accessToken = await getAccessToken();
-
-            // Get the data
-            const response = await fetch(`https://api.idsimplify.co.uk/users/me/tenancies/${params.tenancyId}/organisations`, {
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${accessToken}`
-                }
-            });
-
-            const data = await response.json();
-
-            if (response.status === 200) {
-                setOrganisations(data);
-            } else {
-                throw new Error(data);
-            }
-        }
-        catch (error) {
-            console.log(error);
-            setError(error);
-        }
-        setIsLoading(false);
-    };
-
     const getUsersFromIntegration = async () => {
         setIsLoading(true);
         setError(null);
 
-        const tenancyID = params.tenancyId;
-        const organisationID = selectedOrganisation.id;
+        const tenancyID = searchParams.get('tenancy-id');
+        const organisationID = searchParams.get('organisation-id');
 
         try {
+            if (tenancyID === null || organisationID === null) { throw new Error('Please select an organisation'); }
+
             const accessToken = await getAccessToken();
 
             // Get the data
@@ -147,8 +104,10 @@ const CUsers = (props) => {
     };
 
     const rowClickHandler = (userID) => { navigate(`${userID}`); };
-    const createUserButtonHandler = () => { navigate('create'); };
-    const organisationChangeHandler = (organisation) => { setSelectedOrganisation(organisation); };
+    const createUserButtonHandler = () => {
+        // navigate('create');
+        getAccessToken();
+    };
 
     return (
         <>
@@ -159,15 +118,6 @@ const CUsers = (props) => {
                     onClick={createUserButtonHandler}
                 />
             </div>
-
-            <InputLabel for='organisationDropdown' >Organisation:</InputLabel>
-            <Dropdown
-                id='organisationDropdown'
-                className={classes.dropdown}
-                data={organisations}
-                dataKey='name'
-                onSelected={organisationChangeHandler}
-            />
 
             <Table
                 className={classes.table}
@@ -184,10 +134,9 @@ const CUsers = (props) => {
                 }
             </Table>
 
-            { isLoading && <p>Loading...</p> }
-            { !isLoading && selectedOrganisation && <p>{users.length} users found</p> }
-            { !isLoading && !selectedOrganisation && <p>Please select an organisation</p> }
-            { !isLoading && error && <p className='errorText'>{error.message}</p> }
+            {isLoading && <p>Loading...</p>}
+            {!isLoading && <p>{users.length} users found</p>}
+            {!isLoading && error && <p className='errorText'>{error.message}</p>}
 
             <Outlet />
         </>

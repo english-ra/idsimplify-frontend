@@ -4,7 +4,7 @@
 
 import { useAuth0 } from '@auth0/auth0-react';
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import LayoutAuthed from '../../components/layout/LayoutAuthed';
 import LayoutInner from '../../components/layout/LayoutInner';
 import Dropdown from '../../components/Select/Dropdown';
@@ -12,7 +12,7 @@ import Dropdown from '../../components/Select/Dropdown';
 import classes from './AuthLandingPage.module.css';
 
 const AuthLandingPage = (props) => {
-    const { getAccessTokenWithPopup } = useAuth0();
+    const { getAccessTokenWithPopup, getAccessTokenSilently } = useAuth0();
     const [tenancies, setTenancies] = useState([]);
     const [selectedTenancy, setSelectedTenancy] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
@@ -21,7 +21,7 @@ const AuthLandingPage = (props) => {
 
     useEffect(() => {
         getTenancies();
-    }, [getAccessTokenWithPopup]);
+    }, [getAccessTokenSilently]);
 
     // useEffect(() => {
     //     validatePermissions();
@@ -105,7 +105,7 @@ const AuthLandingPage = (props) => {
                                     selectedTenancy != null && (
                                         <ul className={classes.nav}>
                                             <li><Link to={`/oc/${selectedTenancy.id}/users`} className={classes.ocLink}>Organisation Center</Link></li>
-                                            <li><Link to={`/control/${selectedTenancy.id}/users`} className={classes.cLink}>Control</Link></li>
+                                            <li><Link to={`/control/users?tenancy-id=${selectedTenancy.id}`} className={classes.cLink}>Control</Link></li>
                                             <li><Link to={`/pp/${selectedTenancy.id}`} className={classes.ppLink}>Partner Portal</Link></li>
                                         </ul>
                                     )

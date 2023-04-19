@@ -15,7 +15,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 
 const OCOrganisationsCreateModal = (props) => {
     const params = useParams();
-    const { getAccessTokenWithPopup } = useAuth0();
+    const { getAccessTokenSilently } = useAuth0();
     const [isLoading, setIsLoading] = useState(false);
     const [name, setName] = useState('');
     const navigate = useNavigate();
@@ -33,7 +33,7 @@ const OCOrganisationsCreateModal = (props) => {
 
         try {
             // Get the users access token
-            const accessToken = await getAccessTokenWithPopup({ // TODO: Change to quietly when hosted
+            const accessToken = await getAccessTokenSilently({ // TODO: Change to quietly when hosted
                 authorizationParams: {
                     audience: 'https://api.idsimplify.co.uk',
                     scope: 'access'
