@@ -44,24 +44,31 @@ const CUsers = (props) => {
     const [organisations, setOrganisations] = useState([]);
     const [users, setUsers] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState(null);
+    const [selectedOrganisation, setSelectedOrganisation] = useState(null);
     const { getAccessTokenWithPopup } = useAuth0();
     const navigate = useNavigate();
     const params = useParams();
-
-    var accessToken;
 
     useEffect(() => {
         getData();
     }, []);
 
+    useEffect(() => {
+        if (selectedOrganisation != null) {
+            getUsersFromIntegration();
+        } else {
+            setUsers([]);
+        }
+    }, [selectedOrganisation]);
+
     const getData = async () => {
-        await getAccessToken();
         getUsersOrganisations();
-        getUsersFromIntegration();
     };
 
 
     const getAccessToken = async () => {
+        var accessToken = '';
         try {
             // Get the users access token
             accessToken = await getAccessTokenWithPopup({ // TODO: Change to quietly when hosted
@@ -74,11 +81,15 @@ const CUsers = (props) => {
         catch (err) {
             console.log(err);
         }
+        return accessToken;
     };
 
     const getUsersOrganisations = async () => {
         setIsLoading(true);
+        setError(null);
         try {
+            const accessToken = await getAccessToken();
+
             // Get the data
             const response = await fetch(`https://api.idsimplify.co.uk/users/me/tenancies/${params.tenancyId}/organisations`, {
                 headers: {
@@ -87,23 +98,33 @@ const CUsers = (props) => {
                 }
             });
 
+            const data = await response.json();
+
             if (response.status === 200) {
-                const data = await response.json();
-                console.log(data);
                 setOrganisations(data);
+            } else {
+                throw new Error(data);
             }
         }
-        catch (err) {
-            console.log(err);
+        catch (error) {
+            console.log(error);
+            setError(error);
         }
         setIsLoading(false);
     };
 
     const getUsersFromIntegration = async () => {
         setIsLoading(true);
+        setError(null);
+
+        const tenancyID = params.tenancyId;
+        const organisationID = selectedOrganisation.id;
+
         try {
+            const accessToken = await getAccessToken();
+
             // Get the data
-            const response = await fetch('https://api.idsimplify.co.uk/integrations/users', {
+            const response = await fetch(`https://api.idsimplify.co.uk/integrations/users?tenancy-id=${tenancyID}&organisation-id=${organisationID}`, {
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${accessToken}`
@@ -111,17 +132,23 @@ const CUsers = (props) => {
             });
 
             const data = await response.json();
-            setUsers([...data.value]);
+
+            if (response.status === 200) {
+                setUsers([...data.value]);
+            } else {
+                throw new Error(data);
+            }
         }
-        catch (err) {
-            console.log(err);
+        catch (error) {
+            console.log(error);
+            setError(error);
         }
         setIsLoading(false);
     };
 
     const rowClickHandler = (userID) => { navigate(`${userID}`); };
-
     const createUserButtonHandler = () => { navigate('create'); };
+    const organisationChangeHandler = (organisation) => { setSelectedOrganisation(organisation); };
 
     return (
         <>
@@ -139,6 +166,7 @@ const CUsers = (props) => {
                 className={classes.dropdown}
                 data={organisations}
                 dataKey='name'
+                onSelected={organisationChangeHandler}
             />
 
             <Table
@@ -156,17 +184,10 @@ const CUsers = (props) => {
                 }
             </Table>
 
-            {
-                isLoading ? (
-                    <p>Loading...</p>
-                ) : (
-                    users.length === 0 ? (
-                        <p>No users found</p>
-                    ) : (
-                        <p>{users.length} users found</p>
-                    )
-                )
-            }
+            { isLoading && <p>Loading...</p> }
+            { !isLoading && selectedOrganisation && <p>{users.length} users found</p> }
+            { !isLoading && !selectedOrganisation && <p>Please select an organisation</p> }
+            { !isLoading && error && <p className='errorText'>{error.message}</p> }
 
             <Outlet />
         </>
