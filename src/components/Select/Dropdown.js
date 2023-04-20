@@ -8,7 +8,10 @@ const Dropdown = (props) => {
 
     const data = props.data || [];
     const dataKey = props.dataKey || 'name';
-    const selectedID = props.selectedID || '';
+    const selected = data.find((d) => { return d.id === props.value; });
+
+    var selectedName = undefined;
+    if (selected != undefined) { selectedName = selected.name; }
 
     const selectChangeHandler = (event) => {
         const i = event.target.selectedIndex - 1;
@@ -29,10 +32,11 @@ const Dropdown = (props) => {
                 name={props.id}
                 title={props.id}
                 className={`${classes.select} ${props.className}`}
+                value={selectedName}
                 onChange={selectChangeHandler}
             >
                 <option>Please select</option>
-                {data.map(d => (<option key={d.id} selected={d.id === selectedID}>{d[dataKey]}</option>))}
+                {data.map(d => (<option key={d.id}>{d[dataKey]}</option>))}
             </select>
         </div>
     );

@@ -6,7 +6,7 @@ import classes from './InputLabel.module.css';
 
 const InputLabel = (props) => {
     return (
-        <label className={classes.label} for={props.for}>
+        <label className={classes.label} htmlFor={props.for}>
             {props.children}
         </label>
     );

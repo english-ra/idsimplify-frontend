@@ -11,7 +11,7 @@ const SideModal = (props) => {
     const navigate = useNavigate();
 
     const closeButtonHandler = () => {
-        navigate('..');
+        navigate('..?hello');
     };
 
     return (

@@ -8,7 +8,7 @@ const TableHeading = (props) => {
     return (
         <thead>
             <tr className={classes.row}>
-                {props.headings.map(heading => (<th>{heading.friendlyTitle}</th>))}
+                {props.headings.map(heading => (<th key={heading.id}>{heading.friendlyTitle}</th>))}
             </tr>
         </thead>
     );

@@ -10,7 +10,7 @@ import { useEffect, useState } from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
 import Dropdown from '../../../components/Select/Dropdown';
 import InputSubmitButton from '../../../components/InputFields/InputSubmitButton';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 
 const UserOrgPermissionsTableCols = [
     {
@@ -33,6 +33,7 @@ const CUsersCreateModal = (props) => {
     const [password, setPassword] = useState('');
 
     const navigate = useNavigate();
+    const [searchParams, setSearchParams] = useSearchParams();
 
     useEffect(() => {
         getDomains();
@@ -49,8 +50,11 @@ const CUsersCreateModal = (props) => {
                 }
             });
 
+            const tenancyID = searchParams.get('tenancy-id');
+            const organisationID = searchParams.get('organisation-id');
+
             // Get the data
-            const response = await fetch('https://api.idsimplify.co.uk/integrations/domains', {
+            const response = await fetch(`https://api.idsimplify.co.uk/integrations/domains?tenancy-id=${tenancyID}&organisation-id=${organisationID}`, {
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${accessToken}`
@@ -94,7 +98,10 @@ const CUsersCreateModal = (props) => {
                 }
             });
 
-            const response = await fetch('https://api.idsimplify.co.uk/integrations/users', {
+            const tenancyID = searchParams.get('tenancy-id');
+            const organisationID = searchParams.get('organisation-id');
+
+            const response = await fetch(`https://api.idsimplify.co.uk/integrations/users?tenancy-id=${tenancyID}&organisation-id=${organisationID}`, {
                 method: 'POST',
                 body: JSON.stringify(user),
                 headers: {
@@ -109,7 +116,7 @@ const CUsersCreateModal = (props) => {
                 navigate('..');
             } else {
                 // An error has occurred
-                
+
             }
         }
         catch (e) {

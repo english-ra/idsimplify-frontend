@@ -4,7 +4,7 @@
 
 import { useAuth0 } from '@auth0/auth0-react';
 import { useEffect, useState } from 'react';
-import { Outlet, useNavigate, useParams, useSearchParams } from 'react-router-dom';
+import { Outlet, useLocation, useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import TableRow from '../../../components/Table/Rows/TableRow';
 import Table from '../../../components/Table/Tables/Table';
 import classes from './CUsers.module.css';
@@ -44,6 +44,7 @@ const CUsers = (props) => {
     const [error, setError] = useState(null);
     const { getAccessTokenSilently } = useAuth0();
     const navigate = useNavigate();
+    const location = useLocation();
     const [searchParams, setSearchParams] = useSearchParams();
 
     useEffect(() => {
@@ -60,7 +61,6 @@ const CUsers = (props) => {
                     scope: 'access'
                 }
             });
-            console.log('CUsers', accessToken);
         }
         catch (err) {
             console.log(err);
@@ -71,6 +71,7 @@ const CUsers = (props) => {
     const getUsersFromIntegration = async () => {
         setIsLoading(true);
         setError(null);
+        setUsers([]);
 
         const tenancyID = searchParams.get('tenancy-id');
         const organisationID = searchParams.get('organisation-id');
@@ -104,10 +105,7 @@ const CUsers = (props) => {
     };
 
     const rowClickHandler = (userID) => { navigate(`${userID}`); };
-    const createUserButtonHandler = () => {
-        // navigate('create');
-        getAccessToken();
-    };
+    const createUserButtonHandler = () => { navigate(`create${location.search}`); };
 
     return (
         <>
@@ -128,6 +126,7 @@ const CUsers = (props) => {
                         <TableRow
                             cols={UserTableColumns}
                             data={user}
+                            key={user.id}
                             onClick={rowClickHandler}
                         />
                     ))
@@ -135,7 +134,7 @@ const CUsers = (props) => {
             </Table>
 
             {isLoading && <p>Loading...</p>}
-            {!isLoading && <p>{users.length} users found</p>}
+            {!isLoading && !error && <p>{users.length} users found</p>}
             {!isLoading && error && <p className='errorText'>{error.message}</p>}
 
             <Outlet />

@@ -14,6 +14,7 @@ const navData = [
     {
         sectionId: 0,
         sectionHeader: 'Identity Management',
+        route: '/control',
         sectionLinks: [
             {
                 linkId: 0.1,
@@ -77,6 +78,8 @@ const CSideBar = (props) => {
             const accessToken = await getAccessToken();
             const tenancyID = searchParams.get('tenancy-id');
 
+            if (tenancyID === null || tenancyID === undefined) { return; }
+
             // Get the data
             const response = await fetch(`https://api.idsimplify.co.uk/users/me/tenancies/${tenancyID}/organisations`, {
                 method: 'GET',
@@ -120,7 +123,7 @@ const CSideBar = (props) => {
                     className={classes.dropdown}
                     data={organisations}
                     dataKey='name'
-                    selectedID={searchParams.get('organisation-id')}
+                    value={searchParams.get('organisation-id')}
                     disabled={isLoading}
                     onSelected={organisationChangeHandler}
                 />
@@ -129,7 +132,7 @@ const CSideBar = (props) => {
             <nav>
                 <ul className={classes.navList}>
                     {navData.map(section => (
-                        <li>
+                        <li key={section.sectionId}>
                             <NavigationSection section={section} />
                         </li>
                     ))}

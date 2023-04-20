@@ -3,11 +3,19 @@
 // Created by Reece English on 25.03.2023
 
 import { useEffect, useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import classes from './NavigationSection.module.css';
 
 const NavigationSection = (props) => {
+    const location = useLocation();
     const [isLinksShowing, setIsLinksShowing] = useState(false);
+
+    useEffect(() => {
+        const section = props.section;
+        for (var link of section.sectionLinks) {
+            `${section.route}/${link.link}` === location.pathname && setIsLinksShowing(true);
+        }
+    }, [location]);
 
     const headerClickHandler = (event) => {
         setIsLinksShowing(!isLinksShowing);
@@ -31,9 +39,9 @@ const NavigationSection = (props) => {
             {/* Section Links */}
             <ul className={`${classes.list} ${isLinksShowing ? classes.active : classes.inactive}`}>
                 {props.section.sectionLinks.map(link => (
-                    <li>
+                    <li key={link.linkId}>
                         <NavLink
-                            className={({ isActive }) => isActive ? navLinkActiveHandler() : undefined}
+                            className={({ isActive }) => isActive ? classes.active : undefined}
                             to={link.link}
                         >
                             {link.text}

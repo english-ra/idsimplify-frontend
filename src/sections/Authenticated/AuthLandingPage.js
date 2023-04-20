@@ -18,6 +18,7 @@ const AuthLandingPage = (props) => {
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
     const [canAccessOC, setCanAccessOC] = useState(false);
+    const [searchParams, setSearchParams] = useSearchParams();
 
     useEffect(() => {
         getTenancies();
@@ -49,7 +50,11 @@ const AuthLandingPage = (props) => {
 
             if (response.status != 200) { throw new Error('Error whilst fetching tenancies. Please try again.'); }
 
-            setTenancies(await response.json());
+            const data = await response.json();
+            setTenancies(data);
+
+            const tenancy = data.find((tenancy) => { return tenancy.id === searchParams.get('tenancy-id'); });
+            setSelectedTenancy(tenancy);
         }
         catch (error) {
             console.log(error);
@@ -70,7 +75,10 @@ const AuthLandingPage = (props) => {
         else { setCanAccessOC(false); }
     };
 
-    const selectedTenancyHandler = (tenancy) => { setSelectedTenancy(tenancy); };
+    const selectedTenancyHandler = (tenancy) => {
+        setSearchParams(tenancy ? { 'tenancy-id': tenancy.id } : {});
+        setSelectedTenancy(tenancy);
+    };
 
     return (
         <LayoutAuthed>
@@ -96,6 +104,7 @@ const AuthLandingPage = (props) => {
                                     className={classes.tenancyDropdown}
                                     title='Tenancy: '
                                     data={tenancies}
+                                    value={searchParams.get('tenancy-id')}
                                     onSelected={selectedTenancyHandler}
                                 />
 
@@ -104,7 +113,7 @@ const AuthLandingPage = (props) => {
                                 {
                                     selectedTenancy != null && (
                                         <ul className={classes.nav}>
-                                            <li><Link to={`/oc/${selectedTenancy.id}/users`} className={classes.ocLink}>Organisation Center</Link></li>
+                                            <li><Link to={`/oc/${selectedTenancy.id}/general`} className={classes.ocLink}>Organisation Center</Link></li>
                                             <li><Link to={`/control/users?tenancy-id=${selectedTenancy.id}`} className={classes.cLink}>Control</Link></li>
                                             <li><Link to={`/pp/${selectedTenancy.id}`} className={classes.ppLink}>Partner Portal</Link></li>
                                         </ul>
