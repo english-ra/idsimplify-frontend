@@ -14,9 +14,9 @@
 }
 
 .iconDiv {
-    height: 48px;
-    width: 48px;
+    height: 40px;
+    width: 40px;
     border-radius: 50%;
     background-color: #f4f4f4;
-    margin-left: 5px;
+    margin-left: 10px;
 }

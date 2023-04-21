@@ -7,40 +7,17 @@ import { useEffect, useState } from 'react';
 import { Outlet, useLocation, useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import TableRow from '../../../components/Table/Rows/TableRow';
 import Table from '../../../components/Table/Tables/Table';
+import Dropdown from '../../../components/Select/Dropdown';
+import InputLabel from '../../../components/InputFields/InputLabel';
 import classes from './PPUsers.module.css';
 import CircularButton from '../../../components/Buttons/CircularButton';
+import PPUserCard from '../PPUserCard';
 
-const UserTableColumns = [
-    {
-        id: 0,
-        friendlyTitle: 'First Name',
-        dataKey: 'givenName'
-    },
-    {
-        id: 1,
-        friendlyTitle: 'Last Name',
-        dataKey: 'surname'
-    },
-    {
-        id: 2,
-        friendlyTitle: 'Display Name',
-        dataKey: 'displayName'
-    },
-    {
-        id: 3,
-        friendlyTitle: 'UPN',
-        dataKey: 'userPrincipalName'
-    },
-    {
-        id: 4,
-        friendlyTitle: 'Job Title',
-        dataKey: 'jobTitle'
-    }
-];
 
 const PPUsers = (props) => {
     const [users, setUsers] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
+    const [organisations, setOrganisations] = useState([]);
     const [error, setError] = useState(null);
     const { getAccessTokenSilently } = useAuth0();
     const navigate = useNavigate();
@@ -48,6 +25,7 @@ const PPUsers = (props) => {
     const [searchParams, setSearchParams] = useSearchParams();
 
     useEffect(() => {
+        getUsersOrganisations()
         getUsersFromIntegration();
     }, [searchParams]);
 
@@ -66,6 +44,39 @@ const PPUsers = (props) => {
             console.log(err);
         }
         return accessToken;
+    };
+
+    const getUsersOrganisations = async () => {
+        setIsLoading(true);
+        setError(null);
+        try {
+            const accessToken = await getAccessToken();
+            const tenancyID = searchParams.get('tenancy-id');
+
+            if (tenancyID === null || tenancyID === undefined) { return; }
+
+            // Get the data
+            const response = await fetch(`https://api.idsimplify.co.uk/users/me/tenancies/${tenancyID}/organisations`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${accessToken}`
+                }
+            });
+
+            const data = await response.json();
+
+            if (response.status === 200) {
+                setOrganisations(data);
+            } else {
+                throw new Error(data);
+            }
+        }
+        catch (error) {
+            console.log(error);
+            setError(error);
+        }
+        setIsLoading(false);
     };
 
     const getUsersFromIntegration = async () => {
@@ -104,6 +115,11 @@ const PPUsers = (props) => {
         setIsLoading(false);
     };
 
+    const organisationChangeHandler = (organisation) => {
+        if (!organisation) { setSearchParams({ 'tenancy-id': searchParams.get('tenancy-id') }); }
+        else { setSearchParams({ 'tenancy-id': searchParams.get('tenancy-id'), 'organisation-id': organisation.id }); }
+    };
+
     const rowClickHandler = (user) => { navigate(`${user.id}`); };
     const createUserButtonHandler = () => { navigate(`create${location.search}`); };
 
@@ -117,21 +133,29 @@ const PPUsers = (props) => {
                 />
             </div>
 
-            <Table
-                className={classes.table}
-                headings={UserTableColumns}
-            >
+            <div className={classes.organisationSelectorDiv}>
+                <InputLabel for='organisationDropdown' >Organisation:</InputLabel>
+                <Dropdown
+                    id='organisationDropdown'
+                    className={classes.dropdown}
+                    data={organisations}
+                    dataKey='name'
+                    value={searchParams.get('organisation-id')}
+                    disabled={isLoading}
+                    onSelected={organisationChangeHandler}
+                />
+            </div>
+
+            <div className={classes.users}>
                 {
-                    users.map(user => (
-                        <TableRow
-                            cols={UserTableColumns}
-                            data={user}
+                    users.map((user) => (
+                        <PPUserCard
                             key={user.id}
-                            onClick={rowClickHandler}
+                            data={user}
                         />
                     ))
                 }
-            </Table>
+            </div>
 
             {isLoading && <p>Loading...</p>}
             {!isLoading && !error && <p>{users.length} users found</p>}

@@ -122,11 +122,11 @@ const router = createBrowserRouter([
                 ]
             },
             {
-                path: '/pp/:tenancyId',
+                path: '/pp/',
                 element: <AuthenticationGuard component={PartnerPortal} />,
                 children: [
                     {
-                        path: '/pp/:tenancyId/users',
+                        path: '/pp/users',
                         element: <PPUsers />
                     }
                 ]

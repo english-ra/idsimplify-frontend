@@ -115,7 +115,7 @@ const AuthLandingPage = (props) => {
                                         <ul className={classes.nav}>
                                             <li><Link to={`/oc/${selectedTenancy.id}/general`} className={classes.ocLink}>Organisation Center</Link></li>
                                             <li><Link to={`/control/users?tenancy-id=${selectedTenancy.id}`} className={classes.cLink}>Control</Link></li>
-                                            <li><Link to={`/pp/${selectedTenancy.id}`} className={classes.ppLink}>Partner Portal</Link></li>
+                                            <li><Link to={`/pp/users/?tenancy-id=${selectedTenancy.id}`} className={classes.ppLink}>Partner Portal</Link></li>
                                         </ul>
                                     )
                                 }

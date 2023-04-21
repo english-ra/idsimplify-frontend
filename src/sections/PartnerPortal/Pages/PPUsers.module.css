@@ -33,3 +33,8 @@
     color: #06283D;
     border-color: #06283D;
 }
+
+.users {
+    display: flex;
+    flex-wrap: wrap;
+}
