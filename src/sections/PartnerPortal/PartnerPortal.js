@@ -2,11 +2,20 @@
 // iDSimplify Frontend
 // Created by Reece English on 04.03.2023
 
-// import classes from './PartnerPortal.module.css';
+import { Outlet } from "react-router-dom";
+import PPSideBar from './PPSideBar';
+import ProfileCorner from '../../components/ProfileCorner/ProfileCorner';
+import classes from './PartnerPortal.module.css';
 
 const PartnerPortal = (props) => {
     return (
-        <h1>Partner Portal</h1>
+        <>
+            <PPSideBar className={classes.sideBar} />
+            <ProfileCorner className={classes.profileCorner} />
+            <main className={classes.main}>
+                <Outlet />
+            </main>
+        </>
     );
 };
 

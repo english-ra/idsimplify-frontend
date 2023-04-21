@@ -67,7 +67,7 @@ const OCOrganisations = (props) => {
         setIsLoading(false);
     };
 
-    const rowClickHandler = (organisationID) => { navigate(`${organisationID}`); };
+    const rowClickHandler = (organisation) => { navigate(`${organisation.id}`); };
     const createOrganisationButtonHandler = () => { navigate('create'); };
 
     return (
@@ -84,7 +84,7 @@ const OCOrganisations = (props) => {
                 className={classes.table}
                 headings={OrgTableColumns}
             >
-                {organisations.map(organisation => (<TableRow cols={OrgTableColumns} data={organisation} onClick={rowClickHandler} />))}
+                {organisations.map(organisation => (<TableRow key={organisation.id} cols={OrgTableColumns} data={organisation} onClick={rowClickHandler} />))}
             </Table>
 
             { isLoading && <p>Loading...</p> }

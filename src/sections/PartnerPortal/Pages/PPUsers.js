@@ -1,13 +1,13 @@
-// CUsers.js
+// PPUsers.js
 // iDSimplify Frontend
-// Created by Reece English on 25.03.2023
+// Created by Reece English on 21.04.2023
 
 import { useAuth0 } from '@auth0/auth0-react';
 import { useEffect, useState } from 'react';
 import { Outlet, useLocation, useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import TableRow from '../../../components/Table/Rows/TableRow';
 import Table from '../../../components/Table/Tables/Table';
-import classes from './CUsers.module.css';
+import classes from './PPUsers.module.css';
 import CircularButton from '../../../components/Buttons/CircularButton';
 
 const UserTableColumns = [
@@ -38,7 +38,7 @@ const UserTableColumns = [
     }
 ];
 
-const CUsers = (props) => {
+const PPUsers = (props) => {
     const [users, setUsers] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
@@ -142,4 +142,4 @@ const CUsers = (props) => {
     );
 };
 
-export default CUsers;
+export default PPUsers;

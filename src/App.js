@@ -21,6 +21,8 @@ import CUsersCreateModal from './sections/Control/Pages/CUsersCreateModal';
 import OCOrganisationsCreateModal from './sections/OrganisationCenter/Pages/OCOrganisations/OCOrganisationsCreateModal';
 import OCUsersCreateModal from './sections/OrganisationCenter/Pages/OCUsers/OCUsersCreateModal';
 import OCOrganisationsIntegrationsCreateModal from './sections/OrganisationCenter/Pages/OCOrganisations/OCOrganisationsIntegrationsCreateModal';
+import OCOrganisationsUserAddModal from './sections/OrganisationCenter/Pages/OCOrganisations/OCOrganisationsUserAddModal';
+import PPUsers from './sections/PartnerPortal/Pages/PPUsers';
 
 const router = createBrowserRouter([
     {
@@ -81,6 +83,10 @@ const router = createBrowserRouter([
                                 path: '/oc/:tenancyId/organisations/:organisationId/integrations/create',
                                 element: <OCOrganisationsIntegrationsCreateModal />
                             },
+                            {
+                                path: '/oc/:tenancyId/organisations/:organisationId/users/add',
+                                element: <OCOrganisationsUserAddModal />
+                            }
                         ]
                     }
                 ]
@@ -116,8 +122,14 @@ const router = createBrowserRouter([
                 ]
             },
             {
-                path: '/pp',
-                element: <AuthenticationGuard component={PartnerPortal} />
+                path: '/pp/:tenancyId',
+                element: <AuthenticationGuard component={PartnerPortal} />,
+                children: [
+                    {
+                        path: '/pp/:tenancyId/users',
+                        element: <PPUsers />
+                    }
+                ]
             }
         ]
     }

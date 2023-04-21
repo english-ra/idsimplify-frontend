@@ -6,7 +6,7 @@ import classes from './PrimaryFormButton.module.css';
 
 const PrimaryFormButton = (props) => {
     return (
-        <button className={classes.button}>
+        <button className={`${classes.button} ${props.className}`} onClick={props.onClick}>
             {props.children}
         </button>
     );

@@ -1,0 +1,21 @@
+.main {
+    background-color: #FCFEFF;
+    margin: 20px 20px 20px 295px;
+}
+
+.sideBar {
+    position: fixed;
+    height: 100%;
+    width: 60px;
+    z-index: 1;
+
+    top: 0;
+    left: 0;
+    bottom: 0;
+}
+
+.profileCorner {
+    position: fixed;
+    top: 0;
+    right: 0;
+}

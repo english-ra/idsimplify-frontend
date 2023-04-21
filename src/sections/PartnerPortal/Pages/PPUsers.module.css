@@ -1,0 +1,35 @@
+.table {
+    width: 100%;
+}
+
+.dropdown {
+    width: 300px;
+}
+
+.titleDiv {
+    overflow: hidden;
+}
+
+.titleDiv h1, .titleDiv button {
+    float: left;
+}
+
+.titleDiv h1 {
+    margin-top: 0;
+}
+
+.titleDiv button {
+    margin-top: 8px;
+    margin-left: 8px;
+
+    background-color: #47B5FF;
+    border-color: #47B5FF;
+    color: white;
+}
+
+.titleDiv button:hover {
+    transition-duration: 0.4s;
+    background-color: white;
+    color: #06283D;
+    border-color: #06283D;
+}

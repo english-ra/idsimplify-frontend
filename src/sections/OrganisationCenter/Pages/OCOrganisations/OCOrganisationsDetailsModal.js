@@ -13,13 +13,15 @@ import classes from './OCOrganisationsDetailsModal.module.css';
 import { useEffect, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 
+const usersTableColumns = [
+    { id: 0, friendlyTitle: 'Name', dataKey: 'name' },
+    { id: 1, friendlyTitle: 'Permissions', dataKey: 'permissions' }
+];
 const integrationTableColumns = [
     { id: 0, friendlyTitle: 'Name', dataKey: 'name' },
     { id: 2, friendlyTitle: 'Type', dataKey: 'type' }
 ];
-const usersTableColumns = [{ id: 0, friendlyTitle: 'Name', dataKey: 'name' }, { id: 1, friendlyTitle: 'Address', dataKey: 'address' }];
 
-// ----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 const OCOrganisationsDetailsModal = (props) => {
     const { getAccessTokenSilently } = useAuth0();
@@ -27,6 +29,7 @@ const OCOrganisationsDetailsModal = (props) => {
     const navigate = useNavigate();
     const [isLoading, setIsLoading] = useState(false);
     const [organisation, setOrganisation] = useState(null);
+    const [users, setUsers] = useState([]);
     const [integrations, setIntegrations] = useState([]);
 
     useEffect(() => {
@@ -45,8 +48,14 @@ const OCOrganisationsDetailsModal = (props) => {
             });
 
             // Get the data
-            const [organisationResponse, integrationsResponse] = await Promise.all([
+            const [organisationResponse, usersResponse, integrationsResponse] = await Promise.all([
                 fetch(`https://api.idsimplify.co.uk/tenancies/${params.tenancyId}/organisations/${params.organisationId}`, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${accessToken}`
+                    }
+                }),
+                fetch(`https://api.idsimplify.co.uk/tenancies/${params.tenancyId}/organisations/${params.organisationId}/users`, {
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': `Bearer ${accessToken}`
@@ -65,9 +74,13 @@ const OCOrganisationsDetailsModal = (props) => {
                 setOrganisation(organisationData);
             }
 
+            if (usersResponse.status === 200) {
+                const usersData = await usersResponse.json();
+                setUsers(usersData);
+            }
+
             if (integrationsResponse.status === 200) {
                 const integrationsData = await integrationsResponse.json();
-                console.log(integrationsData);
                 setIntegrations(integrationsData);
             }
         }
@@ -77,6 +90,7 @@ const OCOrganisationsDetailsModal = (props) => {
         setIsLoading(false);
     };
 
+    const addUserHandler = () => { navigate('users/add'); };
     const createIntegrationHandler = () => { navigate('integrations/create'); };
 
     return (
@@ -94,14 +108,17 @@ const OCOrganisationsDetailsModal = (props) => {
                             <h3>Users</h3>
                             <CircularButton
                                 text='+'
+                                onClick={addUserHandler}
                             />
                         </div>
 
                         <Table
                             className={classes.table}
                             headings={usersTableColumns}
-                        />
-                        <p className={classes.tableFooter}>0 Users found</p>
+                        >
+                            {users.map(user => (<TableRow key={user.id} cols={usersTableColumns} data={user} />))}
+                        </Table>
+                        <p className={classes.tableFooter}>{users.length} Users found</p>
 
                         <div className={classes.subTitleDiv}>
                             <h3>Integrations</h3>
@@ -115,9 +132,9 @@ const OCOrganisationsDetailsModal = (props) => {
                             className={classes.table}
                             headings={integrationTableColumns}
                         >
-                            {integrations.map(integration => (<TableRow cols={integrationTableColumns} data={integration} />))}
+                            {integrations.map(integration => (<TableRow key={integration.id} cols={integrationTableColumns} data={integration} />))}
                         </Table>
-                        <p className={classes.tableFooter}>0 Integrations found</p>
+                        <p className={classes.tableFooter}>{integrations.length} Integrations found</p>
                     </>
                 )
             }

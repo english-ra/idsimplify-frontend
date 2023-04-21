@@ -1,0 +1,22 @@
+.li a {
+    display: block;
+    text-decoration: none;
+    text-align: center;
+    color: #f4f4f4;
+}
+
+.active {
+    font-weight: bold;
+}
+
+.li a:hover {
+    filter: brightness(85%);
+}
+
+.iconDiv {
+    height: 48px;
+    width: 48px;
+    border-radius: 50%;
+    background-color: #f4f4f4;
+    margin-left: 5px;
+}

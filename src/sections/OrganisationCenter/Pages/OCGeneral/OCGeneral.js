@@ -16,8 +16,6 @@ const OCGeneral = (props) => {
         <>
             <h1>General</h1>
 
-            <p>{params.tenancyId}</p>
-
             <form className={classes.form}>
                 <InputLabel for='nameField'>Name:</InputLabel><br />
                 <InputTextField id='nameField' />

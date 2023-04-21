@@ -1,0 +1,38 @@
+.root {
+    background-color: #06283D;
+}
+
+.organisationSelectorDiv {
+    width: 100%;
+    padding: 20px 8px 0 8px;
+}
+
+.organisationSelectorDiv label {
+    color: white;
+}
+
+.logo > * {
+    text-align: center;
+    margin: 0;
+    color: #FCFEFF;
+}
+
+.logo h1 {
+    margin-top: 25px;
+}
+
+.logo h2 {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.navList {
+    list-style-type: none;
+    margin: 20px 0 0 0;
+    padding: 0;
+    width: 100%;
+}
+
+.navList a {
+    width: 100%;
+}

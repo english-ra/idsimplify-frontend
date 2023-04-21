@@ -1,0 +1,18 @@
+.root {
+    z-index: 1;
+}
+
+.root h3 {
+    margin-top: 40px;
+    margin-bottom: 0;
+}
+
+.table {
+    width: 100%;
+}
+
+.submitButton {
+    position: absolute;
+    right: 20px;
+    bottom: 20px;
+}

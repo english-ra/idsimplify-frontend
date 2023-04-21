@@ -85,7 +85,7 @@ const OCUsers = (props) => {
         navigate('create');
     };
 
-    const rowClickHandler = (userID) => { navigate(`${userID}`); };
+    const rowClickHandler = (user) => { navigate(`${user.id}`); };
 
     return (
         <>
