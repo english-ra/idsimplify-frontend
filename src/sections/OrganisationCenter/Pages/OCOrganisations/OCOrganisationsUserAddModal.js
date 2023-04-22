@@ -35,7 +35,7 @@ const OCOrganisationsUserAddModal = (props) => {
     const [error, setError] = useState(null);
     const [users, setUsers] = useState([]);
     const [selectedUser, setSelectedUser] = useState(null);
-    const [permissions, setPermissions] = useState([...PERMISSIONS.organisation]);
+    const [permissions, setPermissions] = useState(PERMISSIONS.organisation);
 
     useEffect(() => {
         getData();
@@ -96,17 +96,22 @@ const OCOrganisationsUserAddModal = (props) => {
         // Send the request
         setIsLoading(true);
 
+        const selectedPermissionIDs = [];
+        for (var permission of selectedPermissions) { selectedPermissionIDs.push(permission.id); }
+
+        console.log(selectedPermissionIDs);
+
         // Create the request body
         const body = {
             id: selectedUser.id,
-            permissions: selectedPermissions
+            permissions: selectedPermissionIDs
         };
 
         try {
             // Get the users access token
             const accessToken = await getAccessTokenSilently({authorizationParams: {audience: 'https://api.idsimplify.co.uk',scope: 'access'}});
 
-            const response = await fetch(`https://api.idsimplify.co.uk/tenancies/${params.tenancyId}/organisations`, {
+            const response = await fetch(`https://api.idsimplify.co.uk/tenancies/${params.tenancyId}/organisations/${params.organisationId}/users`, {
                 method: 'POST',
                 body: JSON.stringify(body),
                 headers: {
@@ -115,17 +120,20 @@ const OCOrganisationsUserAddModal = (props) => {
                 }
             });
 
+            const data = await response.json();
+
             // Check the request was successfull
             if (response.status === 200) {
                 // Navigate back to the users page
                 navigate('..');
             } else {
                 // An error has occurred
-                
+                throw new Error(data);
             }
         }
         catch (e) {
             console.log(e);
+            setError(e);
         }
         setIsLoading(false);
     };
