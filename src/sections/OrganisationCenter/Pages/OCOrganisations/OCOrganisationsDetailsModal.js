@@ -129,8 +129,41 @@ const OCOrganisationsDetailsModal = (props) => {
     const addUserHandler = () => { navigate('users/add'); };
     const createIntegrationHandler = () => { navigate('integrations/create'); };
 
+    const userDeleteHandler = async (user) => {
+        setIsLoading(true);
+        setError(null);
+        try {
+            // Get the users access token
+            const accessToken = await getAccessTokenSilently({ // TODO: Change to quietly when hosted
+                authorizationParams: {
+                    audience: 'https://api.idsimplify.co.uk',
+                    scope: 'access'
+                }
+            });
+
+            const response = await fetch(`https://api.idsimplify.co.uk/tenancies/${params.tenancyId}/organisations/${params.organisationId}/users/${user.id}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${accessToken}`
+                }
+            });
+
+            // Check the request was successfull
+            if (response.status === 200) {
+                navigate('..');
+            } else {
+                const data = await response.json();
+                throw new Error(data);
+            }
+        } catch (error) {
+            console.log(error);
+            setError(error);
+        }
+        setIsLoading(false);
+    };
+
     const integrationDeleteHandler = async (integration) => {
-        console.log(integration);
         setIsLoading(true);
         setError(null);
         try {
@@ -189,7 +222,7 @@ const OCOrganisationsDetailsModal = (props) => {
                             className={classes.table}
                             headings={usersTableColumns}
                         >
-                            {users.map(user => (<TableRow key={user.id} cols={usersTableColumns} data={user} />))}
+                            {users.map(user => (<TableRow key={user.id} cols={usersTableColumns} data={user} onClick={userDeleteHandler} />))}
                         </Table>
                         <p className={classes.tableFooter}>{users.length} Users found</p>
 
