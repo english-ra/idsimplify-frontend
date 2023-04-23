@@ -129,6 +129,41 @@ const OCOrganisationsDetailsModal = (props) => {
     const addUserHandler = () => { navigate('users/add'); };
     const createIntegrationHandler = () => { navigate('integrations/create'); };
 
+    const integrationDeleteHandler = async (integration) => {
+        console.log(integration);
+        setIsLoading(true);
+        setError(null);
+        try {
+            // Get the users access token
+            const accessToken = await getAccessTokenSilently({ // TODO: Change to quietly when hosted
+                authorizationParams: {
+                    audience: 'https://api.idsimplify.co.uk',
+                    scope: 'access'
+                }
+            });
+
+            const response = await fetch(`https://api.idsimplify.co.uk/tenancies/${params.tenancyId}/organisations/${params.organisationId}/integrations/${integration.id}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${accessToken}`
+                }
+            });
+
+            // Check the request was successfull
+            if (response.status === 200) {
+                navigate('..');
+            } else {
+                const data = await response.json();
+                throw new Error(data);
+            }
+        } catch (error) {
+            console.log(error);
+            setError(error);
+        }
+        setIsLoading(false);
+    };
+
     return (
         <SideModal
             className={classes.root}
@@ -170,14 +205,16 @@ const OCOrganisationsDetailsModal = (props) => {
                             className={classes.table}
                             headings={integrationTableColumns}
                         >
-                            {integrations.map(integration => (<TableRow key={integration.id} cols={integrationTableColumns} data={integration} />))}
+                            {integrations.map(integration => (<TableRow key={integration.id} cols={integrationTableColumns} data={integration} onClick={integrationDeleteHandler} />))}
                         </Table>
                         <p className={classes.tableFooter}>{integrations.length} Integrations found</p>
+
+                        <p>Please click on either a user or integration to remove them from this organisation.</p>
                     </>
                 )
             }
 
-            { error && <p className='errorText'>{error.message}</p> }
+            {error && <p className='errorText'>{error.message}</p>}
         </SideModal>
     );
 };
