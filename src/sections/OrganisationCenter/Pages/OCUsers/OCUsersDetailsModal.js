@@ -2,76 +2,65 @@
 // iDSimplify Frontend
 // Created by Reece English on 28.02.2023
 
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
-import InputLabel from '../../../../components/InputFields/InputLabel';
-import TextFieldWLabel from '../../../../components/InputFields/TextFieldWLabel';
-import OrgPermissionTableRow from '../../../../components/Table/Rows/OrgPermissionTableRow';
-import SideModalTable from '../../../../components/Table/Tables/SideModalTable';
-import ToggleSwitch from '../../../../components/ToggleSwitch/ToggleSwitch';
 import SideModal from '../../../../components/layout/SideModal';
+import PrimaryFormButton from '../../../../components/Buttons/PrimaryFormButton';
 import classes from './OCUsersDetailsModal.module.css';
+import { useState } from 'react';
+import { useAuth0 } from '@auth0/auth0-react';
 
-const UserOrgPermissionsTableCols = [
-    {
-        id: 0,
-        friendlyTitle: 'Name',
-        dataKey: 'orgName'
-    },
-    {
-        id: 1,
-        friendlyTitle: 'Control',
-        dataKey: 'control'
-    },
-    {
-        id: 2,
-        friendlyTitle: 'Partner Portal',
-        dataKey: 'pp'
-    }
-];
 
 const OCUsersDetailsModal = (props) => {
+    const { getAccessTokenSilently } = useAuth0();
     const params = useParams();
+    const navigate = useNavigate();
+    const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState(null);
+
+    const deleteUserButtonHandler = async () => {
+        setIsLoading(true);
+        setError(null);
+        try {
+            // Get the users access token
+            const accessToken = await getAccessTokenSilently({ // TODO: Change to quietly when hosted
+                authorizationParams: {
+                    audience: 'https://api.idsimplify.co.uk',
+                    scope: 'access'
+                }
+            });
+
+            const response = await fetch(`https://api.idsimplify.co.uk/tenancies/${params.tenancyId}/users/${params.userId}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${accessToken}`
+                }
+            });
+
+            // Check the request was successfull
+            if (response.status === 200) {
+                navigate('..');
+            } else {
+                const data = await response.json();
+                throw new Error(data);
+            }
+        } catch (error) {
+            console.log(error);
+            setError(error);
+        }
+        setIsLoading(false);
+    };
 
     return (
         <SideModal
             className={classes.root}
         >
-            <h1>Users Name</h1>
-            <p>{params.userId}</p>
+            <h1>Delete User</h1>
+            <PrimaryFormButton className={classes.deleteUser} onClick={deleteUserButtonHandler} >Delete User</PrimaryFormButton>
 
-            <h3>User Details</h3>
-
-            <form
-                className={classes.form}
-            >
-                <TextFieldWLabel
-                    id='fName'
-                    labelText='First name'
-                />
-                <TextFieldWLabel
-                    id='lName'
-                    labelText='Last name'
-                />
-                <TextFieldWLabel
-                    id='email'
-                    labelText='Email address'
-                />
-            </form>
-
-            <h3>Organisation Center Permissions (Administrator)</h3>
-            <InputLabel>Organisation Center Access: </InputLabel>
-            <ToggleSwitch />
-
-            <h3>Organisation Permissions</h3>
-
-            <SideModalTable
-                className={classes.orgPermissionsTable}
-                headings={UserOrgPermissionsTableCols}
-            >
-                <OrgPermissionTableRow />
-                <OrgPermissionTableRow />
-            </SideModalTable>
+            {isLoading && <p>Loading...</p>}
+            {error && <p className='errorText'>{error.message}</p>}
         </SideModal>
     );
 };
