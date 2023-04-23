@@ -38,10 +38,6 @@ const OCSideBar = (props) => {
             <OCNavLinkContainer>
                 {OCLinkData.map(link => (<OCNavLink data={link} key={link.id}>{link.text}</OCNavLink>))}
             </OCNavLinkContainer>
-
-            <OCNavLinkContainer className={classes.secondaryNav}>
-                <OCLink data={{ link: '/control' }}>Go to Control</OCLink>
-            </OCNavLinkContainer>
         </aside>
     );
 };
