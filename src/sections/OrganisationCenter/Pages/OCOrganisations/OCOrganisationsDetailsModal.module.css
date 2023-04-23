@@ -10,6 +10,13 @@
     width: 100%;
 }
 
+.deleteButton {
+    background-color: red;
+    border-color: red;
+
+    float: none;
+    margin-bottom: 20px;
+}
 
 .tableFooter {
     margin-bottom: 30px;

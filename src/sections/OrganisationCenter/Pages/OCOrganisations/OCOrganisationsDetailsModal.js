@@ -8,6 +8,7 @@ import SideModal from "../../../../components/layout/SideModal";
 import Table from "../../../../components/Table/Tables/Table";
 import TableRow from "../../../../components/Table/Rows/TableRow";
 import CircularButton from '../../../../components/Buttons/CircularButton';
+import PrimaryFormButton from '../../../../components/Buttons/PrimaryFormButton';
 
 import classes from './OCOrganisationsDetailsModal.module.css';
 import { useEffect, useState } from "react";
@@ -28,6 +29,7 @@ const OCOrganisationsDetailsModal = (props) => {
     const params = useParams();
     const navigate = useNavigate();
     const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState(null);
     const [organisation, setOrganisation] = useState(null);
     const [users, setUsers] = useState([]);
     const [integrations, setIntegrations] = useState([]);
@@ -90,6 +92,40 @@ const OCOrganisationsDetailsModal = (props) => {
         setIsLoading(false);
     };
 
+    const deleteButtonHandler = async () => {
+        setIsLoading(true);
+        setError(null);
+        try {
+            // Get the users access token
+            const accessToken = await getAccessTokenSilently({ // TODO: Change to quietly when hosted
+                authorizationParams: {
+                    audience: 'https://api.idsimplify.co.uk',
+                    scope: 'access'
+                }
+            });
+
+            const response = await fetch(`https://api.idsimplify.co.uk/tenancies/${params.tenancyId}/organisations/${params.organisationId}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${accessToken}`
+                }
+            });
+
+            // Check the request was successfull
+            if (response.status === 200) {
+                navigate('..');
+            } else {
+                const data = await response.json();
+                throw new Error(data);
+            }
+        } catch (error) {
+            console.log(error);
+            setError(error);
+        }
+        setIsLoading(false);
+    };
+
     const addUserHandler = () => { navigate('users/add'); };
     const createIntegrationHandler = () => { navigate('integrations/create'); };
 
@@ -103,6 +139,8 @@ const OCOrganisationsDetailsModal = (props) => {
                 ) : (
                     <>
                         <h1>{organisation && organisation.name}</h1>
+
+                        <PrimaryFormButton className={classes.deleteButton} onClick={deleteButtonHandler} >Delete</PrimaryFormButton>
 
                         <div className={classes.subTitleDiv}>
                             <h3>Users</h3>
@@ -138,6 +176,8 @@ const OCOrganisationsDetailsModal = (props) => {
                     </>
                 )
             }
+
+            { error && <p className='errorText'>{error.message}</p> }
         </SideModal>
     );
 };
