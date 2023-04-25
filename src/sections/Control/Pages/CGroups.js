@@ -1,45 +1,40 @@
-// CUsers.js
+// CGroups.js
 // iDSimplify Frontend
-// Created by Reece English on 25.03.2023
+// Created by Reece English on 23.04.2023
 
 import { useAuth0 } from '@auth0/auth0-react';
 import { useEffect, useState } from 'react';
 import { Outlet, useLocation, useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import TableRow from '../../../components/Table/Rows/TableRow';
 import Table from '../../../components/Table/Tables/Table';
-import classes from './CUsers.module.css';
+import classes from './CGroups.module.css';
 import CircularButton from '../../../components/Buttons/CircularButton';
 
-const UserTableColumns = [
+const GroupTableColumns = [
     {
         id: 0,
-        friendlyTitle: 'First Name',
-        dataKey: 'givenName'
-    },
-    {
-        id: 1,
-        friendlyTitle: 'Last Name',
-        dataKey: 'surname'
-    },
-    {
-        id: 2,
         friendlyTitle: 'Display Name',
         dataKey: 'displayName'
     },
     {
-        id: 3,
-        friendlyTitle: 'UPN',
-        dataKey: 'userPrincipalName'
+        id: 1,
+        friendlyTitle: 'Mail',
+        dataKey: 'mail'
     },
     {
-        id: 4,
-        friendlyTitle: 'Job Title',
-        dataKey: 'jobTitle'
+        id: 2,
+        friendlyTitle: 'Description',
+        dataKey: 'description'
+    },
+    {
+        id: 3,
+        friendlyTitle: 'Types',
+        dataKey: 'groupTypes'
     }
 ];
 
-const CUsers = (props) => {
-    const [users, setUsers] = useState([]);
+const CGroups = (props) => {
+    const [groups, setGroups] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
     const { getAccessTokenSilently } = useAuth0();
@@ -48,7 +43,7 @@ const CUsers = (props) => {
     const [searchParams, setSearchParams] = useSearchParams();
 
     useEffect(() => {
-        getUsersFromIntegration();
+        getGroupsFromIntegration();
     }, [searchParams]);
 
     const getAccessToken = async () => {
@@ -68,10 +63,10 @@ const CUsers = (props) => {
         return accessToken;
     };
 
-    const getUsersFromIntegration = async () => {
+    const getGroupsFromIntegration = async () => {
         setIsLoading(true);
         setError(null);
-        setUsers([]);
+        setGroups([]);
 
         const tenancyID = searchParams.get('tenancy-id');
         const organisationID = searchParams.get('organisation-id');
@@ -82,7 +77,7 @@ const CUsers = (props) => {
             const accessToken = await getAccessToken();
 
             // Get the data
-            const response = await fetch(`https://api.idsimplify.co.uk/integrations/users?tenancy-id=${tenancyID}&organisation-id=${organisationID}`, {
+            const response = await fetch(`https://api.idsimplify.co.uk/integrations/groups?tenancy-id=${tenancyID}&organisation-id=${organisationID}`, {
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${accessToken}`
@@ -92,7 +87,7 @@ const CUsers = (props) => {
             const data = await response.json();
 
             if (response.status === 200) {
-                setUsers([...data.value]);
+                setGroups([...data.value]);
             } else {
                 throw new Error(data);
             }
@@ -110,7 +105,7 @@ const CUsers = (props) => {
     return (
         <>
             <div className={classes.titleDiv}>
-                <h1>Users</h1>
+                <h1>Groups</h1>
                 <CircularButton
                     text='+'
                     onClick={createUserButtonHandler}
@@ -119,12 +114,12 @@ const CUsers = (props) => {
 
             <Table
                 className={classes.table}
-                headings={UserTableColumns}
+                headings={GroupTableColumns}
             >
                 {
-                    users.map(user => (
+                    groups.map(user => (
                         <TableRow
-                            cols={UserTableColumns}
+                            cols={GroupTableColumns}
                             data={user}
                             key={user.id}
                             onClick={rowClickHandler}
@@ -134,7 +129,7 @@ const CUsers = (props) => {
             </Table>
 
             {isLoading && <p>Loading...</p>}
-            {!isLoading && !error && <p>{users.length} users found</p>}
+            {!isLoading && !error && <p>{groups.length} groups found</p>}
             {!isLoading && error && <p className='errorText'>{error.message}</p>}
 
             <Outlet />
@@ -142,4 +137,4 @@ const CUsers = (props) => {
     );
 };
 
-export default CUsers;
+export default CGroups;

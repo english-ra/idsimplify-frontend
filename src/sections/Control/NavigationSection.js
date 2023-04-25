@@ -42,7 +42,7 @@ const NavigationSection = (props) => {
                     <li key={link.linkId}>
                         <NavLink
                             className={({ isActive }) => isActive ? classes.active : undefined}
-                            to={link.link}
+                            to={`${link.link}${location.search}`}
                         >
                             {link.text}
                         </NavLink>

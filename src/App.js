@@ -23,6 +23,9 @@ import OCUsersCreateModal from './sections/OrganisationCenter/Pages/OCUsers/OCUs
 import OCOrganisationsIntegrationsCreateModal from './sections/OrganisationCenter/Pages/OCOrganisations/OCOrganisationsIntegrationsCreateModal';
 import OCOrganisationsUserAddModal from './sections/OrganisationCenter/Pages/OCOrganisations/OCOrganisationsUserAddModal';
 import PPUsers from './sections/PartnerPortal/Pages/PPUsers';
+import CGroups from './sections/Control/Pages/CGroups';
+import CGroupsCreateModal from './sections/Control/Pages/CGroupsCreateModal';
+import CGroupsDetailsModal from './sections/Control/Pages/CGroupsDetailsModal';
 
 const router = createBrowserRouter([
     {
@@ -111,11 +114,15 @@ const router = createBrowserRouter([
                     },
                     {
                         path: '/control/groups',
-                        element: <h1>Groups</h1>,
+                        element: <CGroups />,
                         children: [
                             {
+                                path: '/control/groups/create',
+                                element: <CGroupsCreateModal />
+                            },
+                            {
                                 path: '/control/groups/:groupId',
-                                element: <h1>Group</h1>
+                                element: <CGroupsDetailsModal />
                             }
                         ]
                     }

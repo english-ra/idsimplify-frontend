@@ -8,38 +8,8 @@ import NavigationSection from './NavigationSection';
 import Dropdown from '../../components/Select/Dropdown';
 import InputLabel from '../../components/InputFields/InputLabel';
 import { useEffect, useState } from 'react';
-import { Outlet, useNavigate, useParams, useSearchParams } from 'react-router-dom';
+import { Outlet, useLocation, useNavigate, useParams, useSearchParams } from 'react-router-dom';
 
-const navData = [
-    {
-        sectionId: 0,
-        sectionHeader: 'Identity Management',
-        route: '/control',
-        sectionLinks: [
-            {
-                linkId: 0.1,
-                text: 'Users',
-                link: 'users'
-            },
-            {
-                linkId: 0.2,
-                text: 'Groups',
-                link: 'groups'
-            }
-        ]
-    },
-    {
-        sectionId: 1,
-        sectionHeader: 'Reporting',
-        sectionLinks: [
-            {
-                linkId: 1.1,
-                text: 'Scheduling',
-                link: 'scheduling'
-            }
-        ]
-    }
-];
 
 const CSideBar = (props) => {
     const [organisations, setOrganisations] = useState([]);
@@ -49,6 +19,38 @@ const CSideBar = (props) => {
     const navigate = useNavigate();
     const params = useParams();
     const [searchParams, setSearchParams] = useSearchParams();
+    const location = useLocation();
+
+    const navData = [
+        {
+            sectionId: 0,
+            sectionHeader: 'Identity Management',
+            route: '/control',
+            sectionLinks: [
+                {
+                    linkId: 0.1,
+                    text: 'Users',
+                    link: `users`
+                },
+                {
+                    linkId: 0.2,
+                    text: 'Groups',
+                    link: `groups`
+                }
+            ]
+        },
+        {
+            sectionId: 1,
+            sectionHeader: 'Reporting',
+            sectionLinks: [
+                {
+                    linkId: 1.1,
+                    text: 'Scheduling',
+                    link: 'scheduling'
+                }
+            ]
+        }
+    ];
 
     useEffect(() => {
         getUsersOrganisations();

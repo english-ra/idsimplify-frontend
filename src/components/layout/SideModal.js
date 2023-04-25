@@ -2,16 +2,16 @@
 // iDSimplify Frontend
 // Created by Reece English on 28.02.2023
 
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import CircularButton from '../Buttons/CircularButton';
 import classes from './SideModal.module.css';
 
 const SideModal = (props) => {
-
     const navigate = useNavigate();
+    const location = useLocation();
 
     const closeButtonHandler = () => {
-        navigate('..');
+        navigate(`..${location.search}`);
     };
 
     return (

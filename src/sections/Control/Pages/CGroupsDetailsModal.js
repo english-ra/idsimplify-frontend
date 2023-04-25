@@ -1,6 +1,6 @@
-// CUsersDetailsModal.js
+// CGroupsDetailsModal.js
 // iDSimplify Frontend
-// Created by Reece English on 27.03.2023
+// Created by Reece English on 23.04.2023
 
 import { useLocation, useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import InputLabel from '../../../components/InputFields/InputLabel';
@@ -9,7 +9,7 @@ import OrgPermissionTableRow from '../../../components/Table/Rows/OrgPermissionT
 import SideModalTable from '../../../components/Table/Tables/SideModalTable';
 import ToggleSwitch from '../../../components/ToggleSwitch/ToggleSwitch';
 import SideModal from '../../../components/layout/SideModal';
-import classes from './CUsersDetailsModal.module.css';
+import classes from './CGroupsDetailsModal.module.css';
 import { useEffect, useState } from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
 import TableRow from '../../../components/Table/Rows/TableRow';
@@ -27,7 +27,7 @@ const UserOrgPermissionsTableCols = [
     }
 ];
 
-const CUsersDetailsModal = (props) => {
+const CGroupsDetailsModal = (props) => {
     const params = useParams();
     const [user, setUser] = useState(null);
     const [groups, setGroups] = useState([]);
@@ -216,4 +216,4 @@ const CUsersDetailsModal = (props) => {
     );
 };
 
-export default CUsersDetailsModal;
+export default CGroupsDetailsModal;
