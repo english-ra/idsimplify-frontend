@@ -8,14 +8,15 @@ import SideModal from '../../../components/layout/SideModal';
 import classes from './CGroupsCreateModal.module.css';
 import { useEffect, useState } from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
-import Dropdown from '../../../components/Select/Dropdown';
 import InputSubmitButton from '../../../components/InputFields/InputSubmitButton';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 
 
 const CGroupsCreateModal = (props) => {
     const { getAccessTokenSilently } = useAuth0();
+    const location = useLocation();
     const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState(null);
 
     const [displayName, setDisplayName] = useState('');
     const [description, setDescription] = useState('');
@@ -31,6 +32,8 @@ const CGroupsCreateModal = (props) => {
 
     const onSubmitHandler = async (event) => {
         event.preventDefault();
+        setIsLoading(true);
+        setError(null);
 
         const group = {
             displayName: displayName,
@@ -62,55 +65,53 @@ const CGroupsCreateModal = (props) => {
             // Check the request was successfull
             if (response.status === 200) {
                 // Navigate back to the users page
-                navigate('..');
+                navigate(`..${location.search}`);
             } else {
                 // An error has occurred
-
+                const data = await response.json();
+                throw new Error(data);
             }
         }
-        catch (e) {
-            console.log(e);
+        catch (error) {
+            console.log(error);
+            setError(error);
         }
+        setIsLoading(false);
     };
 
     return (
         <SideModal
             className={classes.root}
         >
-            {
-                isLoading ? (
-                    <p>Loading...</p>
-                ) : (
-                    <>
-                        <h1>Create a Group</h1>
+            <h1>Create a Group</h1>
 
-                        <h3>Group Details</h3>
+            <h3>Group Details</h3>
 
-                        <form
-                            className={classes.form}
-                            onSubmit={onSubmitHandler}
-                        >
-                            <TextFieldWLabel
-                                id='displayName'
-                                labelText='Display Name'
-                                onChange={displayNameTextFieldHandler}
-                            />
-                            <TextFieldWLabel
-                                id='description'
-                                labelText='Description'
-                                onChange={descriptionTextFieldHandler}
-                            />
-                            <TextFieldWLabel
-                                id='mailNickname'
-                                labelText='Mail Nickname'
-                                onChange={mailNicknameTextFieldHandler}
-                            />
+            <form
+                className={classes.form}
+                onSubmit={onSubmitHandler}
+            >
+                <TextFieldWLabel
+                    id='displayName'
+                    labelText='Display Name'
+                    onChange={displayNameTextFieldHandler}
+                />
+                <TextFieldWLabel
+                    id='description'
+                    labelText='Description'
+                    onChange={descriptionTextFieldHandler}
+                />
+                <TextFieldWLabel
+                    id='mailNickname'
+                    labelText='Mail Nickname'
+                    onChange={mailNicknameTextFieldHandler}
+                />
 
-                            <InputSubmitButton value='Create' />
-                        </form>
-                    </>
-                )
-            }
+                <InputSubmitButton value='Create' />
+            </form>
+
+            {isLoading && <p>Loading...</p>}
+            {error && <p className='errorText'>{error.message}</p>}
         </SideModal>
     );
 };
