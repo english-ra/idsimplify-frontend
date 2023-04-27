@@ -14,3 +14,7 @@
 .pending {
     color: gray;
 }
+
+.disabled {
+    color: red;
+}

@@ -47,7 +47,6 @@ const PPUsers = (props) => {
     };
 
     const getUsersOrganisations = async () => {
-        setIsLoading(true);
         setError(null);
         try {
             const accessToken = await getAccessToken();
@@ -76,7 +75,6 @@ const PPUsers = (props) => {
             console.log(error);
             setError(error);
         }
-        setIsLoading(false);
     };
 
     const getUsersFromIntegration = async () => {
@@ -120,8 +118,76 @@ const PPUsers = (props) => {
         else { setSearchParams({ 'tenancy-id': searchParams.get('tenancy-id'), 'organisation-id': organisation.id }); }
     };
 
-    const rowClickHandler = (user) => { navigate(`${user.id}`); };
-    const createUserButtonHandler = () => { navigate(`create${location.search}`); };
+    const createUserButtonHandler = () => {};
+
+    const userClickHandler = async (user) => {
+        setIsLoading(true);
+        setError(null);
+
+        const tenancyID = searchParams.get('tenancy-id');
+        const organisationID = searchParams.get('organisation-id');
+
+        if (user.accountEnabled) {
+            try {
+                // Get the users access token
+                const accessToken = await getAccessTokenSilently({ // TODO: Change to quietly when hosted
+                    authorizationParams: {
+                        audience: 'https://api.idsimplify.co.uk',
+                        scope: 'access'
+                    }
+                });
+
+                const response = await fetch(`https://api.idsimplify.co.uk/integrations/users/${user.id}/disable?tenancy-id=${tenancyID}&organisation-id=${organisationID}`, {
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${accessToken}`
+                    }
+                });
+
+                // Check the request was successfull
+                if (response.status === 200) {
+                    getUsersFromIntegration();
+                } else {
+                    const data = await response.json();
+                    throw new Error(data);
+                }
+            } catch (error) {
+                console.log(error);
+                setError(error);
+            }
+        } else {
+            try {
+                // Get the users access token
+                const accessToken = await getAccessTokenSilently({ // TODO: Change to quietly when hosted
+                    authorizationParams: {
+                        audience: 'https://api.idsimplify.co.uk',
+                        scope: 'access'
+                    }
+                });
+
+                const response = await fetch(`https://api.idsimplify.co.uk/integrations/users/${user.id}/enable?tenancy-id=${tenancyID}&organisation-id=${organisationID}`, {
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${accessToken}`
+                    }
+                });
+
+                // Check the request was successfull
+                if (response.status === 200) {
+                    getUsersFromIntegration();
+                } else {
+                    const data = await response.json();
+                    throw new Error(data);
+                }
+            } catch (error) {
+                console.log(error);
+                setError(error);
+            }
+        }
+        setIsLoading(false);
+    };
 
     return (
         <>
@@ -152,10 +218,13 @@ const PPUsers = (props) => {
                         <PPUserCard
                             key={user.id}
                             data={user}
+                            onClick={userClickHandler}
                         />
                     ))
                 }
             </div>
+
+            {!isLoading && !error && <p>Click a user to either enable or disable, red means disabled.</p>}
 
             {isLoading && <p>Loading...</p>}
             {!isLoading && !error && <p>{users.length} users found</p>}

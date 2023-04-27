@@ -31,7 +31,7 @@ const ProfileCorner = (props) => {
                     <li><Link to='/profile'>My Account</Link></li>
                     <li>
                         <button
-                            onClick={() => logout()}
+                            onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}
                         >
                             Sign out
                         </button>

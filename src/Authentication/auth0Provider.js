@@ -7,7 +7,7 @@ const Auth0ProviderWithHistory = ({ children }) => {
 
     const domain = 'idsimplify.uk.auth0.com'; // process.env.REACT_APP_AUTH0_DOMAIN;
     const clientId = 'QHHh7HRSfoe3p7uy3jIDXxU8YpCuKVGA'; // process.env.REACT_APP_AUTH0_CLIENT_ID;
-    const redirectUri = 'http://localhost:3000/authedlandingpage'; //process.env.REACT_APP_AUTH0_CALLBACK_URL;
+    const redirectUri = 'https://idsimplify.co.uk/authedlandingpage'; //process.env.REACT_APP_AUTH0_CALLBACK_URL;
 
     const onRedirectCallback = (appState) => {
         navigate(appState?.returnTo || window.location.pathname);

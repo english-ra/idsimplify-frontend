@@ -61,6 +61,12 @@ const PERMISSIONS = {
             name: 'Delete a group',
             description: '',
             selected: false
+        },
+        {
+            id: 'iD-P-20000',
+            name: 'Partner Portal Default User',
+            description: 'This provides the user access to view all the users within an organisation, and enable and disable their accounts.',
+            selected: false
         }
     ]
 };

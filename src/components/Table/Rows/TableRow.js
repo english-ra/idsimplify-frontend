@@ -12,7 +12,7 @@ const TableRow = (props) => {
 
     return (
         <tr
-            className={`${classes.row} ${props.className}`}
+            className={`${classes.row} ${props.className} ${props.data.accountEnabled != undefined && !props.data.accountEnabled && classes.disabled}`}
             onClick={rowClickHandler}
         >
             {props.cols.map(col => (

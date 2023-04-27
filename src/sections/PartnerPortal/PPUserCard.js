@@ -8,8 +8,12 @@ import classes from './PPUserCard.module.css';
 const PPUserCard = (props) => {
     const user = props.data;
 
+    const onClickHandler = () => {
+        props.onClick(user);
+    };
+
     return (
-        <div className={classes.root}>
+        <div className={`${classes.root} ${!user.accountEnabled && classes.disabled}`} onClick={onClickHandler} >
             <div className={classes.imageDiv} />
 
             <h3>{user && user.displayName}</h3>
