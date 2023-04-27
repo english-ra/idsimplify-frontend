@@ -14,23 +14,18 @@ import { useEffect, useState } from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
 import TableRow from '../../../components/Table/Rows/TableRow';
 
-const UserOrgPermissionsTableCols = [
+const MembersTableCols = [
     {
         id: 0,
         friendlyTitle: 'Name',
         dataKey: 'displayName'
-    },
-    {
-        id: 1,
-        friendlyTitle: 'Visibility',
-        dataKey: 'visibility'
     }
 ];
 
 const CGroupsDetailsModal = (props) => {
     const params = useParams();
-    const [user, setUser] = useState(null);
-    const [groups, setGroups] = useState([]);
+    const [group, setGroup] = useState(null);
+    const [members, setMembers] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
     const { getAccessTokenSilently } = useAuth0();
@@ -45,7 +40,7 @@ const CGroupsDetailsModal = (props) => {
     const getData = async () => {
 
         // Get the users ID
-        const userID = params.userId;
+        const groupID = params.groupId;
 
         const tenancyID = searchParams.get('tenancy-id');
         const organisationID = searchParams.get('organisation-id');
@@ -61,14 +56,14 @@ const CGroupsDetailsModal = (props) => {
             });
 
             // Get the data
-            const [userResponse, groupsResponse] = await Promise.all([
-                fetch(`https://api.idsimplify.co.uk/integrations/users/${userID}?tenancy-id=${tenancyID}&organisation-id=${organisationID}`, {
+            const [groupResponse, membersResponse] = await Promise.all([
+                fetch(`https://api.idsimplify.co.uk/integrations/groups/${groupID}?tenancy-id=${tenancyID}&organisation-id=${organisationID}`, {
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': `Bearer ${accessToken}`
                     }
                 }),
-                fetch(`https://api.idsimplify.co.uk/integrations/users/${userID}/groups?tenancy-id=${tenancyID}&organisation-id=${organisationID}`, {
+                fetch(`https://api.idsimplify.co.uk/integrations/groups/${groupID}/members?tenancy-id=${tenancyID}&organisation-id=${organisationID}`, {
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': `Bearer ${accessToken}`
@@ -76,12 +71,11 @@ const CGroupsDetailsModal = (props) => {
                 })
             ]);
 
-            const userData = await userResponse.json();
-            console.log(userData);
-            setUser(userData);
+            const groupData = await groupResponse.json();
+            setGroup(groupData);
 
-            const groupsData = await groupsResponse.json();
-            setGroups([...groupsData.value]);
+            const membersData = await membersResponse.json();
+            setMembers([...membersData.value]);
         }
         catch (err) {
             console.log(err);
@@ -90,71 +84,40 @@ const CGroupsDetailsModal = (props) => {
     };
 
 
-    const blockEnableSignInHandler = async () => {
+    const deleteGroupHandler = async () => {
         setIsLoading(true);
         setError(null);
 
         const tenancyID = searchParams.get('tenancy-id');
         const organisationID = searchParams.get('organisation-id');
 
-        if (user.accountEnabled) {
-            try {
-                // Get the users access token
-                const accessToken = await getAccessTokenSilently({ // TODO: Change to quietly when hosted
-                    authorizationParams: {
-                        audience: 'https://api.idsimplify.co.uk',
-                        scope: 'access'
-                    }
-                });
-
-                const response = await fetch(`https://api.idsimplify.co.uk/integrations/users/${user.id}/disable?tenancy-id=${tenancyID}&organisation-id=${organisationID}`, {
-                    method: 'PATCH',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${accessToken}`
-                    }
-                });
-
-                // Check the request was successfull
-                if (response.status === 200) {
-                    navigate(`..${location.search}`);
-                } else {
-                    const data = await response.json();
-                    throw new Error(data);
+        try {
+            // Get the users access token
+            const accessToken = await getAccessTokenSilently({ // TODO: Change to quietly when hosted
+                authorizationParams: {
+                    audience: 'https://api.idsimplify.co.uk',
+                    scope: 'access'
                 }
-            } catch (error) {
-                console.log(error);
-                setError(error);
-            }
-        } else {
-            try {
-                // Get the users access token
-                const accessToken = await getAccessTokenSilently({ // TODO: Change to quietly when hosted
-                    authorizationParams: {
-                        audience: 'https://api.idsimplify.co.uk',
-                        scope: 'access'
-                    }
-                });
+            });
 
-                const response = await fetch(`https://api.idsimplify.co.uk/integrations/users/${user.id}/enable?tenancy-id=${tenancyID}&organisation-id=${organisationID}`, {
-                    method: 'PATCH',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${accessToken}`
-                    }
-                });
-
-                // Check the request was successfull
-                if (response.status === 200) {
-                    navigate(`..${location.search}`);
-                } else {
-                    const data = await response.json();
-                    throw new Error(data);
+            const response = await fetch(`https://api.idsimplify.co.uk/integrations/groups/${group.id}?tenancy-id=${tenancyID}&organisation-id=${organisationID}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${accessToken}`
                 }
-            } catch (error) {
-                console.log(error);
-                setError(error);
+            });
+
+            // Check the request was successfull
+            if (response.status === 200) {
+                navigate(`..${location.search}`);
+            } else {
+                const data = await response.json();
+                throw new Error(data);
             }
+        } catch (error) {
+            console.log(error);
+            setError(error);
         }
         setIsLoading(false);
     };
@@ -169,46 +132,27 @@ const CGroupsDetailsModal = (props) => {
                     <p>Loading...</p>
                 ) : (
                     <>
-                        <h1>{user && user.displayName}</h1>
-                        <p>{user && user.userPrincipalName}</p>
+                        <h1>{group && group.displayName}</h1>
+                        <p>{group && group.mail}</p>
 
-                        <button onClick={blockEnableSignInHandler}>{user && user.accountEnabled ? <span>Block Sign In</span> : <span>Enable Sign In</span>}</button>
+                        <button onClick={deleteGroupHandler}>Delete Group</button>
 
-                        <h3>User Details</h3>
-
-                        <form
-                            className={classes.form}
-                        >
-                            <TextFieldWLabel
-                                id='fName'
-                                labelText='First name'
-                            />
-                            <TextFieldWLabel
-                                id='lName'
-                                labelText='Last name'
-                            />
-                            <TextFieldWLabel
-                                id='email'
-                                labelText='Email address'
-                            />
-                        </form>
-
-                        <h3>Groups</h3>
+                        <h3>Members</h3>
 
                         <SideModalTable
                             className={classes.groupsTable}
-                            headings={UserOrgPermissionsTableCols}
+                            headings={MembersTableCols}
                         >
                             {
-                                groups.map(group => (
+                                members.map(group => (
                                     <TableRow
-                                        cols={UserOrgPermissionsTableCols}
+                                        cols={MembersTableCols}
                                         data={group}
                                     />
                                 ))
                             }
                         </SideModalTable>
-                        <p>{groups.length} groups found</p>
+                        <p>{members.length} users found</p>
                     </>
                 )
             }
