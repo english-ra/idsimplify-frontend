@@ -23,6 +23,7 @@ const UserOrgPermissionsTableCols = [
 const CUsersCreateModal = (props) => {
     const { getAccessTokenSilently } = useAuth0();
     const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState(null);
     const [domains, setDomains] = useState([]);
 
     const [firstName, setFirstName] = useState('');
@@ -80,6 +81,8 @@ const CUsersCreateModal = (props) => {
 
     const onSubmitHandler = async (event) => {
         event.preventDefault();
+        setIsLoading(true);
+        setError(null);
 
         const user = {
             givenName: firstName,
@@ -111,80 +114,79 @@ const CUsersCreateModal = (props) => {
                 }
             });
 
+            const data = await response.json();
+
             // Check the request was successfull
             if (response.status === 200) {
                 // Navigate back to the users page
                 navigate(`..${location.search}`);
             } else {
                 // An error has occurred
-
+                throw new Error(data);
             }
         }
         catch (e) {
             console.log(e);
+            setError(e);
         }
+        setIsLoading(false);
     };
 
     return (
         <SideModal
             className={classes.root}
         >
-            {
-                isLoading ? (
-                    <p>Loading...</p>
-                ) : (
-                    <>
-                        <h1>Create a User</h1>
+            <h1>Create a User</h1>
 
-                        <h3>User Details</h3>
+            <h3>User Details</h3>
 
-                        <form
-                            className={classes.form}
-                            onSubmit={onSubmitHandler}
-                        >
-                            <TextFieldWLabel
-                                id='firstName'
-                                labelText='First name'
-                                onChange={firstNameTextFieldHandler}
-                            />
-                            <TextFieldWLabel
-                                id='lastName'
-                                labelText='Last name'
-                                onChange={lastNameTextFieldHandler}
-                            />
-                            <TextFieldWLabel
-                                id='displayName'
-                                labelText='Display Name'
-                                onChange={displayNameTextFieldHandler}
-                            />
-                            <TextFieldWLabel
-                                id='username'
-                                labelText='Username'
-                                onChange={usernameTextFieldHandler}
-                            />
-                            <InputLabel
-                                for='domain'
-                            >
-                                Domain
-                            </InputLabel>
-                            <Dropdown
-                                id='domain'
-                                data={domains}
-                                dataKey='id'
-                                onSelected={domainsDropdownHandler}
-                            />
-                            <TextFieldWLabel
-                                id='password'
-                                labelText='Password'
-                                type='password'
-                                onChange={passwordTextFieldHandler}
-                            />
+            <form
+                className={classes.form}
+                onSubmit={onSubmitHandler}
+            >
+                <TextFieldWLabel
+                    id='firstName'
+                    labelText='First name'
+                    onChange={firstNameTextFieldHandler}
+                />
+                <TextFieldWLabel
+                    id='lastName'
+                    labelText='Last name'
+                    onChange={lastNameTextFieldHandler}
+                />
+                <TextFieldWLabel
+                    id='displayName'
+                    labelText='Display Name'
+                    onChange={displayNameTextFieldHandler}
+                />
+                <TextFieldWLabel
+                    id='username'
+                    labelText='Username'
+                    onChange={usernameTextFieldHandler}
+                />
+                <InputLabel
+                    for='domain'
+                >
+                    Domain
+                </InputLabel>
+                <Dropdown
+                    id='domain'
+                    data={domains}
+                    dataKey='id'
+                    onSelected={domainsDropdownHandler}
+                />
+                <TextFieldWLabel
+                    id='password'
+                    labelText='Password'
+                    type='password'
+                    onChange={passwordTextFieldHandler}
+                />
 
-                            <InputSubmitButton value='Create' />
-                        </form>
-                    </>
-                )
-            }
+                <InputSubmitButton value='Create' />
+            </form>
+
+            { isLoading && <p>Loading...</p> }
+            { error && <p className='errorText'>{ error.message }</p> }
         </SideModal>
     );
 };

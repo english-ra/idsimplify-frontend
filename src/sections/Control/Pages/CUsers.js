@@ -51,6 +51,10 @@ const CUsers = (props) => {
         getUsersFromIntegration();
     }, [searchParams]);
 
+    useEffect(() => {
+        if (location.pathname === '/control/users') { getUsersFromIntegration(); }
+    }, [location]);
+
     const getAccessToken = async () => {
         var accessToken = '';
         try {

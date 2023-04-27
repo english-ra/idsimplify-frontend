@@ -38,18 +38,18 @@ const CSideBar = (props) => {
                     link: `groups`
                 }
             ]
-        },
-        {
-            sectionId: 1,
-            sectionHeader: 'Reporting',
-            sectionLinks: [
-                {
-                    linkId: 1.1,
-                    text: 'Scheduling',
-                    link: 'scheduling'
-                }
-            ]
         }
+        // {
+        //     sectionId: 1,
+        //     sectionHeader: 'Reporting',
+        //     sectionLinks: [
+        //         {
+        //             linkId: 1.1,
+        //             text: 'Scheduling',
+        //             link: 'scheduling'
+        //         }
+        //     ]
+        // }
     ];
 
     useEffect(() => {

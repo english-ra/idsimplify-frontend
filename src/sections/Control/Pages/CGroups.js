@@ -46,6 +46,10 @@ const CGroups = (props) => {
         getGroupsFromIntegration();
     }, [searchParams]);
 
+    useEffect(() => {
+        if (location.pathname === '/control/groups') { getGroupsFromIntegration(); }
+    }, [location]);
+
     const getAccessToken = async () => {
         var accessToken = '';
         try {
