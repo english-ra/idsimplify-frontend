@@ -10,7 +10,7 @@ import { useEffect, useState } from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
 import Dropdown from '../../../components/Select/Dropdown';
 import InputSubmitButton from '../../../components/InputFields/InputSubmitButton';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 
 const UserOrgPermissionsTableCols = [
     {
@@ -33,6 +33,7 @@ const CUsersCreateModal = (props) => {
     const [password, setPassword] = useState('');
 
     const navigate = useNavigate();
+    const location = useLocation();
     const [searchParams, setSearchParams] = useSearchParams();
 
     useEffect(() => {
@@ -113,7 +114,7 @@ const CUsersCreateModal = (props) => {
             // Check the request was successfull
             if (response.status === 200) {
                 // Navigate back to the users page
-                navigate('..');
+                navigate(`..${location.search}`);
             } else {
                 // An error has occurred
 

@@ -160,6 +160,45 @@ const CUsersDetailsModal = (props) => {
     };
 
 
+    const deleteUserHandler = async () => {
+        setIsLoading(true);
+        setError(null);
+
+        const tenancyID = searchParams.get('tenancy-id');
+        const organisationID = searchParams.get('organisation-id');
+
+        try {
+            // Get the users access token
+            const accessToken = await getAccessTokenSilently({ // TODO: Change to quietly when hosted
+                authorizationParams: {
+                    audience: 'https://api.idsimplify.co.uk',
+                    scope: 'access'
+                }
+            });
+
+            const response = await fetch(`https://api.idsimplify.co.uk/integrations/users/${user.id}?tenancy-id=${tenancyID}&organisation-id=${organisationID}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${accessToken}`
+                }
+            });
+
+            // Check the request was successfull
+            if (response.status === 200) {
+                navigate(`..${location.search}`);
+            } else {
+                const data = await response.json();
+                throw new Error(data);
+            }
+        } catch (error) {
+            console.log(error);
+            setError(error);
+        }
+        setIsLoading(false);
+    };
+
+
     return (
         <SideModal
             className={classes.root}
@@ -173,10 +212,11 @@ const CUsersDetailsModal = (props) => {
                         <p>{user && user.userPrincipalName}</p>
 
                         <button onClick={blockEnableSignInHandler}>{user && user.accountEnabled ? <span>Block Sign In</span> : <span>Enable Sign In</span>}</button>
+                        <button onClick={deleteUserHandler}>Delete User</button>
 
-                        <h3>User Details</h3>
+                        {/* <h3>User Details</h3> */}
 
-                        <form
+                        {/* <form
                             className={classes.form}
                         >
                             <TextFieldWLabel
@@ -191,7 +231,7 @@ const CUsersDetailsModal = (props) => {
                                 id='email'
                                 labelText='Email address'
                             />
-                        </form>
+                        </form> */}
 
                         <h3>Groups</h3>
 
