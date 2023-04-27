@@ -2,7 +2,7 @@
 // iDSimplify Frontend
 // Created by Reece English on 21.02.2023
 
-import { Outlet, useNavigate, useParams } from "react-router-dom";
+import { Outlet, useLocation, useNavigate, useParams } from "react-router-dom";
 import Table from "../../../../components/Table/Tables/Table";
 import TableRow from "../../../../components/Table/Rows/TableRow";
 import CircularButton from '../../../../components/Buttons/CircularButton';
@@ -27,10 +27,16 @@ const OCOrganisations = (props) => {
 
     const params = useParams();
     const navigate = useNavigate();
+    const location = useLocation();
 
     useEffect(() => {
         getOrganisations();
     }, []);
+
+    useEffect(() => {
+        const id = params.tenancyId;
+        if (location.pathname === `/oc/${id}/organisations`) { getOrganisations(); }
+    }, [location]);
 
     const getOrganisations = async () => {
         setIsLoading(true);

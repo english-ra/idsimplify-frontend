@@ -7,7 +7,7 @@ import TableRow from "../../../../components/Table/Rows/TableRow";
 import CircularButton from '../../../../components/Buttons/CircularButton';
 
 import classes from './OCUsers.module.css';
-import { Outlet, useNavigate, useParams } from "react-router-dom";
+import { Outlet, useLocation, useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 
@@ -41,10 +41,16 @@ const OCUsers = (props) => {
     const [users, setUsers] = useState([]);
     const navigate = useNavigate();
     const params = useParams();
+    const location = useLocation();
 
     useEffect(() => {
         getData();
     },[]);
+
+    useEffect(() => {
+        const id = params.tenancyId;
+        if (location.pathname === `/oc/${id}/users`) { getData(); }
+    }, [location]);
 
     const getData = async () => {
         setIsLoading(true);

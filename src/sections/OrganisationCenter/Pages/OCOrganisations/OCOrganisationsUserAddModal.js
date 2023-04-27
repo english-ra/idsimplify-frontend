@@ -9,10 +9,6 @@ import SideModal from "../../../../components/layout/SideModal";
 import Table from "../../../../components/Table/Tables/Table";
 import PrimaryFormButton from "../../../../components/Buttons/PrimaryFormButton";
 import TableRow from "../../../../components/Table/Rows/TableRow";
-import CircularButton from '../../../../components/Buttons/CircularButton';
-import InputLabel from '../../../../components/InputFields/InputLabel';
-import InputSubmitButton from '../../../../components/InputFields/InputSubmitButton';
-import InputTextField from '../../../../components/InputFields/InputTextField';
 
 import classes from './OCOrganisationsUserAddModal.module.css';
 import { useEffect, useState } from "react";
@@ -79,7 +75,7 @@ const OCOrganisationsUserAddModal = (props) => {
 
     const permissionSelectedHandler = (permission) => {
         const tempPermissions = [...permissions];
-        tempPermissions.find((p) => { return p.id = permission.id }).selected = !permission.selected;
+        tempPermissions.find((p) => { return p.id === permission.id }).selected = !permission.selected;
         setPermissions(tempPermissions);
     };
 
